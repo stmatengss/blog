@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CC, system," />
+  <meta name="keywords" content="Paper," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="As we know, concurrency control play a vital role in many computer science fields, especially in operating systems, multiprocessors, and databases. A fine concurrent control strategy can assure a corr">
-<meta name="keywords" content="CC, system">
+<meta name="description" content="NOVA Conclusion:Adapts conventional log-structured file system techniques to exploit the fast random access that NVMs provide.  separate logs for each inode to improve concurrency stores file data out">
+<meta name="keywords" content="Paper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Review About CC(concurrency control)">
-<meta property="og:url" content="http://yoursite.com/blog/2017/08/03/Review-About-CC-concurrent-control/index.html">
+<meta property="og:title" content="Paper Reading 2">
+<meta property="og:url" content="http://yoursite.com/blog/2017/08/21/Paper-Reading-2/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="As we know, concurrency control play a vital role in many computer science fields, especially in operating systems, multiprocessors, and databases. A fine concurrent control strategy can assure a corr">
-<meta property="og:updated_time" content="2017-08-03T04:29:11.000Z">
+<meta property="og:description" content="NOVA Conclusion:Adapts conventional log-structured file system techniques to exploit the fast random access that NVMs provide.  separate logs for each inode to improve concurrency stores file data out">
+<meta property="og:updated_time" content="2017-08-21T06:26:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Review About CC(concurrency control)">
-<meta name="twitter:description" content="As we know, concurrency control play a vital role in many computer science fields, especially in operating systems, multiprocessors, and databases. A fine concurrent control strategy can assure a corr">
+<meta name="twitter:title" content="Paper Reading 2">
+<meta name="twitter:description" content="NOVA Conclusion:Adapts conventional log-structured file system techniques to exploit the fast random access that NVMs provide.  separate logs for each inode to improve concurrency stores file data out">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/2017/08/03/Review-About-CC-concurrent-control/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2017/08/21/Paper-Reading-2/"/>
 
 
 
 
 
-  <title>Review About CC(concurrency control) | Teng's Blog</title>
+  <title>Paper Reading 2 | Teng's Blog</title>
   
 
 
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/03/Review-About-CC-concurrent-control/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/21/Paper-Reading-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -273,7 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Review About CC(concurrency control)</h1>
+          <h1 class="post-title" itemprop="name headline">Paper Reading 2</h1>
         
 
         <div class="post-meta">
@@ -285,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-03T11:44:34+08:00">
-                2017-08-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T14:26:06+08:00">
+                2017-08-21
               </time>
             
 
@@ -320,31 +320,107 @@
       
 
       
-        <p>As we know, concurrency control play a vital role in many computer science fields, especially in operating systems, multiprocessors, and databases. A fine concurrent control strategy can assure a correct result when multi processes access the same data concurrency.</p>
-<p>If every processes execute serially, we do not need such a method to control multi-access at the same time, but without the overlap to reduce execution time as well. If we can not cooperate every processes.We have to face A-B-A problem, the lost update problem, the dirty read problem and etc.</p>
-<p>There are three main categories of concurrency control mechanisms:</p>
+        <h1 id="NOVA"><a href="#NOVA" class="headerlink" title="NOVA"></a>NOVA</h1><ul>
+<li><p>Conclusion:<br>Adapts conventional log-structured file system techniques to exploit the fast random access that NVMs provide.</p>
+<ul>
+<li>separate logs for each inode to improve concurrency</li>
+<li>stores file data outside the log to minimize log size and reduce garbage collection costs</li>
+<li>based on hardware-based NVMM emulator</li>
+</ul>
+</li>
+<li><p>NOVA’s logs provide metadata, data, and mmap atomicity and focus on simplicity and reliability, keeping complex metadata structures in DRAM to accelerate lookup operations</p>
+</li>
+<li><p>Contributes:</p>
 <ol>
-<li><p>Optimistic: Assume every transaction is a good one(without blocking). If this transaction will bring conflicts, aborting this, and then re-executing this transaction. If there exists lots of abort, it is easy to deduce that the overhead for re-executing is huge.</p>
+<li>It extends existing log-structured file system techniques to exploit the characteristics of hybrid memory systems. </li>
+<li>It describes atomic mmap, a simplified interface for exposing NVMM directly to applications with a strong consistency guarantee. </li>
+<li>It demonstrates that NOVA outperforms existing journaling, shadow paging, and log-structured file systems running on hybrid memory systems. </li>
+<li>It shows that NOVA provides these benefits across a range of proposed NVMM technologies.</li>
+</ol>
 </li>
-<li><p>Pessimistic: Blocking transaction, unless we make sure any operations of this transaction cannot occur abort.</p>
-</li>
-<li><p>Semi-optimistic</p>
+<li><p>Challenges:</p>
+<ol>
+<li>Performance: NVMM has lower latency -&gt; Direct Access (DAX) avoids extra copy between NVMM and DRAM.</li>
+<li>Write Reordering: cache hierarchies (modern processor) -&gt; reorder store operations -&gt; do not guarantee when update will reach NVMMs.<br>explicitly flushing caches and issuing memory barriers (fence) -&gt; clflush instrument.</li>
+<li>Atomicity: POSIX-style file system require operations to be atomic (e.g. Rename) -&gt; Disk only provides 8-byte atomic operation<ul>
+<li>three technologies to apply atomic: Journaling, Shadow Paging, Log-structuring</li>
+</ul>
 </li>
 </ol>
-<p>There are four major methods to do concurrency control, and these methods may overlap or be combined in some cases:</p>
+</li>
+<li><p>Three observations:</p>
 <ol>
-<li>Locking (e.g., Two-phase locking - 2PL) - Controlling access to data by locks assigned to the data. Access of a transaction to a data item (database object) locked by another transaction may be blocked (depending on lock type and access operation type) until lock release.</li>
-<li>Serialization graph checking (also called Serializability, or Conflict, or Precedence graph checking) - Checking for cycles in the schedule’s graph and breaking them by aborts.</li>
-<li>Timestamp ordering (TO) - Assigning timestamps to transactions, and controlling or checking access to data by timestamp order.</li>
-<li>Commitment ordering (or Commit ordering; CO) - Controlling or checking transactions’ chronological order of commit events to be compatible with their respective precedence order.</li>
+<li>Data structure which support fast search is hard to implement in NVMM</li>
+<li>Complexity if cleaning logs stems is unnecessary due to cheaper random access</li>
+<li>Using single log limits concurrency</li>
 </ol>
-<p>Besides, we can use three methods to support methods above includes:</p>
+</li>
+<li><p>Design Decisions:</p>
 <ol>
-<li>Multiversion concurrency control (MVCC) - Increasing concurrency and performance by generating a new version of a database object each time the object is written, and allowing transactions’ read operations of several last relevant versions (of each object) depending on scheduling method.</li>
-<li>Index concurrency control - Synchronizing access operations to indexes, rather than to user data. Specialized methods provide substantial performance gains.</li>
-<li>Private workspace model (Deferred update) - Each transaction maintains a private workspace for its accessed data, and its changed data become visible outside the transaction only upon its commit (e.g., Weikum and Vossen 2001). This model provides a different concurrency control behavior with benefits in many cases.</li>
+<li>Keep logs in NVMM and indexes in DRAM (radix tree)<ul>
+<li>persistent log is simple and efficient</li>
+<li>volatile tree structure has no consistency overhead</li>
+</ul>
+</li>
+<li>Give each inode its own log: Allow concurrent updates across files without sync (high concurrency/scalability) <ul>
+<li>Per-CPU NVMM free list, journal and inode table</li>
+<li>concurrent transactions and (de)allocation</li>
+</ul>
+</li>
+<li>Use logging and lightweight journaling for complex atomic updates, making sure atomic<ul>
+<li>append data to logs</li>
+<li>update the log tail to commit the updates (avoid duplicate writes)</li>
+</ul>
+</li>
+<li><p>Implement the log as a singly linked list (4 KB NVMM pages)</p>
+<ul>
+<li>allocate log space is easy</li>
+<li>perform log cleaning at fine grained (Page level)</li>
+<li>reclaiming log pages require a few pointer assignments</li>
+</ul>
+</li>
+<li><p>Do not log file data</p>
+</li>
+<li>Copy-on-write for file data<ul>
+<li>Log only contains meta-data</li>
+<li>Log is short</li>
+</ul>
+</li>
 </ol>
-<p>In conclusion, CC is a important technology to improve ACID attributes in transaction. In different application situations, we must apply different concurrency control method to avoid incorrect status of system.  </p>
+</li>
+<li><p>Fast garbage collection</p>
+<ul>
+<li>Log is a linked list and only contains meta-data -&gt; fast GC deletes dead log pages from list (No copying)</li>
+<li>Two different techs:<ol>
+<li>Fast GC: deleting dead log page from linked list</li>
+<li>Through GC: valid log &lt; 50% -&gt; format a new log and atomically replace the old one -&gt; only copy meta-data</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="NV-Tree"><a href="#NV-Tree" class="headerlink" title="NV-Tree"></a>NV-Tree</h1><ul>
+<li><p>A consistent and cache-optimized B+Tree with reducing CPU cacheline flush</p>
+</li>
+<li><p>Motivations:</p>
+<ul>
+<li>Keeping consistency causes a high amplification of the CPU cacheline invalidation and flush with increasing cache misses significantly</li>
+<li>the consistency cost due to flush mostly comes from flushing shifted entries in order to keep LN sorted</li>
+<li>not all the data needs to be consistent to keep the entire data structure consistent</li>
+</ul>
+</li>
+<li><p>Overview:</p>
+<ul>
+<li>Design<ol>
+<li>Selectively Enforce Data Consistency</li>
+<li>Keep Entries in LN Unsorted</li>
+<li>Organizing IN in Cache-optimized Format</li>
+</ol>
+</li>
+<li><em>IN</em> - <em>PLN</em> - LN</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -374,7 +450,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/CC-system/" rel="tag"># CC, system</a>
+            <a href="/blog/tags/Paper/" rel="tag"># Paper</a>
           
         </div>
       
@@ -387,8 +463,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/07/25/Tips-About-Using-Cmake/" rel="next" title="Tips About Using Cmake">
-                <i class="fa fa-chevron-left"></i> Tips About Using Cmake
+              <a href="/blog/2017/08/16/Some-Key-Concepts-in-Transaction-System/" rel="next" title="Some Key Concepts in Transaction System">
+                <i class="fa fa-chevron-left"></i> Some Key Concepts in Transaction System
               </a>
             
           </div>
@@ -396,10 +472,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/08/14/Paper-Reading-1/" rel="prev" title="Paper Reading (1)">
-                Paper Reading (1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -446,8 +518,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -529,6 +610,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NOVA"><span class="nav-number">1.</span> <span class="nav-text">NOVA</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#NV-Tree"><span class="nav-number">2.</span> <span class="nav-text">NV-Tree</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
