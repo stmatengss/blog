@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux,System,Thread,CC," />
 
 
 
@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="...">
+<meta name="description" content="When we write a concurrent program, we have various methods to guarantee our program is linearizable and serializable, which means different threads will write or read a area of same memory or variabl">
+<meta name="keywords" content="Linux,System,Thread,CC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Atomic, SpinLock, Mutex, Thread_Lock, Which Is The Fastest One?">
 <meta property="og:url" content="http://yoursite.com/blog/2017/08/31/Atomic-SpinLock-Mutex-Thread-Lock-Which-Is-The-Fastest-One/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
-<meta property="og:updated_time" content="2017-08-31T11:38:27.000Z">
+<meta property="og:description" content="When we write a concurrent program, we have various methods to guarantee our program is linearizable and serializable, which means different threads will write or read a area of same memory or variabl">
+<meta property="og:updated_time" content="2017-08-31T14:50:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Atomic, SpinLock, Mutex, Thread_Lock, Which Is The Fastest One?">
-<meta name="twitter:description" content="...">
+<meta name="twitter:description" content="When we write a concurrent program, we have various methods to guarantee our program is linearizable and serializable, which means different threads will write or read a area of same memory or variabl">
 
 
 
@@ -319,7 +320,53 @@
       
 
       
-        
+        <p>When we write a concurrent program, we have various methods to guarantee our program is linearizable and serializable, which means different threads will write or read a area of same memory or variable sequentially. But the efficiency of these methods is very different. Next I will introduce four methods: <code>atomic, spin lock, mutex and thread lock</code>, and compare these four methods to analysis which one is the fastest one (maybe is not the best one).</p>
+<p>I use <code>time ./exec</code> to estimate the running time of programs.</p>
+<h1 id="Atomic"><a href="#Atomic" class="headerlink" title="Atomic"></a>Atomic</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line">atomic&lt;<span class="keyword">int</span>&gt; counter(<span class="number">0</span>);</div><div class="line"><span class="keyword">int</span> thread_num = <span class="number">2</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> limit_iter = <span class="number">10000000</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit_iter; i ++ ) &#123;</div><div class="line">		counter ++;</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	thread a[thread_num];</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i] = thread(f);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i].join();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">cout</span> &lt;&lt; counter &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Spin-Lock"><a href="#Spin-Lock" class="headerlink" title="Spin Lock"></a>Spin Lock</h1><p>I use c++ atomic variable to implement a spin lock likely structure, because <code>C++11</code> doesn’t provide a implementation of spin lock.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line">atomic_flag locked = ATOMIC_FLAG_INIT;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">lock</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	locked.test_and_set(<span class="built_in">std</span>::memory_order_acquire);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">unlock</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	locked.clear(memory_order_acquire);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">counter</span><span class="params">(<span class="number">0</span>)</span></span>;</div><div class="line"><span class="keyword">int</span> thread_num = <span class="number">2</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> limit_iter = <span class="number">10000000</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit_iter; i ++ ) &#123;</div><div class="line">		lock();</div><div class="line">		counter ++;</div><div class="line">		unlock();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	thread a[thread_num];</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i] = thread(f);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i].join();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">cout</span> &lt;&lt; counter &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Mutex"><a href="#Mutex" class="headerlink" title="Mutex"></a>Mutex</h1><p>I use <code>c++11</code> mutex, not the mutex in <code>unix</code> API, to doing test.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">counter</span><span class="params">(<span class="number">0</span>)</span></span>;</div><div class="line"></div><div class="line">mutex mu;</div><div class="line"></div><div class="line"><span class="keyword">int</span> thread_num = <span class="number">2</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> limit_iter = <span class="number">10000000</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit_iter; i ++ ) &#123;</div><div class="line"><span class="comment">//		lock_guard&lt;mutex&gt; lock(mu); // Or this line can provide the same effect</span></div><div class="line">		mu.lock();</div><div class="line">		counter ++;</div><div class="line">		mu.unlock();</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line">	thread a[thread_num];</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i] = thread(f);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i].join();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">cout</span> &lt;&lt; counter &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="thread-lock"><a href="#thread-lock" class="headerlink" title="thread lock"></a>thread lock</h1><p>There is not existing a thread lock method in C++11, so I use <code>pthread_mutex_lock</code> and <code>pthread_mutex_unlock</code> in pthread lib to instead. But thread library in C++11 is based on pthread, so I think this is a equally and right testing.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;future&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;atomic&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;pthread.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</div><div class="line"></div><div class="line">atomic&lt;<span class="keyword">int</span>&gt; counter(<span class="number">0</span>);</div><div class="line"><span class="keyword">int</span> thread_num = <span class="number">2</span>;</div><div class="line"><span class="keyword">const</span> <span class="keyword">int</span> limit_iter = <span class="number">10000000</span>;</div><div class="line"></div><div class="line"><span class="keyword">pthread_mutex_t</span> locked;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">f</span><span class="params">()</span> </span>&#123;</div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; limit_iter; i ++ ) &#123;</div><div class="line">		pthread_mutex_lock(&amp;locked);	</div><div class="line"></div><div class="line">		counter ++;</div><div class="line"></div><div class="line">		pthread_mutex_unlock(&amp;locked);	</div><div class="line">	&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</div><div class="line"> 	pthread_mutex_init(&amp;locked, <span class="literal">NULL</span>);</div><div class="line"></div><div class="line">	thread a[thread_num];</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i] = thread(f);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; thread_num; i ++ ) &#123;</div><div class="line">	 	a[i].join();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="built_in">cout</span> &lt;&lt; counter &lt;&lt; <span class="built_in">endl</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="evaluation"><a href="#evaluation" class="headerlink" title="evaluation"></a>evaluation</h1><p>I use <code>two</code> threads in one process, and every thread do 10M times of increment operations.</p>
+<table>
+<thead>
+<tr>
+<th>methods</th>
+<th>time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>without any lock</td>
+<td>0.24s</td>
+</tr>
+<tr>
+<td>atomic</td>
+<td>1.08s</td>
+</tr>
+<tr>
+<td>spin lock</td>
+<td>2.90s</td>
+</tr>
+<tr>
+<td>mutex</td>
+<td>5.82s</td>
+</tr>
+<tr>
+<td>thread lock</td>
+<td>6.81s</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>In a nutshell, making variable becoming atomic is the fastest one.</p>
+</li>
+<li><p>This is the <a href="https://github.com/stmatengss/learning-creating_by_cpp/tree/master/compare_lock" target="_blank" rel="external">link</a> of all codes.</p>
+</li>
+</ul>
+
       
     </div>
 
@@ -345,6 +392,18 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/blog/tags/System/" rel="tag"># System</a>
+          
+            <a href="/blog/tags/Thread/" rel="tag"># Thread</a>
+          
+            <a href="/blog/tags/CC/" rel="tag"># CC</a>
+          
+        </div>
       
 
       
@@ -414,8 +473,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -442,10 +510,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">7</span>
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
-              
+              </a>
             </div>
           
 
@@ -497,6 +565,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Atomic"><span class="nav-number">1.</span> <span class="nav-text">Atomic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spin-Lock"><span class="nav-number">2.</span> <span class="nav-text">Spin Lock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mutex"><span class="nav-number">3.</span> <span class="nav-text">Mutex</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#thread-lock"><span class="nav-number">4.</span> <span class="nav-text">thread lock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#evaluation"><span class="nav-number">5.</span> <span class="nav-text">evaluation</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Paper," />
 
 
 
@@ -94,12 +94,13 @@
 
 
 <meta name="description" content="Data Tiering in Heterogeneous Memory Systems Heterogeneous memory architectures coupling DRAM with high capacity, low cost, but also lower performance NVM. couple NVM with a smaller amount of DRAM as">
+<meta name="keywords" content="Paper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paper Reading (3)">
 <meta property="og:url" content="http://yoursite.com/blog/2017/08/31/Paper-Reading-3/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
 <meta property="og:description" content="Data Tiering in Heterogeneous Memory Systems Heterogeneous memory architectures coupling DRAM with high capacity, low cost, but also lower performance NVM. couple NVM with a smaller amount of DRAM as">
-<meta property="og:updated_time" content="2017-08-31T13:38:16.000Z">
+<meta property="og:updated_time" content="2017-08-31T13:55:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Reading (3)">
 <meta name="twitter:description" content="Data Tiering in Heterogeneous Memory Systems Heterogeneous memory architectures coupling DRAM with high capacity, low cost, but also lower performance NVM. couple NVM with a smaller amount of DRAM as">
@@ -340,12 +341,31 @@
 <ol>
 <li>Using a unique tag (Hash, Tree, Buffer) for each data structures</li>
 <li>Binding NVM and DRAM to NUMA node</li>
-<li><p>Select the Solution Type</p>
-<p>| . | Dependent | Independent |<br>| — | — | — |<br>| Sequential | NA | Streaming |<br>| Non-sequential | Pointer chasing | Random |</p>
-</li>
+<li>Select the Solution Type</li>
 </ol>
 </li>
 </ul>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Dependent</th>
+<th>Independent</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sequential</td>
+<td>NA</td>
+<td>Streaming</td>
+</tr>
+<tr>
+<td>Non-sequential</td>
+<td>Pointer chasing</td>
+<td>Random</td>
+</tr>
+</tbody>
+</table>
 <h1 id="A-Write-friendly-Hashing-Scheme-for-Non-volatile-Memory-Systems"><a href="#A-Write-friendly-Hashing-Scheme-for-Non-volatile-Memory-Systems" class="headerlink" title="A Write-friendly Hashing Scheme for Non-volatile Memory Systems"></a>A Write-friendly Hashing Scheme for Non-volatile Memory Systems</h1><ul>
 <li><p>This is a naive paper, and the idea is trivial</p>
 </li>
@@ -394,6 +414,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Paper/" rel="tag"># Paper</a>
+          
+        </div>
       
 
       
@@ -496,10 +522,10 @@
             
             
             <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">7</span>
+              <a href="/blog/tags/index.html">
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">tags</span>
-              
+              </a>
             </div>
           
 
