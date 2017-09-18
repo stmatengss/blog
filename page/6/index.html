@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/16/Some-Key-Concepts-in-Transaction-System/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/21/Some-Useful-Technologies-About-RDMA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -275,7 +275,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2017/08/16/Some-Key-Concepts-in-Transaction-System/" itemprop="url">Some Key Concepts in Transaction System</a></h1>
+                <a class="post-title-link" href="/blog/2017/08/21/Some-Useful-Technologies-About-RDMA/" itemprop="url">Some Useful Technologies About RDMA (1)</a></h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-16T16:35:51+08:00">
-                2017-08-16
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T14:44:30+08:00">
+                2017-08-21
               </time>
             
 
@@ -324,30 +324,21 @@
       
         
           
-            <h1 id="Journaling-File-System"><a href="#Journaling-File-System" class="headerlink" title="Journaling File System"></a>Journaling File System</h1><p>A <code>journaling file system</code> is a file system that keeps track of changes not yet committed to the file system’s main part by recording the intentions of such changes in a data structure known as a “journal”, which is usually a <code>circular log</code>.</p>
-<p>There are two methods, physical journals or logical journals, to maintain and operate logs in file system. Besides, you can use alternative methods: (1)Software updates, (2)Log-structured file systems, or (3)Copy-on-write file systems to instead JFS.</p>
-<p>In my view, JFS is a log based file system, likes a transaction system which will replay the log when recovering. But thats will bring a two-times write penalty (one to file, another to log).</p>
-<h1 id="Shadowing-Page"><a href="#Shadowing-Page" class="headerlink" title="Shadowing Page"></a>Shadowing Page</h1><p>In computer science, shadow paging is a technique for providing atomicity and durability (two of the ACID properties) in database systems. A page in this context refers to a unit of physical storage (probably on a hard disk), typically of the order of 1 to 64 KiB.</p>
-<h1 id="Soft-Update"><a href="#Soft-Update" class="headerlink" title="Soft Update"></a>Soft Update</h1><p>Soft updates is an approach to maintaining file system meta-data integrity in the event of a crash or power outage. Soft updates work by tracking and enforcing dependencies among updates to file system meta-data. Soft updates are an alternative to the more commonly used approach of journaling file systems.</p>
-<p>Soft Updates increases file system efficiency by ordering the disk writes so that every write creates a consistent state.<br>This allows all writes to happen asynchronously and to avoid seeks wherever possible.</p>
-<p>There exists less documents about soft update, and I cannot understand the details of the procedures when doing soft update. Emmmm, I will complete this chapter in the future.</p>
-<h1 id="Log-structured-file-systems"><a href="#Log-structured-file-systems" class="headerlink" title="Log-structured file systems"></a>Log-structured file systems</h1><p>A log-structured filesystem is a file system in which data and metadata are written sequentially to a circular buffer, called a log. This concept is similar with JFS, but the difference is that data in LSFS is stored in log. A LSFS will append its data to the head of log and treats its storage as a <code>circular log</code>.</p>
+            <ul>
+<li>SGL (scatter / gather list)</li>
+</ul>
+<p>An array of S/G elements which exists in a WR that according to the used opcode either collects data from multiple buffers and sends them as a single stream or takes a single stream and breaks it down to numerous buffers</p>
 <ul>
-<li>Pros and Cons:<ol>
-<li>Write throughput on optical and magnetic disks is improved because they can be batched into large sequential runs and costly seeks are kept to a minimum.</li>
-<li>Writes create multiple, chronologically-advancing versions of both file data and meta-data. Some implementations make these old file versions nameable and accessible, a feature sometimes called time-travel or snapshotting. This is very similar to a versioning file system.</li>
-<li>Recovery from crashes is simpler. Upon its next mount, the file system does not need to walk all its data structures to fix any inconsistencies, but can reconstruct its state from the last consistent point in the log.</li>
-</ol>
+<li><p>Without Signal</p>
+</li>
+<li><p>Batch Multi-request to One</p>
+</li>
+<li><p>Fence</p>
 </li>
 </ul>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li>[1]. Wikipedia</li>
-<li>[2]. Xu, Jian, and Steven Swanson. “NOVA: a log-structured file system for hybrid volatile/non-volatile main memories.” USENIX conference on file and storage technologies (2016): 323-338.</li>
-<li>[3]. Josephson, William, et al. “DFS: A file system for virtualized flash storage.” usenix conference on file and storage technologies 6.3 (2010).</li>
-<li>[4]. Balmau, Oana Maria, et al. “TRIAD: Creating Synergies Between Memory, Disk and Log in Log Structured Key-Value Stores.” USENIX ATC” 17. No. EPFL-CONF-228863. 2017.</li>
-<li>[5]. Ganger, Gregory R., et al. “Soft updates: a solution to the metadata update problem in file systems.” ACM Transactions on Computer Systems 18.2 (2000): 127-153.</li>
-</ul>
-
+<!-- * Immediate Number -->
+<!-- * Shared Completion Queue -->
+<!-- * Inline Small Messages -->
           
         
       
@@ -385,7 +376,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/12/">12</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/blog/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="extend next" rel="next" href="/blog/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -430,7 +421,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -443,7 +434,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
