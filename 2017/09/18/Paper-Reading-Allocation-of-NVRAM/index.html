@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/blog/2017/09/18/Paper-Reading-Allocation-of-NVRAM/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
 <meta property="og:description" content="Introduction about NVRAM Non-volatile byte-adressable memory  Faster and more durable than flash Higher capacity, cheaper, and less energy consumption than DRAM Comparison between different kinds of s">
-<meta property="og:updated_time" content="2017-09-18T17:01:23.000Z">
+<meta property="og:updated_time" content="2017-09-18T17:03:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paper Reading (Allocation of NVRAM)">
 <meta name="twitter:description" content="Introduction about NVRAM Non-volatile byte-adressable memory  Faster and more durable than flash Higher capacity, cheaper, and less energy consumption than DRAM Comparison between different kinds of s">
@@ -324,8 +324,34 @@
 <li>Non-volatile <strong>byte-adressable</strong> memory </li>
 <li><strong>Faster</strong> and more durable than flash</li>
 <li>Higher <strong>capacity</strong>, cheaper, and less energy consumption than DRAM</li>
-<li>Comparison between different kinds of storage medium.<br>| Types | Latency |<br>| – | – |<br>| DRAM | 0.01us |<br>| NVRAM | 0.05~0.1us |<br>| Flash | 100us |<br>| Disk | 10000us |</li>
+<li>Comparison between different kinds of storage medium.</li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Types</th>
+<th>Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRAM</td>
+<td>0.01us</td>
+</tr>
+<tr>
+<td>NVRAM</td>
+<td>0.05~0.1us</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>100us</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>10000us</td>
+</tr>
+</tbody>
+</table>
 <h1 id="NVRAM-and-DRAM-hybrid-memory-system"><a href="#NVRAM-and-DRAM-hybrid-memory-system" class="headerlink" title="NVRAM and DRAM hybrid memory system"></a>NVRAM and DRAM hybrid memory system</h1><ul>
 <li>Combine advantages of NVRAM and DRAM</li>
 <li>Using DRAM as Cache to accelerate memory access</li>
@@ -365,7 +391,7 @@
 </li>
 </ul>
 <pre><code>DRAM.       |  NVRAM                                 
-VHeader     &lt;--|--&gt;  Header --&gt; Block
+VHeader. &lt;--|--&gt;  Header --&gt; Block
             |
 </code></pre><h1 id="Pmem-a-k-a-NVML"><a href="#Pmem-a-k-a-NVML" class="headerlink" title="Pmem (a.k.a, NVML)"></a>Pmem (a.k.a, NVML)</h1><h1 id="Makalu"><a href="#Makalu" class="headerlink" title="Makalu"></a>Makalu</h1>
       
