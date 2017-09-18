@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/blog/2017/09/18/Learning-About-Memory-Allocation/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
 <meta property="og:description" content="Basic Posix Allocation API:  1234567891011121314151617void *malloc(	size_t size); void *calloc(	size_t number, 	size_t size); int posix_memalign(	void **ptr, 	size_t alignment, 	size_t size); void *a">
-<meta property="og:updated_time" content="2017-09-18T03:01:02.000Z">
+<meta property="og:updated_time" content="2017-09-18T03:05:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Learning About Memory Allocation">
 <meta name="twitter:description" content="Basic Posix Allocation API:  1234567891011121314151617void *malloc(	size_t size); void *calloc(	size_t number, 	size_t size); int posix_memalign(	void **ptr, 	size_t alignment, 	size_t size); void *a">
@@ -324,9 +324,13 @@
 <li>Basic Posix Allocation API:</li>
 </ul>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(	<span class="keyword">size_t</span> size)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">calloc</span><span class="params">(	<span class="keyword">size_t</span> number,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">posix_memalign</span><span class="params">(	<span class="keyword">void</span> **ptr,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> alignment,</div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">aligned_alloc</span><span class="params">(	<span class="keyword">size_t</span> alignment,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">realloc</span><span class="params">(	<span class="keyword">void</span> *ptr,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">free</span><span class="params">(	<span class="keyword">void</span> *ptr)</span></span>;</div></pre></td></tr></table></figure>
-<p><a href="http://blog.csdn.net/horkychen/article/details/35735103" target="_blank" rel="external">Memory Allocator Introduction (In Chinese)</a></p>
 <ul>
-<li>Catalog<ul>
+<li><p><a href="http://blog.csdn.net/horkychen/article/details/35735103" target="_blank" rel="external">Memory Allocator Introduction (In Chinese)</a></p>
+</li>
+<li><p><a href="http://www.thinkingyu.com/articles/jemalloc/" target="_blank" rel="external">Jemalloc Learning (In Chinese)</a></p>
+</li>
+<li><p>Catalog</p>
+<ul>
 <li>PtMalloc (a.k.a, glibc malloc)</li>
 <li><a href="http://goog-perftools.sourceforge.net/doc/tcmalloc.html" target="_blank" rel="external">TCMalloc (By Google)</a></li>
 <li><a href="http://jemalloc.net/jemalloc.3.html" target="_blank" rel="external">JeMalloc (By FreeBSD)</a></li>
@@ -391,10 +395,6 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2017/09/18/Learning-About-Memory-Allocation/" rel="prev" title="">
-                 <i class="fa fa-chevron-right"></i>
-              </a>
-            
           </div>
         </div>
       
@@ -456,7 +456,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

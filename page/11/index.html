@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/07/25/Tips-About-Using-Cmake/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/07/08/the-first-step-to-CUDA/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -275,7 +275,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/blog/2017/07/25/Tips-About-Using-Cmake/" itemprop="url">Tips About Using Cmake</a></h1>
+                <a class="post-title-link" href="/blog/2017/07/08/the-first-step-to-CUDA/" itemprop="url">the first step to CUDA</a></h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T14:37:53+08:00">
-                2017-07-25
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-08T23:48:40+08:00">
+                2017-07-08
               </time>
             
 
@@ -324,25 +324,16 @@
       
         
           
-            <p>I have used <code>Makefile</code> for more than 3 years, and I like to use it for its easy-to-use. But I have to learn how to use <code>Cmake</code>(I hate this) due to my project is based on OpenCV, which based on <code>Cmake</code> when compiling. So I will write some tips/hints for myself:</p>
-<ol>
-<li><p>Basic functions</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># </span></div><div class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">2.8</span>) <span class="comment"># Required version for Cmake</span></div><div class="line"></div><div class="line"><span class="keyword">project</span>(XXX) <span class="comment"># project name</span></div><div class="line"></div><div class="line"><span class="keyword">add_executable</span>(XXX) <span class="comment"># compile</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Multi-files &amp; multi-dirs</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-<li><p>Define compile options</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-<li><p>Add dependencies and testers</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-<li><p>Miscellaneous</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<!--In the end, to be honest, I think, maybe `Makefile` is 100X better than `Cmake`.-->
+            <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>As we all known, GPU is especially suitable for massive data-parallel computation. Now GPU plays a vital role in machine leaning(e.g. deep learning), HPC and graphic. We can use a common-used library named CUDA, which developed by Nvidia and can use GPU hardware directly, to solve many complex computational problems in a more efficient way than on a CPU. But in order to write excellent CUDA programs, there is some important concepts we need to understand, like blocks, cache in chips, shared memory in GPU and etc. Below, I will list these key concepts and give some explanations and code examples.</p>
+<h1 id="A-Tour-of-Different-NVIDIA-GPUs"><a href="#A-Tour-of-Different-NVIDIA-GPUs" class="headerlink" title="A Tour of Different NVIDIA GPUs"></a>A Tour of Different NVIDIA GPUs</h1><p>//TODO some comparision between different Nvidal GPU hardware.</p>
+<h1 id="A-hello-world-example"><a href="#A-hello-world-example" class="headerlink" title="A hello world example"></a>A <code>hello world</code> example</h1><p>This is CUDE program print <code>Hello world</code> from different threads in different blocks. And this is a 3-D slices in block level and a 2-D slices in thread level.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;assert.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// CUDA runtime</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cuda_runtime.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="comment">// helper functions and utilities to work with CUDA</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;helper_functions.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;helper_cuda.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> MAX</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX(a,b) (a &gt; b ? a : b)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"></div><div class="line">__<span class="function">global__ <span class="keyword">void</span> <span class="title">testKernel</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"[%d, %d]:Hello world\n"</span>,\</div><div class="line">            blockIdx.y*gridDim.x+blockIdx.x,\</div><div class="line">            threadIdx.z*blockDim.x*blockDim.y+threadIdx.y*blockDim.x+threadIdx.x,\</div><div class="line">            val);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> devID;</div><div class="line">    cudaDeviceProp props;</div><div class="line"></div><div class="line">    <span class="comment">// This will pick the best possible CUDA capable device</span></div><div class="line">    devID = findCudaDevice(argc, (<span class="keyword">const</span> <span class="keyword">char</span> **)argv);</div><div class="line"></div><div class="line">    <span class="comment">//Get GPU information</span></div><div class="line">    checkCudaErrors(cudaGetDevice(&amp;devID));</div><div class="line">    checkCudaErrors(cudaGetDeviceProperties(&amp;props, devID));</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"Device %d: \"%s\" with Compute %d.%d capability\n"</span>,</div><div class="line">           devID, props.name, props.major, props.minor);</div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"printf() is called. Output:\n\n"</span>);</div><div class="line"></div><div class="line">    <span class="comment">//Kernel configuration, where a two-dimensional grid and</span></div><div class="line">    <span class="comment">//three-dimensional blocks are configured.</span></div><div class="line">    <span class="function">dim3 <span class="title">dimGrid</span><span class="params">(<span class="number">2</span>, <span class="number">2</span>)</span></span>;</div><div class="line">    <span class="function">dim3 <span class="title">dimBlock</span><span class="params">(<span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>)</span></span>;</div><div class="line">    testKernel&lt;&lt;&lt;dimGrid, dimBlock&gt;&gt;&gt;();</div><div class="line">    cudaDeviceSynchronize();</div><div class="line"></div><div class="line">    <span class="comment">// cudaDeviceReset causes the driver to clean up all state. While</span></div><div class="line">    <span class="comment">// not mandatory in normal operation, it is good practice.  It is also</span></div><div class="line">    <span class="comment">// needed to ensure correct operation when the application is being</span></div><div class="line">    <span class="comment">// profiled. Calling cudaDeviceReset causes all profile data to be</span></div><div class="line">    <span class="comment">// flushed before the application exits</span></div><div class="line">    cudaDeviceReset();</div><div class="line"></div><div class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="What’s-Kernel"><a href="#What’s-Kernel" class="headerlink" title="What’s Kernel?"></a>What’s Kernel?</h1><p>CUDA C extends C by allowing the programmer to define C functions, called kernels, that, when called, are executed N times in parallel by N different CUDA threads, as opposed to only once like regular C functions.</p>
+<p>A kernel must use the <code>__global__</code> to declare this function is executing in CUDA threads. If you want to use this kernel function in other fields, you need to use <code>&lt;&lt;&lt;&gt;&gt;&gt;</code> to run kernel codes in host. Each thread that executes the kernel is given a unique thread ID that is accessible within the kernel through the built-in <code>threadIdx</code> variable.</p>
+<p>As an illustration, the following sample code adds two vectors A and B of size N and stores the result into vector C:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Kernel definition</span></div><div class="line">__<span class="function">global__ <span class="keyword">void</span> <span class="title">VecAdd</span><span class="params">(<span class="keyword">float</span>* A, <span class="keyword">float</span>* B, <span class="keyword">float</span>* C)</span></span></div><div class="line">&#123;</div><div class="line">	<span class="keyword">int</span> i = threadIdx.x;</div><div class="line">	C[i] = A[i] + B[i];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">	...</div><div class="line">	<span class="comment">// Kernel invocation with N threads</span></div><div class="line">	VecAdd&lt;&lt;&lt;<span class="number">1</span>, N&gt;&gt;&gt;(A, B, C);</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Get-More-example-source-codes"><a href="#Get-More-example-source-codes" class="headerlink" title="Get More example source codes"></a>Get More example source codes</h1><p>You can type <code>cuda-install-samples-8.0.sh [installing path]</code> in command line to get lots of useful example source codes to teach yourself how to make your CUDA programs be more perfect.</p>
+
           
         
       
@@ -380,7 +371,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/14/">14</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/blog/page/10/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/blog/page/12/">12</a><a class="page-number" href="/blog/page/13/">13</a><a class="extend next" rel="next" href="/blog/page/12/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -425,7 +416,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
