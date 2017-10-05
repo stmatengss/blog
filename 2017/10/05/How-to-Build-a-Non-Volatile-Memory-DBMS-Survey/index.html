@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="NVM,Paper," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Teng&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/blog/page/4/index.html">
+<meta name="description" content="This is a summary about a paper in Sigmod 17, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.  NVM properties:  Byte addressable: Loads and">
+<meta name="keywords" content="NVM,Paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="How to Build a Non-Volatile Memory DBMS (Survey)">
+<meta property="og:url" content="http://yoursite.com/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory-DBMS-Survey/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
+<meta property="og:description" content="This is a summary about a paper in Sigmod 17, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.  NVM properties:  Byte addressable: Loads and">
+<meta property="og:updated_time" content="2017-10-05T03:17:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Teng&#39;s Blog">
-<meta name="twitter:description" content="...">
+<meta name="twitter:title" content="How to Build a Non-Volatile Memory DBMS (Survey)">
+<meta name="twitter:description" content="This is a summary about a paper in Sigmod 17, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.  NVM properties:  Byte addressable: Loads and">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/page/4/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory-DBMS-Survey/"/>
 
 
 
 
 
-  <title>Teng's Blog</title>
+  <title>How to Build a Non-Volatile Memory DBMS (Survey) | Teng's Blog</title>
   
 
 
@@ -160,9 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -245,9 +245,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -256,7 +256,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/30/All-Kinds-of-Allocations/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory-DBMS-Survey/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -273,9 +273,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2017/08/30/All-Kinds-of-Allocations/" itemprop="url">All Kinds of Allocations</a></h1>
+          <h1 class="post-title" itemprop="name headline">How to Build a Non-Volatile Memory DBMS (Survey)</h1>
         
 
         <div class="post-meta">
@@ -287,8 +285,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-30T10:22:52+08:00">
-                2017-08-30
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-05T11:13:48+08:00">
+                2017-10-05
               </time>
             
 
@@ -322,61 +320,171 @@
       
 
       
-        
-          
-            <ul>
-<li><p>memalign</p>
-</li>
-<li><p>jemalloc</p>
-</li>
-<li><p>valloc</p>
-</li>
-<li><p>malloc / realloc / calloc</p>
-</li>
-<li><p>kmalloc / vmalloc (kernel level)</p>
+        <p>This is a summary about a paper in <code>Sigmod 17</code>, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.</p>
+<hr>
+<h2 id="NVM-properties"><a href="#NVM-properties" class="headerlink" title="NVM properties:"></a>NVM properties:</h2><ul>
+<li><ol>
+<li>Byte addressable: Loads and stores un`like SSD/HDD</li>
+<li>High random write throughput: Orders of magnitude higher than SSD/HDD, Smaller gap between sequential &amp; random write throughput.</li>
+<li>Read-write asymmetry &amp; wear-leveling: Writes might take longer to complete compared to reads. Excessive writes to a single NVM cell can destroy it.</li>
+</ol>
 </li>
 </ul>
+<h2 id="Evaluation-NVM"><a href="#Evaluation-NVM" class="headerlink" title="Evaluation NVM"></a>Evaluation NVM</h2><ul>
+<li>=&gt; HDD/SSD/Emulated NVM.<ul>
+<li>Tune DRAM latency to emulate NVM (increasing latency)</li>
+<li>CLWB (Cache-line write back) instruction</li>
+</ul>
+</li>
+</ul>
+<h1 id="Three-levels-in-NVM-DBMS"><a href="#Three-levels-in-NVM-DBMS" class="headerlink" title="Three levels in NVM DBMS:"></a>Three levels in NVM DBMS:</h1><p>1) Access Interfaces,<br>2) Storage Manager<br>3) Execution Engine.</p>
+<h2 id="Allocation-interface"><a href="#Allocation-interface" class="headerlink" title="Allocation interface"></a>Allocation interface</h2><ul>
+<li><p>Standard functions</p>
+<ul>
+<li>Dynamic memory allocation</li>
+<li>Meta-data management</li>
+</ul>
+<ul>
+<li>Durability mechanism<ul>
+<li>Two-step implementation<ul>
+<li>Allocation first by using CLWB</li>
+<li>Issues a SFENCE to make sure changes are visible</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Naming mechanism<ul>
+<li>Map NVM to a well know base address, <code>Absolute pointer = Base address + Relative pointer</code></li>
+</ul>
+</li>
+<li>Recovery mechanism<ul>
+<li>Consider a crashing before linking the chunk to DS which occur to losing of this chunk (neither allocator nor application can reclaim the space).</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>File system interface</p>
+<ul>
+<li>Device -&gt; page cache -&gt; app buffer =&gt; Device -&gt; app buffer </li>
+<li>64 bytes cache line atomic</li>
+</ul>
+</li>
+</ul>
+<h2 id="Storage-Manager"><a href="#Storage-Manager" class="headerlink" title="Storage Manager"></a>Storage Manager</h2><ul>
+<li>Logging &amp; Recovery<ul>
+<li>Write ahead log (<code>LET’S TALK ABOUT STORAGE AND RECOVERY METHODS FOR NON-VOLATILE MEMORY DATABASE SYSTEMS SIGMOD&#39; 2015</code>)<ul>
+<li>Avoid duplicating data in the log and the checkpoint<ul>
+<li>logging the meta-data not the data updates</li>
+<li><code>WAL + FS API</code> vs. <code>WA(meta-data)L + Allocation API</code> </li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Write behind log (<code>WRITE-BEHIND LOGGING VLDB&#39; 17</code>)<ul>
+<li>pros<ol>
+<li>Write-behind logging enables instant recovery</li>
+<li>Improves device utilization by reducing data duplication</li>
+<li>Extends the device lifetime </li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Data placement<ul>
+<li>Three-tiers: DRAM (meta-data + data) + NVM (log + data) + SSD (data)</li>
+<li>DRAM -&gt; hot data (cache), NVM -&gt; warm data, SSD -&gt; cold data</li>
+</ul>
+</li>
+</ul>
+<h2 id="Access-Methods"><a href="#Access-Methods" class="headerlink" title="Access Methods"></a>Access Methods</h2><ul>
+<li>Read-write asymmetry &amp; wear-leveling<br>  – Writes might take longer to complete compared to reads<br>  – Excessive writes to a single NVM cell can destroy it</li>
+<li>Write-limited access methods<ul>
+<li>NVM-aware B+Tree, hash table<ul>
+<li>NVM-aware B+Tree: <ul>
+<li>In leaf node, using linear scan (unsorted data) with fewer writes instead of binary search (sorted data) with more writes.</li>
+<li>Using unbalanced tree (fewer writes)</li>
+</ul>
+</li>
+<li></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Execution-engine"><a href="#Execution-engine" class="headerlink" title="Execution engine"></a>Execution engine</h1><pre><code>- Plan executor
+    * reduce the number of writes (Sorting algorithm and join algorithm) by using 1) adjustment of write-intensivity knob and 2) write-limited algorithms.
+        + Hybrid join/sort
+        + Segment sort =&gt; adjust x (x% merge sort + (1-x)% selection sort)
+</code></pre>
+      
+    </div>
 
-          
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
     <div>
+      
+        
+
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/blog/tags/NVM/" rel="tag"># NVM</a>
+          
+            <a href="/blog/tags/Paper/" rel="tag"># Paper</a>
+          
+        </div>
       
 
       
+      
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory/" rel="next" title="How to Build a Non-Volatile Memory">
+                <i class="fa fa-chevron-left"></i> How to Build a Non-Volatile Memory
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/blog/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/blog/">1</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/blog/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/13/">13</a><a class="extend next" rel="next" href="/blog/page/5/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -384,6 +492,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -403,8 +515,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -419,7 +540,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -432,7 +553,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -486,6 +607,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NVM-properties"><span class="nav-number">1.</span> <span class="nav-text">NVM properties:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Evaluation-NVM"><span class="nav-number">2.</span> <span class="nav-text">Evaluation NVM</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Three-levels-in-NVM-DBMS"><span class="nav-number"></span> <span class="nav-text">Three levels in NVM DBMS:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Allocation-interface"><span class="nav-number">1.</span> <span class="nav-text">Allocation interface</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Storage-Manager"><span class="nav-number">2.</span> <span class="nav-text">Storage Manager</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Access-Methods"><span class="nav-number">3.</span> <span class="nav-text">Access Methods</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Execution-engine"><span class="nav-number"></span> <span class="nav-text">Execution engine</span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -599,10 +736,10 @@
   
 
   
-    <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
