@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="This is a summary about a paper in Sigmod 17, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.  NVM properties:  Byte addressable: Loads and">
+<meta name="description" content="This is a summary about a paper and a related talk in Sigmod 17, and this paper concludes the three main ways to make use of the special features in NVM when build up a DBMS.  NVM properties:  Byte ad">
 <meta name="keywords" content="NVM,Paper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="How to Build a Non-Volatile Memory DBMS (Survey)">
 <meta property="og:url" content="http://yoursite.com/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory-DBMS-Survey/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="This is a summary about a paper in Sigmod 17, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.  NVM properties:  Byte addressable: Loads and">
-<meta property="og:updated_time" content="2017-10-05T03:17:17.000Z">
+<meta property="og:description" content="This is a summary about a paper and a related talk in Sigmod 17, and this paper concludes the three main ways to make use of the special features in NVM when build up a DBMS.  NVM properties:  Byte ad">
+<meta property="og:updated_time" content="2017-10-05T03:25:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="How to Build a Non-Volatile Memory DBMS (Survey)">
-<meta name="twitter:description" content="This is a summary about a paper in Sigmod 17, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.  NVM properties:  Byte addressable: Loads and">
+<meta name="twitter:description" content="This is a summary about a paper and a related talk in Sigmod 17, and this paper concludes the three main ways to make use of the special features in NVM when build up a DBMS.  NVM properties:  Byte ad">
 
 
 
@@ -320,7 +320,7 @@
       
 
       
-        <p>This is a summary about a paper in <code>Sigmod 17</code>, and this paper concludes the three main ways to make use of the special fetures in NVM when build up a DBMS.</p>
+        <p>This is a summary about a <a href="https://www.cs.cmu.edu/~jarulraj/papers/2017.nvm.sigmod.pdf" target="_blank" rel="external">paper</a> and a related <a href="https://www.cs.cmu.edu/~jarulraj/talks/2017.nvm.sigmod.pdf" target="_blank" rel="external">talk</a> in <code>Sigmod 17</code>, and this paper concludes the three main ways to make use of the special features in NVM when build up a DBMS.</p>
 <hr>
 <h2 id="NVM-properties"><a href="#NVM-properties" class="headerlink" title="NVM properties:"></a>NVM properties:</h2><ul>
 <li><ol>
@@ -412,11 +412,17 @@
 </ul>
 </li>
 </ul>
-<h1 id="Execution-engine"><a href="#Execution-engine" class="headerlink" title="Execution engine"></a>Execution engine</h1><pre><code>- Plan executor
-    * reduce the number of writes (Sorting algorithm and join algorithm) by using 1) adjustment of write-intensivity knob and 2) write-limited algorithms.
-        + Hybrid join/sort
-        + Segment sort =&gt; adjust x (x% merge sort + (1-x)% selection sort)
-</code></pre>
+<h1 id="Execution-engine"><a href="#Execution-engine" class="headerlink" title="Execution engine"></a>Execution engine</h1><ul>
+<li>Plan executor<ul>
+<li>reduce the number of writes (Sorting algorithm and join algorithm) by using 1) adjustment of write-intensivity knob and 2) write-limited algorithms.<ul>
+<li>Hybrid join/sort</li>
+<li>Segment sort =&gt; adjust x (x% merge sort + (1-x)% selection sort)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
 
@@ -469,6 +475,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/10/09/My-Understanding-about-Hierarchy-of-Needs/" rel="prev" title="My Understanding about Hierarchy of Needs">
+                My Understanding about Hierarchy of Needs <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -540,7 +550,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -553,7 +563,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

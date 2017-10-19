@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++20,Transaction," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Teng&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/blog/tags/CMake/index.html">
+<meta name="description" content="Transaction Memory is a concurrency mechanism, which provides atomic and isolated compared with normal memory access. Transaction memory is easy to use, and simplify concurrent programming without loc">
+<meta name="keywords" content="C++20,Transaction">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++20 Transaction Memory">
+<meta property="og:url" content="http://yoursite.com/blog/2017/10/20/C-20-Transaction-Memory/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
+<meta property="og:description" content="Transaction Memory is a concurrency mechanism, which provides atomic and isolated compared with normal memory access. Transaction memory is easy to use, and simplify concurrent programming without loc">
+<meta property="og:updated_time" content="2017-10-19T16:38:13.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Teng&#39;s Blog">
-<meta name="twitter:description" content="...">
+<meta name="twitter:title" content="C++20 Transaction Memory">
+<meta name="twitter:description" content="Transaction Memory is a concurrency mechanism, which provides atomic and isolated compared with normal memory access. Transaction memory is easy to use, and simplify concurrent programming without loc">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/tags/CMake/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2017/10/20/C-20-Transaction-Memory/"/>
 
 
 
 
 
-  <title>Tag: CMake | Teng's Blog</title>
+  <title>C++20 Transaction Memory | Teng's Blog</title>
   
 
 
@@ -160,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -244,44 +246,156 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>CMake<small>Tag</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/10/20/C-20-Transaction-Memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">C++20 Transaction Memory</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-20T00:16:02+08:00">
+                2017-10-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p><code>Transaction Memory</code> is a concurrency mechanism, which provides atomic and isolated compared with normal memory access. <code>Transaction memory</code> is easy to use, and simplify concurrent programming without lock or extra concurrent control method.</p>
+<p>C++20 implements <code>Transaction Memory</code>, and makes this becomes a standard in C++. I think this is the inevitable trend with rapid development in multi-core programming.</p>
+<p>In <code>gcc-7</code>, programmer can use more than three ways to use <code>Transaction Memory</code>, and I will introduce how to write codes by taking advantage of <code>Transaction Memory</code></p>
+<p>Below is a example with using <code>synchronized</code> keyword to achieve synchronized of multi threads.</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;thread&gt;</span></span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">f</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">static</span> <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    synchronized &#123; <span class="comment">// begin synchronized block</span></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">" -&gt; "</span>;</div><div class="line">        ++i;       <span class="comment">// each call to f() obtains a unique value of i</span></div><div class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="string">'\n'</span>;</div><div class="line">        <span class="keyword">return</span> i; <span class="comment">// end synchronized block</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="built_in">std</span>::thread&gt; v(<span class="number">10</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; t: v)</div><div class="line">        t = <span class="built_in">std</span>::thread([]&#123; <span class="keyword">for</span>(<span class="keyword">int</span> n = <span class="number">0</span>; n &lt; <span class="number">10</span>; ++n) f(); &#125;);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span>&amp; t: v)</div><div class="line">        t.join();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>The output in screen is like that:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">0 -&gt; 1</div><div class="line">1 -&gt; 2</div><div class="line">...</div><div class="line">99 -&gt; 100</div></pre></td></tr></table></figure></p>
+<p>Only one thread can access this variable <code>i</code> at any time.</p>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/blog/2017/07/25/Tips-About-Using-Cmake/" itemprop="url">
-              
-                <span itemprop="name">Tips About Using Cmake</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-07-25T14:37:53+08:00"
-              content="2017-07-25" >
-          07-25
-        </time>
-      </div>
+      
+    </div>
 
-    </header>
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/C-20/" rel="tag"># C++20</a>
+          
+            <a href="/blog/tags/Transaction/" rel="tag"># Transaction</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/10/19/Some-Useful-Technologies-About-RDMA-2/" rel="next" title="Some Useful Technologies About RDMA(2)">
+                <i class="fa fa-chevron-left"></i> Some Useful Technologies About RDMA(2)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -289,6 +403,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -504,10 +622,10 @@
   
 
   
-    <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
