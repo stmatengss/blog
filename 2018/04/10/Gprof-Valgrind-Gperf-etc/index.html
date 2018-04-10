@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Perftool," />
 
 
 
@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="...">
+<meta name="description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
+<meta name="keywords" content="Perftool">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gprof, Valgrind, Gperf, etc">
 <meta property="og:url" content="http://yoursite.com/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
-<meta property="og:updated_time" content="2018-04-10T09:15:14.086Z">
+<meta property="og:description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
+<meta property="og:updated_time" content="2018-04-10T16:25:42.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gprof, Valgrind, Gperf, etc">
-<meta name="twitter:description" content="...">
+<meta name="twitter:description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
 
 
 
@@ -328,7 +329,25 @@
       
 
       
-        
+        <p>There are several analysis tools to measure our program and give suggestions to improve performance.<br>Now, we will introduce two common-used tools: gprof and valgrind</p>
+<ul>
+<li>Gprof<br>Gprof is a profiling program which collects and arranges statistics on your programs. It will insert codes to head and tail of each functions to collect running information by sampling some time points. When program running is end, it will create a file named <code>gmon.out</code>. And we can run profile tool to analysis occupied time of different functions.</li>
+</ul>
+<ol>
+<li>Add <code>-pg</code> to your compiling file (e.g. CMake or Makefile)</li>
+<li>Running your program <code>exe</code></li>
+<li>Typing <code>gprof exe</code> in the command<br>There is another easy-to-use tool <code>gprof2dot</code> to visualize your analytics results. You can use <code>gprof exe | gprof2dot | dot -Tpdf -o result.pdf</code> to generate a pdf file to display the results. <code>gprof2dot</code> is a python tool, and you can use <code>pip</code> to install it.</li>
+</ol>
+<ul>
+<li>Valgrind<br>Valgrind was originally designed to be a free memory debugging tool for Linux on x86, but has since evolved to become a generic framework for creating dynamic analysis tools such as checkers and profilers. Callgrind is a competent of valgrind for profiling CPU usage. With Callgrind, you can look up the running time of different functions. Similarly, another tool Kcachegrind is useful to provide a visual interface for beginner. Fortunately, you don’t need to add extra compiling flags, and you just need following three steps:</li>
+</ul>
+<ol>
+<li>Compile your project as usual</li>
+<li>Running callgrind with <code>valgrind --tool=callgrind ./cpuload</code></li>
+<li>kcachegrind profile.callgrind</li>
+</ol>
+<p>Using these out-of-box tools will benefit to hint us to optimize our codes well. Besides, other performance library like <code>libpapi</code> need us to insert codes to our program, and it’s not good for programmability. For me, I prefer to use these performance profile tools to detect my codes.</p>
+
       
     </div>
 
@@ -354,6 +373,12 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Perftool/" rel="tag"># Perftool</a>
+          
+        </div>
       
 
       
@@ -448,7 +473,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
