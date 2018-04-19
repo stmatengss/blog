@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Allocation,NVM," />
 
 
 
@@ -93,16 +93,19 @@
 
 
 
-<meta name="description" content="...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="http://yoursite.com/blog/categories/index.html">
+<meta name="description" content="Goals A good allocator should:  Memory Usage (fragmentation/overhead) Performance (Tput) Scalability (linearly) Correctness Robustness   A good NVM allocator should:  Recovery (time overhead) Programa">
+<meta name="keywords" content="Allocation,NVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Survey of NVM Allocator">
+<meta property="og:url" content="http://yoursite.com/blog/2018/04/20/Survey-of-NVM-Allocator/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
-<meta property="og:updated_time" content="2017-08-03T05:26:37.000Z">
+<meta property="og:description" content="Goals A good allocator should:  Memory Usage (fragmentation/overhead) Performance (Tput) Scalability (linearly) Correctness Robustness   A good NVM allocator should:  Recovery (time overhead) Programa">
+<meta property="og:image" content="http://yoursite.com/images/nvm_allocator.png">
+<meta property="og:updated_time" content="2018-04-19T17:27:28.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
-<meta name="twitter:description" content="...">
+<meta name="twitter:title" content="Survey of NVM Allocator">
+<meta name="twitter:description" content="Goals A good allocator should:  Memory Usage (fragmentation/overhead) Performance (Tput) Scalability (linearly) Correctness Robustness   A good NVM allocator should:  Recovery (time overhead) Programa">
+<meta name="twitter:image" content="http://yoursite.com/images/nvm_allocator.png">
 
 
 
@@ -130,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/categories/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2018/04/20/Survey-of-NVM-Allocator/"/>
 
 
 
 
 
-  <title>categories | Teng's Blog</title>
+  <title>Survey of NVM Allocator | Teng's Blog</title>
   
 
 
@@ -255,18 +258,193 @@
             
 
   <div id="posts" class="posts-expand">
-  <header class="post-header">
+    
 
-	<h1 class="post-title" itemprop="name headline">categories</h1>
+  
 
+  
+  
+  
 
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/20/Survey-of-NVM-Allocator/">
 
-</header>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Survey of NVM Allocator</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T01:21:36+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
+
+    <div class="post-body" itemprop="articleBody">
+
       
-    
+      
+
+      
+        <h3 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h3><ul>
+<li><p>A good allocator should:</p>
+<ul>
+<li>Memory Usage (fragmentation/overhead)</li>
+<li>Performance (Tput)</li>
+<li>Scalability (linearly)</li>
+<li>Correctness</li>
+<li>Robustness</li>
+</ul>
+</li>
+<li><p>A good NVM allocator should:</p>
+<ul>
+<li>Recovery (time overhead)</li>
+<li>Programablility (easy-to-use)</li>
+<li>TODO….</li>
+</ul>
+</li>
+</ul>
+<h3 id="Recovery"><a href="#Recovery" class="headerlink" title="Recovery"></a>Recovery</h3><ul>
+<li>Essentially, bitmap is a general method to maintain the peristent status of allocator. With bitmap, every bit can indicate this block is in-used or not</li>
+</ul>
+<h3 id="Defragmentation"><a href="#Defragmentation" class="headerlink" title="Defragmentation"></a>Defragmentation</h3><h3 id="Start-of-art"><a href="#Start-of-art" class="headerlink" title="Start-of-art"></a>Start-of-art</h3><ul>
+<li><p>nvm_malloc (VLDB’ 16)</p>
+<ul>
+<li>Small-size =&gt; segregated-fit, larger-size =&gt; best-fit</li>
+<li>Three-size allocation strategy</li>
+</ul>
+</li>
+<li><p>Makalu (OOPLSA’ 16)</p>
+<ul>
+<li>Keeping volatiled pointer is still valid by using a fixed pool address (<code>MAP_FIXED</code> flag of <code>mmap</code>)</li>
+</ul>
+</li>
+<li><p>NVML (<code>intel Pmem</code>)</p>
+<ul>
+<li>Support concurrent =&gt; Local thread cache</li>
+<li>Minimize fragmentation =&gt; A chunk (256KB) is divided into blocks of 8X the class size.</li>
+</ul>
+</li>
+<li><p>PAllocator</p>
+<ul>
+<li>Small/Larger/Huge Allocator</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/nvm_allocator.png" alt="Comparsion"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Allocation/" rel="tag"># Allocation</a>
+          
+            <a href="/blog/tags/NVM/" rel="tag"># NVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/" rel="next" title="Gprof, Valgrind, Gperf, etc">
+                <i class="fa fa-chevron-left"></i> Gprof, Valgrind, Gperf, etc
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -298,8 +476,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -381,6 +568,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goals"><span class="nav-number">1.</span> <span class="nav-text">Goals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Recovery"><span class="nav-number">2.</span> <span class="nav-text">Recovery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Defragmentation"><span class="nav-number">3.</span> <span class="nav-text">Defragmentation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Start-of-art"><span class="nav-number">4.</span> <span class="nav-text">Start-of-art</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -494,10 +697,10 @@
   
 
   
-    <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 

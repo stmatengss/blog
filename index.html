@@ -265,6 +265,163 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/20/Survey-of-NVM-Allocator/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/04/20/Survey-of-NVM-Allocator/" itemprop="url">Survey of NVM Allocator</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T01:21:36+08:00">
+                2018-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h3><ul>
+<li><p>A good allocator should:</p>
+<ul>
+<li>Memory Usage (fragmentation/overhead)</li>
+<li>Performance (Tput)</li>
+<li>Scalability (linearly)</li>
+<li>Correctness</li>
+<li>Robustness</li>
+</ul>
+</li>
+<li><p>A good NVM allocator should:</p>
+<ul>
+<li>Recovery (time overhead)</li>
+<li>Programablility (easy-to-use)</li>
+<li>TODO….</li>
+</ul>
+</li>
+</ul>
+<h3 id="Recovery"><a href="#Recovery" class="headerlink" title="Recovery"></a>Recovery</h3><ul>
+<li>Essentially, bitmap is a general method to maintain the peristent status of allocator. With bitmap, every bit can indicate this block is in-used or not</li>
+</ul>
+<h3 id="Defragmentation"><a href="#Defragmentation" class="headerlink" title="Defragmentation"></a>Defragmentation</h3><h3 id="Start-of-art"><a href="#Start-of-art" class="headerlink" title="Start-of-art"></a>Start-of-art</h3><ul>
+<li><p>nvm_malloc (VLDB’ 16)</p>
+<ul>
+<li>Small-size =&gt; segregated-fit, larger-size =&gt; best-fit</li>
+<li>Three-size allocation strategy</li>
+</ul>
+</li>
+<li><p>Makalu (OOPLSA’ 16)</p>
+<ul>
+<li>Keeping volatiled pointer is still valid by using a fixed pool address (<code>MAP_FIXED</code> flag of <code>mmap</code>)</li>
+</ul>
+</li>
+<li><p>NVML (<code>intel Pmem</code>)</p>
+<ul>
+<li>Support concurrent =&gt; Local thread cache</li>
+<li>Minimize fragmentation =&gt; A chunk (256KB) is divided into blocks of 8X the class size.</li>
+</ul>
+</li>
+<li><p>PAllocator</p>
+<ul>
+<li>Small/Larger/Huge Allocator</li>
+</ul>
+</li>
+</ul>
+<p><img src="/images/nvm_allocator.png" alt="Comparsion"></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1513,165 +1670,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/09/27/A-Try-about-Profiling-Jemalloc-Code/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2017/09/27/A-Try-about-Profiling-Jemalloc-Code/" itemprop="url">A Try about Profiling Jemalloc Code</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-27T00:33:20+08:00">
-                2017-09-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="A-Short-Introduction"><a href="#A-Short-Introduction" class="headerlink" title="A Short Introduction"></a>A Short Introduction</h1><p>Jemalloc is traditional implementation about allocation in OS, jemalloc first came into use as the FreeBSD <code>libc</code> allocator in 2005, and since then it has found its way into numerous applications that rely on its predictable behavior. Jemalloc has already used in thousands of real world applications to accelerate and strength allocation function. Jemalloc performs more efficient than <code>glibc malloc</code> (a.k.a, Ptmalloc) in a multi-thread situation, and has a higher scalability.</p>
-<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><ul>
-<li>POSIX API</li>
-</ul>
-<p>jemalloc provides some common functions to allocation or deallocation memory in system, including <code>malloc, calloc, realloc, free, memalign and aligned_alloc</code>.</p>
-<ul>
-<li>NONE Standard API<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">void *mallocx(	size_t size,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">void *rallocx(	void *ptr,</div><div class="line"> 	size_t size,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">size_t xallocx(	void *ptr,</div><div class="line"> 	size_t size,</div><div class="line"> 	size_t extra,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">size_t sallocx(	void *ptr,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">void dallocx(	void *ptr,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">void sdallocx(	void *ptr,</div><div class="line"> 	size_t size,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">size_t nallocx(	size_t size,</div><div class="line"> 	int flags);</div><div class="line"> </div><div class="line">int mallctl(	const char *name,</div><div class="line"> 	void *oldp,</div><div class="line"> 	size_t *oldlenp,</div><div class="line"> 	void *newp,</div><div class="line"> 	size_t newlen);    // This one provides controlling of allocation configurations</div><div class="line"> </div><div class="line">int mallctlnametomib(	const char *name,</div><div class="line"> 	size_t *mibp,</div><div class="line"> 	size_t *miblenp);</div><div class="line"> </div><div class="line">int mallctlbymib(	const size_t *mib,</div><div class="line"> 	size_t miblen,</div><div class="line"> 	void *oldp,</div><div class="line"> 	size_t *oldlenp,</div><div class="line"> 	void *newp,</div><div class="line"> 	size_t newlen);</div><div class="line"> </div><div class="line">void malloc_stats_print(	void (*write_cb) (void *, const char *) ,</div><div class="line"> 	void *cbopaque,</div><div class="line"> 	const char *opts);  // For debuging code</div><div class="line"> </div><div class="line">size_t malloc_usable_size(	const void *ptr);</div><div class="line"> </div><div class="line">void (*malloc_message)(	void *cbopaque,</div><div class="line"> 	const char *s);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h1 id="Compiling"><a href="#Compiling" class="headerlink" title="Compiling"></a>Compiling</h1><ul>
-<li>You can use several ways to build up your jemalloc library, please refer to <a href="https://github.com/jemalloc/jemalloc/wiki/Getting-Started" target="_blank" rel="external">this</a> link for more details</li>
-<li>My procedures for integrating jemalloc into an application:<ol>
-<li>use <code>jemalloc-config</code> script in <code>bin</code> directory to looking your building root directory</li>
-<li>Run <code>./configure</code> and run the <code>make</code> in bash</li>
-<li>use <code>LD_PRELOAD</code> environment variable to add libjemalloc to LD environment</li>
-<li>compiling the execution code like this <code>cc ex_stats_print.c -o ex_stats_print -I</code>jemalloc-config –includedir<code>-L</code>jemalloc-config –libdir<code>-Wl,-rpath,</code>jemalloc-config –libdir -ljemalloc <code>jemalloc-config --libs</code></li>
-</ol>
-</li>
-<li>If you want change some details and use some surprise functions in jemalloc library:<ol>
-<li>You can use <code>MALLOC_CONF</code> environment variable to control/tune jemalloc, like this <code>export MALLOC_CONF=&quot;prof:true,lg_prof_sample:1,prof_accum:false,prof_prefix:jeprof.out&quot;</code>, and there is <a href="http://jemalloc.net/jemalloc.3.html#tuning" target="_blank" rel="external">link</a> about how to use this options</li>
-<li>Or you can change these configuration before making jemalloc project, these configuration options are enabled in libcs built-in jemalloc: <code>--enable-dss, --enable-experimental, --enable-fill, --enable-lazy-lock, --enable-munmap, --enable-stats, --enable-tcache, --enable-tls, --enable-utrace, and --enable-xmalloc</code>.</li>
-<li><strong>Attention</strong> , Using <code>--with-jemalloc-prefix</code> as a option when compiling jemalloc with an API prefix, will make this library is not easy to use. You should use <code>je_XXX</code> to replace <code>XXX</code> function, and reconstruct the whole program.  </li>
-</ol>
-</li>
-</ul>
-<h1 id="Implementation-Details"><a href="#Implementation-Details" class="headerlink" title="Implementation Details"></a>Implementation Details</h1><ul>
-<li><p>How Jemalloc get memory from OS?</p>
-<ul>
-<li>Jemlloc use <code>mmap</code> or <code>sbrk</code> to try to get memory from the lower level API. However, user can use the different strategy to control memory obtaining from <code>mmap</code>, <code>sbrk</code> or both of them.</li>
-<li>Traditionally, allocators have used sbrk(2) to obtain memory, which is suboptimal for several reasons, including race conditions, increased fragmentation, and artificial limitations on maximum usable memory. If sbrk(2) is supported by the operating system, this allocator uses both mmap(2) and sbrk(2), in that order of preference; otherwise only mmap(2) is used.</li>
-</ul>
-</li>
-<li><p>Small size allocation and large size allocation</p>
-</li>
-<li><p>Other details</p>
-</li>
-</ul>
-<p>This allocator uses multiple arenas in order to reduce lock contention for threaded programs on multi-processor systems. This works well with regard to threading scalability, but incurs some costs. There is a small fixed per-arena overhead, and additionally, arenas manage memory completely independently of each other, which means a small fixed increase in overall memory fragmentation. These overheads are not generally an issue, given the number of arenas normally used. Note that using substantially more arenas than the default is not likely to improve performance, mainly due to reduced cache performance. However, it may make sense to reduce the number of arenas if an application does not make much use of the allocation functions.</p>
-<p>In addition to multiple arenas, this allocator supports thread-specific caching, in order to make it possible to completely avoid synchronization for most allocation requests. Such caching allows very fast allocation in the common case, but it increases memory usage and fragmentation, since a bounded number of objects can remain allocated in each thread cache.</p>
-<p>Memory is conceptually broken into extents. Extents are always aligned to multiples of the page size. This alignment makes it possible to find metadata for user objects quickly. User objects are broken into two categories according to size: small and large. Contiguous small objects comprise a slab, which resides within a single extent, whereas large objects each have their own extents backing them.</p>
-<p>Small objects are managed in groups by slabs. Each slab maintains a bitmap to track which regions are in use. Allocation requests that are no more than half the quantum (8 or 16, depending on architecture) are rounded up to the nearest power of two that is at least sizeof(double). All other object size classes are multiples of the quantum, spaced such that there are four size classes for each doubling in size, which limits internal fragmentation to approximately 20% for all but the smallest size classes. Small size classes are smaller than four times the page size, and large size classes extend from four times the page size up to the largest size class that does not exceed PTRDIFF_MAX.</p>
-<p>Allocations are packed tightly together, which can be an issue for multi-threaded applications. If you need to assure that allocations do not suffer from cacheline sharing, round your allocation requests up to the nearest multiple of the cacheline size, or specify cacheline alignment when allocating.</p>
-<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
-<li><a href="http://jemalloc.net/" target="_blank" rel="external">Jemalloc official website</a></li>
-<li><a href="https://github.com/jemalloc/jemalloc" target="_blank" rel="external">Jemalloc in Github</a></li>
-<li><a href="http://www.gsp.com/cgi-bin/man.cgi?topic=malloc.conf" target="_blank" rel="external">FreeBSD man page about Jemalloc</a></li>
-<li><a href="http://web.eecs.utk.edu/~huangj/cs360/360/notes/Malloc1/lecture.html" target="_blank" rel="external">Malloc Lab</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1721,7 +1719,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
