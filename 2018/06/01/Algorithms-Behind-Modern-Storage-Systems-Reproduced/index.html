@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="The original article is here A brief introduction:As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy.With read-heavy workload, using B+Tree/B-Tree">
+<meta name="description" content="The original article is here A brief introduction:As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy. With read-heavy workload, using B+Tree/B-Tre">
 <meta name="keywords" content="System,Algorithm,Data Structure">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Algorithms Behind Modern Storage Systems [Reproduced]">
 <meta property="og:url" content="http://yoursite.com/blog/2018/06/01/Algorithms-Behind-Modern-Storage-Systems-Reproduced/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="The original article is here A brief introduction:As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy.With read-heavy workload, using B+Tree/B-Tree">
-<meta property="og:updated_time" content="2018-06-01T16:54:07.223Z">
+<meta property="og:description" content="The original article is here A brief introduction:As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy. With read-heavy workload, using B+Tree/B-Tre">
+<meta property="og:updated_time" content="2018-06-01T16:55:28.393Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Algorithms Behind Modern Storage Systems [Reproduced]">
-<meta name="twitter:description" content="The original article is here A brief introduction:As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy.With read-heavy workload, using B+Tree/B-Tree">
+<meta name="twitter:description" content="The original article is here A brief introduction:As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy. With read-heavy workload, using B+Tree/B-Tre">
 
 
 
@@ -330,9 +330,9 @@
 
       
         <p>The original article is <a href="https://queue.acm.org/detail.cfm?id=3220266" target="_blank" rel="external">here</a></p>
-<h1 id="A-brief-introduction"><a href="#A-brief-introduction" class="headerlink" title="A brief introduction:"></a>A brief introduction:</h1><p>As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy.<br>With read-heavy workload, using B+Tree/B-Tree will bring with read optimization.<br>But it will be expensive when doing modification operation (update, insert or deletion) due to we need to merge/split nodes or move items in nodes.<br>B-Tree is 1) Sorted, 2) Self-balancing, 3) Logarithmic lookup time and 4) Mutable.<br>With write-heavy workload, LSM-Trees (log-structured merge-tree) is an immutable disk-resident write-optimized data structure.<br>It will transform most of the modification operations to a log entry and put it to SSTable (Sorted String Tables).<br>The upper layer of LSM-Tree is an in-memory skip-list or binary search tree to accelerate read operations.<br>When its size reaches to the threshold, this data structure will be flushed to disk with compaction.<br>LSM-Tree will be good for point-query and scan operation, but will not be friendly to find operation.</p>
-<p>In order to batch these operation together for writing to disk with one IO operation,<br>we need to use WAL (write ahead log) to guarantee atomicity and durability.</p>
-<p>In conclusion, there is no convenient to achieve higher performance for both write and read operations,<br>so we need to choose our data structure carefully.</p>
+<h1 id="A-brief-introduction"><a href="#A-brief-introduction" class="headerlink" title="A brief introduction:"></a>A brief introduction:</h1><p>As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy. With read-heavy workload, using B+Tree/B-Tree will bring with read optimization.  But it will be expensive when doing modification operation (update, insert or deletion) due to we need to merge/split nodes or move items in nodes. B-Tree is 1) Sorted, 2) Self-balancing, 3) Logarithmic lookup time and 4) Mutable. With write-heavy workload, LSM-Trees (log-structured merge-tree) is an immutable disk-resident write-optimized data structure. It will transform most of the modification operations to a log entry and put it to SSTable (Sorted String Tables). The upper layer of LSM-Tree is an in-memory skip-list or binary search tree to accelerate read operations. When its size reaches to the threshold, this data structure will be flushed to disk with compaction. LSM-Tree will be good for point-query and scan operation, but will not be friendly to find operation.</p>
+<p>In order to batch these operation together for writing to disk with one IO operation, we need to use WAL (write ahead log) to guarantee atomicity and durability.</p>
+<p>In conclusion, there is no convenient to achieve higher performance for both write and read operations, so we need to choose our data structure carefully.</p>
 
       
     </div>
