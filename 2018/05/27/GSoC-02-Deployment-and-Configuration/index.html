@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Allocation,Linux,OS," />
+  <meta name="keywords" content="GSoC,HPC," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="Basic Posix Allocation API:  1234567891011121314151617void *malloc(	size_t size); void *calloc(	size_t number, 	size_t size); int posix_memalign(	void **ptr, 	size_t alignment, 	size_t size); void *a">
-<meta name="keywords" content="Allocation,Linux,OS">
+<meta name="description" content="Hardware Environment My personal laptop, a MacBook Pro 15’ inch (2015). A Dell PowerEdge Server runs Ubuntu 14.04 and equips with dual 8-core CPUs (Intel Xeon E5-2640 v2, 2.0 GHz), 96 GB memory space,">
+<meta name="keywords" content="GSoC,HPC">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Learning About Memory Allocation">
-<meta property="og:url" content="http://yoursite.com/blog/2017/09/18/Learning-About-Memory-Allocation/index.html">
+<meta property="og:title" content="[GSoC 02] Deployment and Configuration">
+<meta property="og:url" content="http://yoursite.com/blog/2018/05/27/GSoC-02-Deployment-and-Configuration/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="Basic Posix Allocation API:  1234567891011121314151617void *malloc(	size_t size); void *calloc(	size_t number, 	size_t size); int posix_memalign(	void **ptr, 	size_t alignment, 	size_t size); void *a">
-<meta property="og:updated_time" content="2017-09-18T03:05:12.000Z">
+<meta property="og:description" content="Hardware Environment My personal laptop, a MacBook Pro 15’ inch (2015). A Dell PowerEdge Server runs Ubuntu 14.04 and equips with dual 8-core CPUs (Intel Xeon E5-2640 v2, 2.0 GHz), 96 GB memory space,">
+<meta property="og:updated_time" content="2018-06-07T18:00:14.183Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Learning About Memory Allocation">
-<meta name="twitter:description" content="Basic Posix Allocation API:  1234567891011121314151617void *malloc(	size_t size); void *calloc(	size_t number, 	size_t size); int posix_memalign(	void **ptr, 	size_t alignment, 	size_t size); void *a">
+<meta name="twitter:title" content="[GSoC 02] Deployment and Configuration">
+<meta name="twitter:description" content="Hardware Environment My personal laptop, a MacBook Pro 15’ inch (2015). A Dell PowerEdge Server runs Ubuntu 14.04 and equips with dual 8-core CPUs (Intel Xeon E5-2640 v2, 2.0 GHz), 96 GB memory space,">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/2017/09/18/Learning-About-Memory-Allocation/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2018/05/27/GSoC-02-Deployment-and-Configuration/"/>
 
 
 
 
 
-  <title>Learning About Memory Allocation | Teng's Blog</title>
+  <title>[GSoC 02] Deployment and Configuration | Teng's Blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/09/18/Learning-About-Memory-Allocation/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/05/27/GSoC-02-Deployment-and-Configuration/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Learning About Memory Allocation</h1>
+          <h1 class="post-title" itemprop="name headline">[GSoC 02] Deployment and Configuration</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-18T10:23:13+08:00">
-                2017-09-18
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-27T00:52:59+08:00">
+                2018-05-27
               </time>
             
 
@@ -329,25 +329,51 @@
       
 
       
-        <ul>
-<li>Basic Posix Allocation API:</li>
-</ul>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">malloc</span><span class="params">(	<span class="keyword">size_t</span> size)</span></span>;</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">calloc</span><span class="params">(	<span class="keyword">size_t</span> number,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">posix_memalign</span><span class="params">(	<span class="keyword">void</span> **ptr,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> alignment,</div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">aligned_alloc</span><span class="params">(	<span class="keyword">size_t</span> alignment,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> *<span class="title">realloc</span><span class="params">(	<span class="keyword">void</span> *ptr,</span></span></div><div class="line"> 	<span class="keyword">size_t</span> size);</div><div class="line"> </div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">free</span><span class="params">(	<span class="keyword">void</span> *ptr)</span></span>;</div></pre></td></tr></table></figure>
-<ul>
-<li><p><a href="http://blog.csdn.net/horkychen/article/details/35735103" target="_blank" rel="external">Memory Allocator Introduction (In Chinese)</a></p>
-</li>
-<li><p><a href="http://www.thinkingyu.com/articles/jemalloc/" target="_blank" rel="external">Jemalloc Learning (In Chinese)</a></p>
-</li>
-<li><p>Catalog</p>
-<ul>
-<li>PtMalloc (a.k.a, glibc malloc)</li>
-<li><a href="http://goog-perftools.sourceforge.net/doc/tcmalloc.html" target="_blank" rel="external">TCMalloc (By Google)</a></li>
-<li><a href="http://jemalloc.net/jemalloc.3.html" target="_blank" rel="external">JeMalloc (By FreeBSD)</a></li>
-<li><a href="https://www.hoard.org/" target="_blank" rel="external">Hoard (By MIT)</a></li>
-<li>To be continued.</li>
+        <h1 id="Hardware-Environment"><a href="#Hardware-Environment" class="headerlink" title="Hardware Environment"></a>Hardware Environment</h1><ol>
+<li>My personal laptop, a MacBook Pro 15’ inch (2015).</li>
+<li>A Dell PowerEdge Server runs Ubuntu 14.04 and equips with dual 8-core CPUs (Intel Xeon E5-2640 v2, 2.0 GHz), 96 GB memory space, and a Mellanox ConnectX-3 InfiniBand NIC (MT27500, 40 Gbps).</li>
+</ol>
+<h1 id="Software-Environment"><a href="#Software-Environment" class="headerlink" title="Software Environment"></a>Software Environment</h1><ol>
+<li>Boost Library 1.60<ul>
+<li>I compile the binary and install this in MacOS, and directly install libboost via <code>apt-get</code> tool in Ubuntu.</li>
 </ul>
 </li>
+<li>Hwloc Library (Hierarchical view of the machine)</li>
+<li>GCC-5.4<ul>
+<li>The server has a old version 4.8 of GCC, so <code>C++17</code> cannot be used in the environment.</li>
+<li>I upgrade gcc and use <code>update-alternatives</code> to switch new version on.</li>
 </ul>
+</li>
+<li>CMake<ul>
+<li>Update my cmake from a private source list.</li>
+</ul>
+</li>
+</ol>
+<h1 id="HPX-deployment"><a href="#HPX-deployment" class="headerlink" title="HPX deployment"></a>HPX deployment</h1><ol>
+<li>Add <code>my_test/</code>,<code>ctags</code>,’CMakeFiles/‘ to <code>.gitignore</code> for neglecting some unnecessary files.</li>
+<li>Make a new directory named <code>my_test</code> and run <code>cmake</code> in this directory and indicate the path of <code>hwloc</code> and <code>libboost</code>.</li>
+<li>Run <code>make -j16</code> to build up and generate the static library.</li>
+</ol>
+<h1 id="Libcds"><a href="#Libcds" class="headerlink" title="Libcds"></a>Libcds</h1><ol>
+<li>make a test directory and run <code>CMake</code> (add -DCDS_DISABLE_128BIT_ATOMIC flag for 64-bit building).</li>
+<li>make and make install <code>libcds</code></li>
+</ol>
+<h1 id="Libcds-overview"><a href="#Libcds-overview" class="headerlink" title="Libcds overview"></a>Libcds overview</h1><p>The core functions are all in the <code>cds</code> directory.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">cds/</div><div class="line">├── algo</div><div class="line">│   └── flat_combining</div><div class="line">├── compiler</div><div class="line">│   ├── clang</div><div class="line">│   ├── gcc</div><div class="line">│   ├── icl</div><div class="line">│   └── vc</div><div class="line">├── container</div><div class="line">│   ├── details</div><div class="line">│   ├── impl</div><div class="line">│   ├── striped_map</div><div class="line">│   └── striped_set</div><div class="line">├── details</div><div class="line">├── gc</div><div class="line">│   └── details</div><div class="line">├── intrusive</div><div class="line">│   ├── details</div><div class="line">│   ├── impl</div><div class="line">│   └── striped_set</div><div class="line">├── lock</div><div class="line">├── memory</div><div class="line">├── opt</div><div class="line">├── os</div><div class="line">├── sync</div><div class="line">├── threading</div><div class="line">├── urcu</div><div class="line">└── user_setup</div></pre></td></tr></table></figure></p>
+<p>In <code>algo</code>, there are some basic algorithm used in data structures, like flat combining (an OCC algorithm)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">cds/algo</div><div class="line">├── atomic.h</div><div class="line">├── backoff_strategy.h</div><div class="line">├── base.h</div><div class="line">├── bitop.h</div><div class="line">├── bit_reversal.h</div><div class="line">├── elimination.h</div><div class="line">├── elimination_opt.h</div><div class="line">├── elimination_tls.h</div><div class="line">├── flat_combining</div><div class="line">│   ├── defs.h</div><div class="line">│   ├── kernel.h</div><div class="line">│   └── wait_strategy.h</div><div class="line">├── flat_combining.h</div><div class="line">├── int_algo.h</div><div class="line">└── split_bitstring.h</div></pre></td></tr></table></figure></p>
+<p>In most cases, <code>Libcds</code> uses RCU (read-copy-update) or HP (hazard pointer) to handle concurrent. In conclusion, the main types of container including:</p>
+<ol>
+<li>Queue</li>
+<li>Stack</li>
+<li>HashMap/HashSet</li>
+<li>List/KVList</li>
+<li>Binary Tree/AVL Tree<br>There are some special algorithms for different data structure to provide lock-free, like <code>MichaelList</code>, <code>Feldman Method</code> and so on.</li>
+</ol>
+<h1 id="Test-Libcds"><a href="#Test-Libcds" class="headerlink" title="Test Libcds"></a>Test Libcds</h1><ol>
+<li>Make a new directory, and type <code>make test</code> to show the benchmarks.</li>
+<li>Some of the test case cannot pass, so I post an issue in <code>libcds</code> github homepage. (<a href="https://github.com/khizmax/libcds/issues/121/" target="_blank" rel="external">https://github.com/khizmax/libcds/issues/121/</a> )</li>
+<li>Firstly, I try to change my allocator (default is Glibc allocator) to TCMalloc. Then I try to build libcds with asan instrumentation and run the test.</li>
+<li>On the other hand, I also run some examples to test the correctness of these algorithms.</li>
+</ol>
 
       
     </div>
@@ -377,11 +403,9 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Allocation/" rel="tag"># Allocation</a>
+            <a href="/blog/tags/GSoC/" rel="tag"># GSoC</a>
           
-            <a href="/blog/tags/Linux/" rel="tag"># Linux</a>
-          
-            <a href="/blog/tags/OS/" rel="tag"># OS</a>
+            <a href="/blog/tags/HPC/" rel="tag"># HPC</a>
           
         </div>
       
@@ -394,8 +418,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/08/31/Paper-Reading-3/" rel="next" title="Paper Reading (3)">
-                <i class="fa fa-chevron-left"></i> Paper Reading (3)
+              <a href="/blog/2018/05/15/GSoC-01-HPX-and-libcds/" rel="next" title="[GSoC 01] HPX and libcds">
+                <i class="fa fa-chevron-left"></i> [GSoC 01] HPX and libcds
               </a>
             
           </div>
@@ -404,8 +428,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2017/09/18/Paper-Reading-Allocation-of-NVRAM/" rel="prev" title="Paper Reading (Allocation of NVRAM)">
-                Paper Reading (Allocation of NVRAM) <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2018/06/01/Algorithms-Behind-Modern-Storage-Systems-Reproduced/" rel="prev" title="Algorithms Behind Modern Storage Systems [Reproduced]">
+                Algorithms Behind Modern Storage Systems [Reproduced] <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -453,8 +477,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -536,6 +569,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hardware-Environment"><span class="nav-number">1.</span> <span class="nav-text">Hardware Environment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Software-Environment"><span class="nav-number">2.</span> <span class="nav-text">Software Environment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HPX-deployment"><span class="nav-number">3.</span> <span class="nav-text">HPX deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Libcds"><span class="nav-number">4.</span> <span class="nav-text">Libcds</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Libcds-overview"><span class="nav-number">5.</span> <span class="nav-text">Libcds overview</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Test-Libcds"><span class="nav-number">6.</span> <span class="nav-text">Test Libcds</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
