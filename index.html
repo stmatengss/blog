@@ -265,6 +265,131 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/06/27/Hyper-s-Rules-for-parallelization/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/06/27/Hyper-s-Rules-for-parallelization/" itemprop="url">Hyper's Rules for Parallelization</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T16:10:14+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><strong>Rule #1</strong>: No random writes to non-local memory<ul>
+<li>Chunk the data, redistribute, and then each core sorts/works on local data.</li>
+</ul>
+</li>
+<li><strong>Rule #2</strong>: Only perform sequential reads on non-local memory<ul>
+<li>This allows the hardware prefetcher to hide remote access latency.</li>
+</ul>
+</li>
+<li><strong>Rule #3</strong>: No core should ever wait for another<ul>
+<li>Avoid fine-grained latching or sync barriers.</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/06/14/Survey-of-DB-Join-Algorithm/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1541,133 +1666,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/12/17/Different-Levels-of-Write-Read-Lock/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2017/12/17/Different-Levels-of-Write-Read-Lock/" itemprop="url">Different Levels of Write Read Lock</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-17T13:19:12+08:00">
-                2017-12-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Read write lock is a <a href="https://en.wikipedia.org/wiki/Synchronization_(computer_science" target="_blank" rel="external">synchronization</a> technology to solve multi read and write problem. There are three priorities: Read-prefering RW lock, Write-prefering RW lock, and Unspecified priority RW locks. </p>
-<p>There are some libraries provide read write lock functions, like:</p>
-<ul>
-<li>POSIX standard WR lock <code>pthread_rwlock_t</code> (This WR lock provides different priorities)</li>
-<li><code>std::shared_mutex</code> in <code>C++17</code></li>
-<li><code>boost::shared_mutex</code> and <code>boost::upgrade_mutex</code> in <code>boost library</code></li>
-</ul>
-<p>The <a href="https://en.wikipedia.org/wiki/Read-copy-update" title="Read-copy-update" target="_blank" rel="external">read-copy-update</a> (a.k.a. RCU) is another method to solve mutli reader and write problem. Another solution is <code>seqlock</code> for fewer readers.</p>
-<p>A simple persudo implementation:<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">begin_read</span><span class="params">()</span> </span>&#123;</div><div class="line">  lock_r();</div><div class="line">  counter ++;</div><div class="line">  <span class="keyword">if</span> (counter == <span class="number">1</span>) lock_w();</div><div class="line">  unlock_r()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">end_read</span><span class="params">()</span> </span>&#123;</div><div class="line">  lock_r();</div><div class="line">  counter --;</div><div class="line">  <span class="keyword">if</span> (counter == <span class="number">0</span>) unlock_w();</div><div class="line">  unlock_r();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">begin_write</span><span class="params">()</span> </span>&#123;</div><div class="line">  lock_w();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">end_write</span><span class="params">()</span> </span>&#123;</div><div class="line">  unlock_w();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>More details about implementation in <code>C++11</code> (use atomic variable as spinlock), please see <a href="">this</a>.</p>
-<p>BTH, this simple WR_lock implement method do not gurantee writer has a higher priority.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><a class="page-number" href="/blog/page/3/">3</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1712,7 +1715,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
