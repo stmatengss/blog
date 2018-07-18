@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/blog/2018/07/18/New-Features-in-OFED/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
 <meta property="og:description" content="In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some">
-<meta property="og:updated_time" content="2018-07-18T03:14:36.006Z">
+<meta property="og:updated_time" content="2018-07-18T03:18:26.640Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="New Features in OFED">
 <meta name="twitter:description" content="In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some">
@@ -330,20 +330,27 @@
 
       
         <p>In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some core techniques as following.</p>
-<h1 id="Advanced-Transport"><a href="#Advanced-Transport" class="headerlink" title="Advanced Transport"></a>Advanced Transport</h1><pre><code>+ Dynamically Connected Transport: Dynamically Connected transport (DCT) service is an extension to transport services to enable a higher degree of scalability while maintaining high performance for sparse traffic. Utilization of DCT reduces the total number of QPs required system wide by having `Reliable type QPs` dynamically connect and disconnect from any remote node. DCT connections only stay connected while they are active. This results in smaller memory footprint, less overhead to set connections and higher on-chip cache utilization and hence increased performance. 
-</code></pre><h1 id="Optimized-Memory-Access"><a href="#Optimized-Memory-Access" class="headerlink" title="Optimized Memory Access"></a>Optimized Memory Access</h1><pre><code>+ Contiguous Pages: Contiguous Pages improves performance by allocating user memory regions over physical contiguous pages. It enables a user application to ask low level drivers to allocate contiguous memory for it as part of `ibv_reg_mr`. 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Possible Value1 | Description</div><div class="line">ANON | Use current pages ANON small ones.</div><div class="line">HUGE | Force huge pages.</div><div class="line">CONTIG | Force contiguous pages.</div><div class="line">PREFER_CONTIG | Try contiguous fallback to ANON small pages. (Default)</div><div class="line">PREFER_HUGE | Try huge fallback to ANON small pages.</div><div class="line">ALL | Try huge fallback to contiguous if failed fallback to ANON small pages.</div></pre></td></tr></table></figure>
+<h1 id="Advanced-Transport"><a href="#Advanced-Transport" class="headerlink" title="Advanced Transport"></a>Advanced Transport</h1><ul>
+<li>Dynamically Connected Transport: Dynamically Connected transport (DCT) service is an extension to transport services to enable a higher degree of scalability while maintaining high performance for sparse traffic. Utilization of DCT reduces the total number of QPs required system wide by having <code>Reliable type QPs</code> dynamically connect and disconnect from any remote node. DCT connections only stay connected while they are active. This results in smaller memory footprint, less overhead to set connections and higher on-chip cache utilization and hence increased performance. </li>
+</ul>
+<h1 id="Optimized-Memory-Access"><a href="#Optimized-Memory-Access" class="headerlink" title="Optimized Memory Access"></a>Optimized Memory Access</h1><ul>
+<li><p>Contiguous Pages: Contiguous Pages improves performance by allocating user memory regions over physical contiguous pages. It enables a user application to ask low level drivers to allocate contiguous memory for it as part of <code>ibv_reg_mr</code>. </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Possible Value1 | Description</div><div class="line">ANON | Use current pages ANON small ones.</div><div class="line">HUGE | Force huge pages.</div><div class="line">CONTIG | Force contiguous pages.</div><div class="line">PREFER_CONTIG | Try contiguous fallback to ANON small pages. (Default)</div><div class="line">PREFER_HUGE | Try huge fallback to ANON small pages.</div><div class="line">ALL | Try huge fallback to contiguous if failed fallback to ANON small pages.</div></pre></td></tr></table></figure>
+</li>
+<li><p>Memory Window: Memory Window allows the application to have a more flexible control over remote access to its memory. Memory Windows are intended for situations where the application wants to:</p>
+<ul>
+<li>grant and revoke remote access rights to a registered region in a dynamic fashion with less of a performance penalty</li>
+<li>grant different remote access rights to different remote agents and/or grant those rights over different ranges within registered region<!-- For further information, please refer to the InfiniBand --></li>
+</ul>
+</li>
+<li>Inline Receive: The inline Optimization is only available for RDMA_Send/RDMA_Write. When Inline-Receive is active, the HCA may write received data in to the receive WQE or CQE. Using Inline-Receive saves PCIe read transaction since the HCA does not need to read the scatter list, therefore it improves performance in case of short receive-messages. Usage: Inline-Receive on the requestor side is possible only if the user chooses <code>IB(V)_SIGNAL_ALL_WR</code>.</li>
+<li>ODP (On Demand Page): On-Demand-Paging (ODP) is a technique to alleviate much of the shortcomings of memory registration. Applications no longer need to pin down the underlying physical pages of the address space, and track the validity of the mappings. Rather, the HCA requests the latest translations from the OS when pages are not present, and the OS invalidates translations which are no longer valid due to either non-present pages or mapping changes. ODP does not support contiguous pages.<br>ODP can be further divided into 2 subclasses: Explicit and Implicit ODP.<ul>
+<li>Explicit ODP: In Explicit ODP, applications still register memory buffers for communication, but this operation is used to define access control for IO rather than pin-down the pages. ODP Memory Region (MR) does not need to have valid mappings at registration time.</li>
+<li>Implicit ODP: In Implicit ODP, applications are provided with a special memory key that represents their complete address space. This all IO accesses referencing this key (subject to the access rights associated with the key) does not need to register any virtual address range.</li>
+</ul>
+</li>
+</ul>
 
-+ Memory Window: Memory Window allows the application to have a more flexible control over remote access to its memory. Memory Windows are intended for situations where the application wants to:
-    - grant and revoke remote access rights to a registered region in a dynamic fashion with less of a performance penalty
-    - grant different remote access rights to different remote agents and/or grant those rights over different ranges within registered region
-</code></pre><!-- For further information, please refer to the InfiniBand -->
-<pre><code>+ Inline Receive: The inline Optimization is only available for RDMA_Send/RDMA_Write. When Inline-Receive is active, the HCA may write received data in to the receive WQE or CQE. Using Inline-Receive saves PCIe read transaction since the HCA does not need to read the scatter list, therefore it improves performance in case of short receive-messages. Usage: Inline-Receive on the requestor side is possible only if the user chooses `IB(V)_SIGNAL_ALL_WR`.
-+ ODP (On Demand Page): On-Demand-Paging (ODP) is a technique to alleviate much of the shortcomings of memory registration. Applications no longer need to pin down the underlying physical pages of the address space, and track the validity of the mappings. Rather, the HCA requests the latest translations from the OS when pages are not present, and the OS invalidates translations which are no longer valid due to either non-present pages or mapping changes. ODP does not support contiguous pages.
-ODP can be further divided into 2 subclasses: Explicit and Implicit ODP.
-    - Explicit ODP: In Explicit ODP, applications still register memory buffers for communication, but this operation is used to define access control for IO rather than pin-down the pages. ODP Memory Region (MR) does not need to have valid mappings at registration time.
-    - Implicit ODP: In Implicit ODP, applications are provided with a special memory key that represents their complete address space. This all IO accesses referencing this key (subject to the access rights associated with the key) does not need to register any virtual address range.
-</code></pre>
       
     </div>
 
