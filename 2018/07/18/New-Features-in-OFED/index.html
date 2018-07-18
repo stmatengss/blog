@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Perftool," />
+  <meta name="keywords" content="RDMA," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
-<meta name="keywords" content="Perftool">
+<meta name="description" content="In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some">
+<meta name="keywords" content="RDMA">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gprof, Valgrind, Gperf, etc">
-<meta property="og:url" content="http://yoursite.com/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/index.html">
+<meta property="og:title" content="New Features in OFED">
+<meta property="og:url" content="http://yoursite.com/blog/2018/07/18/New-Features-in-OFED/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
-<meta property="og:updated_time" content="2018-04-10T16:25:42.142Z">
+<meta property="og:description" content="In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some">
+<meta property="og:updated_time" content="2018-07-18T03:14:36.006Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gprof, Valgrind, Gperf, etc">
-<meta name="twitter:description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
+<meta name="twitter:title" content="New Features in OFED">
+<meta name="twitter:description" content="In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2018/07/18/New-Features-in-OFED/"/>
 
 
 
 
 
-  <title>Gprof, Valgrind, Gperf, etc | Teng's Blog</title>
+  <title>New Features in OFED | Teng's Blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/07/18/New-Features-in-OFED/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Gprof, Valgrind, Gperf, etc</h1>
+          <h1 class="post-title" itemprop="name headline">New Features in OFED</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-10T17:15:14+08:00">
-                2018-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-18T09:48:43+08:00">
+                2018-07-18
               </time>
             
 
@@ -329,25 +329,21 @@
       
 
       
-        <p>There are several analysis tools to measure our program and give suggestions to improve performance.<br>Now, we will introduce two common-used tools: gprof and valgrind</p>
-<ul>
-<li>Gprof<br>Gprof is a profiling program which collects and arranges statistics on your programs. It will insert codes to head and tail of each functions to collect running information by sampling some time points. When program running is end, it will create a file named <code>gmon.out</code>. And we can run profile tool to analysis occupied time of different functions.</li>
-</ul>
-<ol>
-<li>Add <code>-pg</code> to your compiling file (e.g. CMake or Makefile)</li>
-<li>Running your program <code>exe</code></li>
-<li>Typing <code>gprof exe</code> in the command<br>There is another easy-to-use tool <code>gprof2dot</code> to visualize your analytics results. You can use <code>gprof exe | gprof2dot | dot -Tpdf -o result.pdf</code> to generate a pdf file to display the results. <code>gprof2dot</code> is a python tool, and you can use <code>pip</code> to install it.</li>
-</ol>
-<ul>
-<li>Valgrind<br>Valgrind was originally designed to be a free memory debugging tool for Linux on x86, but has since evolved to become a generic framework for creating dynamic analysis tools such as checkers and profilers. Callgrind is a competent of valgrind for profiling CPU usage. With Callgrind, you can look up the running time of different functions. Similarly, another tool Kcachegrind is useful to provide a visual interface for beginner. Fortunately, you don’t need to add extra compiling flags, and you just need following three steps:</li>
-</ul>
-<ol>
-<li>Compile your project as usual</li>
-<li>Running callgrind with <code>valgrind --tool=callgrind ./cpuload</code></li>
-<li>kcachegrind profile.callgrind</li>
-</ol>
-<p>Using these out-of-box tools will benefit to hint us to optimize our codes well. Besides, other performance library like <code>libpapi</code> need us to insert codes to our program, and it’s not good for programmability. For me, I prefer to use these performance profile tools to detect my codes.</p>
+        <p>In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some core techniques as following.</p>
+<h1 id="Advanced-Transport"><a href="#Advanced-Transport" class="headerlink" title="Advanced Transport"></a>Advanced Transport</h1><pre><code>+ Dynamically Connected Transport: Dynamically Connected transport (DCT) service is an extension to transport services to enable a higher degree of scalability while maintaining high performance for sparse traffic. Utilization of DCT reduces the total number of QPs required system wide by having `Reliable type QPs` dynamically connect and disconnect from any remote node. DCT connections only stay connected while they are active. This results in smaller memory footprint, less overhead to set connections and higher on-chip cache utilization and hence increased performance. 
+</code></pre><h1 id="Optimized-Memory-Access"><a href="#Optimized-Memory-Access" class="headerlink" title="Optimized Memory Access"></a>Optimized Memory Access</h1><pre><code>+ Contiguous Pages: Contiguous Pages improves performance by allocating user memory regions over physical contiguous pages. It enables a user application to ask low level drivers to allocate contiguous memory for it as part of `ibv_reg_mr`. 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Possible Value1 | Description</div><div class="line">ANON | Use current pages ANON small ones.</div><div class="line">HUGE | Force huge pages.</div><div class="line">CONTIG | Force contiguous pages.</div><div class="line">PREFER_CONTIG | Try contiguous fallback to ANON small pages. (Default)</div><div class="line">PREFER_HUGE | Try huge fallback to ANON small pages.</div><div class="line">ALL | Try huge fallback to contiguous if failed fallback to ANON small pages.</div></pre></td></tr></table></figure>
 
++ Memory Window: Memory Window allows the application to have a more flexible control over remote access to its memory. Memory Windows are intended for situations where the application wants to:
+    - grant and revoke remote access rights to a registered region in a dynamic fashion with less of a performance penalty
+    - grant different remote access rights to different remote agents and/or grant those rights over different ranges within registered region
+</code></pre><!-- For further information, please refer to the InfiniBand -->
+<pre><code>+ Inline Receive: The inline Optimization is only available for RDMA_Send/RDMA_Write. When Inline-Receive is active, the HCA may write received data in to the receive WQE or CQE. Using Inline-Receive saves PCIe read transaction since the HCA does not need to read the scatter list, therefore it improves performance in case of short receive-messages. Usage: Inline-Receive on the requestor side is possible only if the user chooses `IB(V)_SIGNAL_ALL_WR`.
++ ODP (On Demand Page): On-Demand-Paging (ODP) is a technique to alleviate much of the shortcomings of memory registration. Applications no longer need to pin down the underlying physical pages of the address space, and track the validity of the mappings. Rather, the HCA requests the latest translations from the OS when pages are not present, and the OS invalidates translations which are no longer valid due to either non-present pages or mapping changes. ODP does not support contiguous pages.
+ODP can be further divided into 2 subclasses: Explicit and Implicit ODP.
+    - Explicit ODP: In Explicit ODP, applications still register memory buffers for communication, but this operation is used to define access control for IO rather than pin-down the pages. ODP Memory Region (MR) does not need to have valid mappings at registration time.
+    - Implicit ODP: In Implicit ODP, applications are provided with a special memory key that represents their complete address space. This all IO accesses referencing this key (subject to the access rights associated with the key) does not need to register any virtual address range.
+</code></pre>
       
     </div>
 
@@ -376,7 +372,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Perftool/" rel="tag"># Perftool</a>
+            <a href="/blog/tags/RDMA/" rel="tag"># RDMA</a>
           
         </div>
       
@@ -389,8 +385,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/04/10/What-s-a-good-paper/" rel="next" title="What's a good paper?">
-                <i class="fa fa-chevron-left"></i> What's a good paper?
+              <a href="/blog/2018/06/27/Hyper-s-Rules-for-parallelization/" rel="next" title="Hyper's Rules for Parallelization">
+                <i class="fa fa-chevron-left"></i> Hyper's Rules for Parallelization
               </a>
             
           </div>
@@ -398,10 +394,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/04/20/Survey-of-NVM-Allocator/" rel="prev" title="Survey of NVM Allocator">
-                Survey of NVM Allocator <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -448,8 +440,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -531,6 +532,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Advanced-Transport"><span class="nav-number">1.</span> <span class="nav-text">Advanced Transport</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optimized-Memory-Access"><span class="nav-number">2.</span> <span class="nav-text">Optimized Memory Access</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

@@ -265,6 +265,131 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/07/18/New-Features-in-OFED/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/07/18/New-Features-in-OFED/" itemprop="url">New Features in OFED</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-18T09:48:43+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some core techniques as following.</p>
+<h1 id="Advanced-Transport"><a href="#Advanced-Transport" class="headerlink" title="Advanced Transport"></a>Advanced Transport</h1><pre><code>+ Dynamically Connected Transport: Dynamically Connected transport (DCT) service is an extension to transport services to enable a higher degree of scalability while maintaining high performance for sparse traffic. Utilization of DCT reduces the total number of QPs required system wide by having `Reliable type QPs` dynamically connect and disconnect from any remote node. DCT connections only stay connected while they are active. This results in smaller memory footprint, less overhead to set connections and higher on-chip cache utilization and hence increased performance. 
+</code></pre><h1 id="Optimized-Memory-Access"><a href="#Optimized-Memory-Access" class="headerlink" title="Optimized Memory Access"></a>Optimized Memory Access</h1><pre><code>+ Contiguous Pages: Contiguous Pages improves performance by allocating user memory regions over physical contiguous pages. It enables a user application to ask low level drivers to allocate contiguous memory for it as part of `ibv_reg_mr`. 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Possible Value1 | Description</div><div class="line">ANON | Use current pages ANON small ones.</div><div class="line">HUGE | Force huge pages.</div><div class="line">CONTIG | Force contiguous pages.</div><div class="line">PREFER_CONTIG | Try contiguous fallback to ANON small pages. (Default)</div><div class="line">PREFER_HUGE | Try huge fallback to ANON small pages.</div><div class="line">ALL | Try huge fallback to contiguous if failed fallback to ANON small pages.</div></pre></td></tr></table></figure>
+
++ Memory Window: Memory Window allows the application to have a more flexible control over remote access to its memory. Memory Windows are intended for situations where the application wants to:
+    - grant and revoke remote access rights to a registered region in a dynamic fashion with less of a performance penalty
+    - grant different remote access rights to different remote agents and/or grant those rights over different ranges within registered region
+</code></pre><!-- For further information, please refer to the InfiniBand -->
+<pre><code>+ Inline Receive: The inline Optimization is only available for RDMA_Send/RDMA_Write. When Inline-Receive is active, the HCA may write received data in to the receive WQE or CQE. Using Inline-Receive saves PCIe read transaction since the HCA does not need to read the scatter list, therefore it improves performance in case of short receive-messages. Usage: Inline-Receive on the requestor side is possible only if the user chooses `IB(V)_SIGNAL_ALL_WR`.
++ ODP (On Demand Page): On-Demand-Paging (ODP) is a technique to alleviate much of the shortcomings of memory registration. Applications no longer need to pin down the underlying physical pages of the address space, and track the validity of the mappings. Rather, the HCA requests the latest translations from the OS when pages are not present, and the OS invalidates translations which are no longer valid due to either non-present pages or mapping changes. ODP does not support contiguous pages.
+ODP can be further divided into 2 subclasses: Explicit and Implicit ODP.
+    - Explicit ODP: In Explicit ODP, applications still register memory buffers for communication, but this operation is used to define access control for IO rather than pin-down the pages. ODP Memory Region (MR) does not need to have valid mappings at registration time.
+    - Implicit ODP: In Implicit ODP, applications are provided with a special memory key that represents their complete address space. This all IO accesses referencing this key (subject to the access rights associated with the key) does not need to register any virtual address range.
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/06/27/Hyper-s-Rules-for-parallelization/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1445,227 +1570,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/03/04/Academic-Writing-Tips/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/03/04/Academic-Writing-Tips/" itemprop="url">Academic Writing Tips</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-04T23:45:55+08:00">
-                2018-03-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li>Paper Roadmap<ul>
-<li>Problem -&gt; Ideas -&gt; Methods -&gt; Algorithm -&gt; Implementation -&gt; Experiments -&gt; Conclusion</li>
-</ul>
-</li>
-<li>Logic<ul>
-<li>Transfer words (link sentences)</li>
-<li>Connection between points and points</li>
-<li>Claim the whole section in the head</li>
-</ul>
-</li>
-<li>Writing Paradigm<ul>
-<li>Problem X is important (in theory or application)</li>
-<li>Work A, B, C… are state of the art method for X</li>
-<li>A, B, C… have weakness not solved</li>
-<li>Analyze the weakness and propose a new method D</li>
-<li>Experimentally compare D with A, B, C</li>
-<li>Why does D work? Why E, F, G do not work?</li>
-<li>Strngth and weakness of D</li>
-<li>Future work of D</li>
-</ul>
-</li>
-<li><p>Rejection. Why?</p>
-<ol>
-<li>Not enough <code>Innovation</code><ul>
-<li>Has done before</li>
-<li>Too straightforward/naive (Simple is good, but straightforward is bad)</li>
-<li>Limited modifications/improvement</li>
-<li>Intuitive technique, without serious theory proof</li>
-</ul>
-</li>
-<li><code>Experiments</code> cannot convice readers or need more experiments<ul>
-<li>Lack of comparsion (with state-of-art methods)</li>
-<li>Unfair comparsion</li>
-<li>Unbelievable Results</li>
-<li>The advancement is limited</li>
-</ul>
-</li>
-<li>Don’t claim a clear <code>Motivation</code><ul>
-<li>Which problem will be solved? And <code>why</code>?<ul>
-<li>ignored problems</li>
-<li>exsiting problems with not excellent solution</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><code>Discussion</code> or <code>Conclusion</code> is not rigorous<ul>
-<li>The discussion about previous works is not appropriate<ul>
-<li>One-sided</li>
-<li>Inaccurate about advantages/disadvantages</li>
-<li>Casual logic is unreasonable</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Others:<ul>
-<li>Architecture Chaos and lack of logic</li>
-<li>Lower level mistakes</li>
-<li>It’s hard for reader to understand / Don’t provide enough background</li>
-<li>Lack of Citations</li>
-<li>Have confictions with reviewers</li>
-</ul>
-</li>
-</ol>
-</li>
-<li><p>Fluent writing</p>
-<ul>
-<li>From lower level to higher level (You know your work well, but the readers not)</li>
-<li>From old to new information<ul>
-<li>Never introduce new concept at the beginning of a sentence</li>
-<li>Must explain the abbreviation before using it</li>
-</ul>
-</li>
-<li>Section/Paragraph<ul>
-<li>Abstract the contents before you want to introduce a new topic</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Abundant Figure and Table</p>
-<ul>
-<li>Figure<ul>
-<li>Self explaination</li>
-<li>Easy to understand</li>
-</ul>
-</li>
-<li>Table<ul>
-<li>Sorted!</li>
-<li>The important one must put into the header or tail</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Tips</p>
-<ol>
-<li>One paper, single central message/contribution</li>
-<li>Story must be Top-down</li>
-<li>Outlines -&gt; Section -&gt; Subsection -&gt; Paragraph</li>
-<li>First =&gt; Introduction + Related Works</li>
-<li>Last but most important=&gt;Conclusion + Abstract + Refine Title</li>
-<li>Figure =&gt; Almost the more the better</li>
-<li>TODO</li>
-</ol>
-</li>
-<li><p>Reference:</p>
-<ul>
-<li><a href="www.jdl.ac.cn/user/sgshan/PaperWriting.pdf">撰写学术论文的经验和教训</a></li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1715,7 +1619,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

@@ -265,6 +265,138 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/06/29/How-to-config-and-look-up-your-RDMA-deivce/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2017/06/29/How-to-config-and-look-up-your-RDMA-deivce/" itemprop="url">How to config and look up your RDMA deivce</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-06-29T21:01:47+08:00">
+                2017-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>RDMA technology is built upon Infiniband NIC, and OFED package is the basic software stack for RDMA. I will show some methods to look up and test your Infiniband NIC and make sure your RDMA  library works well.</p>
+<ol>
+<li><p>Using <code>lspci</code> to look up your IB’s Firmware version.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">lspci | grep Mellanox</div></pre></td></tr></table></figure>
+</li>
+<li><p>Start your opensm service (a service for running RDMA).</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/etc/init.d/opensmd start[restart...]</div></pre></td></tr></table></figure>
+</li>
+<li><p>Get information of the whole Infiniband network.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ibhosts</div><div class="line">iblinkinfo</div><div class="line">ibswitches</div></pre></td></tr></table></figure>
+</li>
+<li><p>A useful tools works to check whether your IB’s status.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ibstat</div><div class="line">ibstatus</div><div class="line">ib_devinfo</div><div class="line">ib_device</div><div class="line">ifconfig ibx</div><div class="line">cat /sys/class/infiniband/mlx4_0/*</div></pre></td></tr></table></figure>
+</li>
+<li><p>Tools to benchmark the Throughput(Mpps)/Latency(us)/Bandwidth(Gb) of RNIC.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ib_[read|write|atomic|send]_[bw|lat]</div></pre></td></tr></table></figure>
+</li>
+<li><p>pingpong test</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ib_[rc|uc|srq|task|ud|xsrq|cc]_pingpong</div></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/06/26/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -417,7 +549,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">32</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
