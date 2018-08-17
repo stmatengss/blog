@@ -265,6 +265,266 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Survey-of-Distributed-Resource-Management/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/17/Survey-of-Distributed-Resource-Management/" itemprop="url">Survey of Distributed Resource Management</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:37:14+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Start-Stream-Join-from-SoccerJoin-to-SplitJoin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/17/Start-Stream-Join-from-SoccerJoin-to-SplitJoin/" itemprop="url">Start Stream Join from SoccerJoin to SplitJoin</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:34:14+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li><p>Stream Join: Dealing with unbounded, “infinity”, input. The output must be produced in real time.</p>
+<ul>
+<li>time-base (a expired time for tuples) v.s. count-based (fixed number of tuples)</li>
+<li>meeting multi-core =&gt; parallel<br><img src="images/join.png" alt="figure"></li>
+</ul>
+</li>
+<li><p>Kang’s three steps join algorithm (assuming tuple r arrives from input stream R):</p>
+<ol>
+<li>Scan stream S’s window to find tuple matching r.</li>
+<li>Insert new tuple r into window for stream R.</li>
+<li>Invalidate all expired tuples in stream R’s window.</li>
+</ol>
+</li>
+<li><p>Stream Join RoadMap</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Kang&apos;s algorithm (Naive) =&gt; Cell Join =&gt; Soccer (HandShake) Join =&gt; Low Latency HandShake Join =&gt; Split Join</div></pre></td></tr></table></figure>
+</li>
+<li><p>Handshake Join</p>
+<ul>
+<li>Apply classical three-step procedure in small window.</li>
+<li>Point-to-point links between processing core.</li>
+<li>Missed-join pair problem =&gt; Two-phase forwarding (asymmetric core synchronization protocol): Whenever the right core <code>C_right</code> places a tuple <code>s</code> into its left send queue, it still keep a copy of <code>s</code> in the local window but marked it as <code>forward</code>. The forwarded tuple remains available for joining on <code>C_right</code> until the second phase of tuple forwarding, which is initiated by an <code>ack</code> message from <code>C_left</code></li>
+<li>Autonomic load balancing =&gt; <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> R-window is larger than that of our right neighbor</div><div class="line">   place oldest ri into rightSendQueue ;</div><div class="line">   mark ri as forwarded ;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="images/handshake.png" alt="figure"><br><img src="images/handshake2.png" alt="figure"></p>
+</li>
+<li><p>Low latency handshake join</p>
+<ul>
+<li>observation: higher latency due to that tuples may have to queue for longer periods of time before they encounter matching partners.</li>
+</ul>
+</li>
+<li><p>Split Join</p>
+<ul>
+<li>Different work-flow:<br><img src="images/dataflow.png" alt="figure"></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/07/18/New-Features-in-OFED/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -590,38 +850,24 @@
       
         
           
-            <h1 id="A-tour-of-Join"><a href="#A-tour-of-Join" class="headerlink" title="A tour of Join"></a>A tour of Join</h1><p>Join is a popular operation among Database Systems. A standard join concept is to combine multiple columns from one or more tables in relational database. ANSI-standard SQL specifies five types of JOIN: INNER, LEFT OUTER, RIGHT OUTER, FULL OUTER and CROSS. The join operation will produce a temporary table which containing the results meeting the conditions. In the followings, we will first introduce different join operation types. We assume that have two tables named <code>R</code> and <code>S</code>.</p>
-<ol>
-<li>CROSS JOIN: CROSS JOIN can be seen as the Cartesian products of two tables. The sum of items is <code>|R| * |S|</code>.</li>
-<li><p>Equi-join &amp; Natural Join: Natural Join is a special case of Equi-join. We can write as this via SQL sentences:</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT *</div><div class="line">FROM employee JOIN department</div><div class="line">  ON employee.DepartmentID = department.DepartmentID;</div></pre></td></tr></table></figure>
-<ul>
-<li>We need to use several comparators (one in mostly cases) to make the choosing rules. Natural Join uses equality comparisons between <code>R</code> and <code>S</code>.</li>
-</ul>
-</li>
-<li>Outer Join: Outer Join includes left outer joins, right outer joins, and full outer joins (depending on which table’s rows are retained (left, right, or both)).</li>
-<li>Self Join: A table join with itself.</li>
-</ol>
+            <h1 id="A-tour-of-Join"><a href="#A-tour-of-Join" class="headerlink" title="A tour of Join"></a>A tour of Join</h1><p>Join is a popular operation among Database Systems- A standard join concept is to combine multiple columns from one or more tables in relational database- ANSI-standard SQL specifies five types of JOIN: INNER, LEFT OUTER, RIGHT OUTER, FULL OUTER and CROSS- The join operation will produce a temporary table which containing the results meeting the conditions- In the followings, we will first introduce different join operation types- We assume that have two tables named <code>R</code> and <code>S</code>-</p>
+<p>1- CROSS JOIN: CROSS JOIN can be seen as the Cartesian products of two tables- The sum of items is <code>|R| * |S|</code>-<br>2- Equi-join &amp; Natural Join: Natural Join is a special case of Equi-join- We can write as this via SQL sentences:<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT *</div><div class="line">FROM employee JOIN department</div><div class="line">  ON employee-DepartmentID = department-DepartmentID;</div></pre></td></tr></table></figure></p>
+<pre><code>- We need to use several comparators (one in mostly cases) to make the choosing rules- Natural Join uses equality comparisons between `R` and `S`-
+</code></pre><p>3- Outer Join: Outer Join includes left outer joins, right outer joins, and full outer joins (depending on which table’s rows are retained (left, right, or both))-<br>4- Self Join: A table join with itself-</p>
 <h1 id="Join-Algorithms"><a href="#Join-Algorithms" class="headerlink" title="Join Algorithms"></a>Join Algorithms</h1><p>We can divide join algorithms to three main types: loop join, sort merge join and hash join</p>
-<ol>
-<li><p>Nested loop join: The most naive one with a <code>O(n^2)</code> complexity (like a Bruce-force algorithm).</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For each tuple r in R do</div><div class="line">  For each tuple s in S do</div><div class="line">    If r and s satisfy the join condition</div><div class="line">       Then output the tuple &lt;r,s&gt;</div></pre></td></tr></table></figure>
-</li>
-<li><p>Block-nested loop (BNL) &amp; Hash Join: Load <code>R</code> to memory as a hash table, and scan <code>S</code></p>
+<p>1- Nested loop join: The most naive one with a <code>O(n^2)</code> complexity (like a Bruce-force algorithm)-<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For each tuple r in R do</div><div class="line">  For each tuple s in S do</div><div class="line">    If r and s satisfy the join condition</div><div class="line">       Then output the tuple &lt;r,s&gt;</div></pre></td></tr></table></figure></p>
+<p>2- Block-nested loop (BNL) &amp; Hash Join: Load <code>R</code> to memory as a hash table, and scan <code>S</code></p>
 <ul>
 <li>Raw hash join</li>
 <li>Radix join<ul>
 <li>Radix Partition: Translation look-aside buffers (TLBs) =&gt; multi-pass radix partitioning join<pre><code>Foreach input tuple t do
- k = hash(t)
- p[k][pos[k]] = t
- pos[k] ++
+  k = hash(t)
+  p[k][pos[k]] = t
+  pos[k] ++
 </code></pre></li>
 </ul>
 </li>
-<li>No-partition hash join: All worker threads populate a shared hash table with all tuples of R.</li>
-</ul>
-</li>
-<li>Sort merge join: Sort <code>R</code> and <code>S</code> by a same order, and then use two-points algorithm to distinct and produce the results.<ul>
+<li>No-partition hash join: All worker threads populate a shared hash table with all tuples of R-<br>3- Sort merge join: Sort <code>R</code> and <code>S</code> by a same order, and then use two-points algorithm to distinct and produce the results-</li>
 <li>Raw sort merge join<ul>
 <li>Multi-way method</li>
 <li>Multi-pass method</li>
@@ -629,9 +875,7 @@
 </li>
 <li>Massive parallel sort merge join (MPSM)</li>
 </ul>
-</li>
-</ol>
-<h1 id="Sort-vs-Hash"><a href="#Sort-vs-Hash" class="headerlink" title="Sort vs. Hash"></a>Sort vs. Hash</h1><h1 id="Distributed-Hash-Join"><a href="#Distributed-Hash-Join" class="headerlink" title="Distributed Hash Join"></a>Distributed Hash Join</h1>
+<h1 id="Sort-vs-Hash"><a href="#Sort-vs-Hash" class="headerlink" title="Sort vs- Hash"></a>Sort vs- Hash</h1><h1 id="Distributed-Hash-Join"><a href="#Distributed-Hash-Join" class="headerlink" title="Distributed Hash Join"></a>Distributed Hash Join</h1>
           
         
       
@@ -1293,256 +1537,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="/images/nvm_allocator.png" alt="Comparsion"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/" itemprop="url">Gprof, Valgrind, Gperf, etc</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-10T17:15:14+08:00">
-                2018-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>There are several analysis tools to measure our program and give suggestions to improve performance.<br>Now, we will introduce two common-used tools: gprof and valgrind</p>
-<ul>
-<li>Gprof<br>Gprof is a profiling program which collects and arranges statistics on your programs. It will insert codes to head and tail of each functions to collect running information by sampling some time points. When program running is end, it will create a file named <code>gmon.out</code>. And we can run profile tool to analysis occupied time of different functions.</li>
-</ul>
-<ol>
-<li>Add <code>-pg</code> to your compiling file (e.g. CMake or Makefile)</li>
-<li>Running your program <code>exe</code></li>
-<li>Typing <code>gprof exe</code> in the command<br>There is another easy-to-use tool <code>gprof2dot</code> to visualize your analytics results. You can use <code>gprof exe | gprof2dot | dot -Tpdf -o result.pdf</code> to generate a pdf file to display the results. <code>gprof2dot</code> is a python tool, and you can use <code>pip</code> to install it.</li>
-</ol>
-<ul>
-<li>Valgrind<br>Valgrind was originally designed to be a free memory debugging tool for Linux on x86, but has since evolved to become a generic framework for creating dynamic analysis tools such as checkers and profilers. Callgrind is a competent of valgrind for profiling CPU usage. With Callgrind, you can look up the running time of different functions. Similarly, another tool Kcachegrind is useful to provide a visual interface for beginner. Fortunately, you don’t need to add extra compiling flags, and you just need following three steps:</li>
-</ul>
-<ol>
-<li>Compile your project as usual</li>
-<li>Running callgrind with <code>valgrind --tool=callgrind ./cpuload</code></li>
-<li>kcachegrind profile.callgrind</li>
-</ol>
-<p>Using these out-of-box tools will benefit to hint us to optimize our codes well. Besides, other performance library like <code>libpapi</code> need us to insert codes to our program, and it’s not good for programmability. For me, I prefer to use these performance profile tools to detect my codes.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/10/What-s-a-good-paper/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/04/10/What-s-a-good-paper/" itemprop="url">What's a good paper?</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-10T15:36:47+08:00">
-                2018-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>A good paper will:</p>
-<ul>
-<li>Motivate a significant problem</li>
-<li>Propose an interesting, compelling solution</li>
-<li>Demonstrate the practicality and benefits of the solution</li>
-<li>Draw appropriate conclusions</li>
-<li>Clearly describe the paper’s contributions</li>
-<li>Clearly articulate the advances beyond previous work</li>
-</ul>
+<p><img src="images/nvm_allocator.png" alt="Comparsion"></p>
 
           
         
@@ -1626,7 +1621,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-count">34</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1639,7 +1634,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
