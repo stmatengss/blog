@@ -444,52 +444,72 @@
       
         
           
-            <ul>
-<li><p>Stream Join: Dealing with unbounded, “infinity”, input. The output must be produced in real time.</p>
-<ul>
+            <h1 id="Stream-Join"><a href="#Stream-Join" class="headerlink" title="Stream Join"></a>Stream Join</h1><ul>
+<li>Dealing with unbounded, “infinity”, input. The output must be produced in real time.</li>
 <li>time-base (a expired time for tuples) v.s. count-based (fixed number of tuples)</li>
 <li>meeting multi-core =&gt; parallel<br><img src="images/join.png" alt="figure"></li>
 </ul>
-</li>
-<li><p>Kang’s three steps join algorithm (assuming tuple r arrives from input stream R):</p>
+<h1 id="Kang’s-three-steps-join-algorithm"><a href="#Kang’s-three-steps-join-algorithm" class="headerlink" title="Kang’s three steps join algorithm"></a>Kang’s three steps join algorithm</h1><ul>
+<li>assuming tuple r arrives from input stream R:</li>
+</ul>
 <ol>
 <li>Scan stream S’s window to find tuple matching r.</li>
 <li>Insert new tuple r into window for stream R.</li>
 <li>Invalidate all expired tuples in stream R’s window.</li>
 </ol>
-</li>
-<li><p>Stream Join RoadMap</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Kang&apos;s algorithm (Naive) =&gt; Cell Join =&gt; Soccer (HandShake) Join =&gt; Low Latency HandShake Join =&gt; Split Join</div></pre></td></tr></table></figure>
-</li>
-<li><p>Cell Join</p>
-<ul>
+<h1 id="Stream-Join-RoadMap"><a href="#Stream-Join-RoadMap" class="headerlink" title="Stream Join RoadMap"></a>Stream Join RoadMap</h1> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   Kang&apos;s algorithm (Naive) </div><div class="line">=&gt; Cell Join </div><div class="line">=&gt; Soccer (HandShake) Join </div><div class="line">=&gt; Low Latency HandShake Join </div><div class="line">=&gt; Split Join</div></pre></td></tr></table></figure>
+<h1 id="Cell-Join"><a href="#Cell-Join" class="headerlink" title="Cell Join"></a>Cell Join</h1><ul>
 <li>For heterogeneous architecture</li>
 </ul>
-</li>
-<li><p>Handshake Join</p>
-<ul>
+<h1 id="Handshake-Join"><a href="#Handshake-Join" class="headerlink" title="Handshake Join"></a>Handshake Join</h1><ul>
 <li>Apply classical three-step procedure in small window.</li>
 <li>Point-to-point links between processing core.</li>
 <li>Missed-join pair problem =&gt; Two-phase forwarding (asymmetric core synchronization protocol): Whenever the right core <code>C_right</code> places a tuple <code>s</code> into its left send queue, it still keep a copy of <code>s</code> in the local window but marked it as <code>forward</code>. The forwarded tuple remains available for joining on <code>C_right</code> until the second phase of tuple forwarding, which is initiated by an <code>ack</code> message from <code>C_left</code></li>
-<li>Autonomic load balancing =&gt; <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> R-window is larger than that of our right neighbor</div><div class="line">   place oldest ri into rightSendQueue ;</div><div class="line">   mark ri as forwarded ;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<li><p>Autonomic load balancing =&gt; </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> R-window is larger than that of our right neighbor</div><div class="line">   place oldest ri into rightSendQueue ;</div><div class="line">   mark ri as forwarded ;</div></pre></td></tr></table></figure>
 <p><img src="images/handshake.png" alt="figure"><br><img src="images/handshake2.png" alt="figure"></p>
 </li>
-<li><p>Low latency handshake join</p>
-<ul>
+</ul>
+<h1 id="Low-latency-handshake-join"><a href="#Low-latency-handshake-join" class="headerlink" title="Low latency handshake join"></a>Low latency handshake join</h1><ul>
 <li>observation: higher latency due to that tuples may have to queue for longer periods of time before they encounter matching partners.</li>
 </ul>
-</li>
-<li><p>Split Join</p>
-<ul>
+<h1 id="Split-Join"><a href="#Split-Join" class="headerlink" title="Split Join"></a>Split Join</h1><ul>
 <li>Different work-flow: Top-down data flow<br><img src="images/dataflow.png" alt="figure"></li>
 <li>Don’t need to rely on central coordinator</li>
-<li>A distributed network, a set of independent join cores, a result gathering network</li>
-<li>RAP (relaxed adjustable punctuation)</li>
+<li>A distributed network (Distributor), a set of independent join cores (JoinCore/JC), a result gathering network (Combiner/Merger)</li>
+<li>Overall:<br><img src="images/splitjoin_overall.png" alt="figure"></li>
+</ul>
+<ol>
+<li>Distributed Tree: K-ary Tree</li>
+<li>Parallelism: Sub-window<ul>
+<li>Join core: left-region -&gt; storing Tuple <code>r</code> in sliding window; right-region -&gt; processing of the replicated copy of Tuple <code>r</code></li>
+<li>Case: A new coming Tuple <code>r</code>, compare <code>r</code> with all the tuples in the <code>S</code> stream sub-windows. Then, assigning <code>r</code> to a storage based on a <code>round-robin</code> selection.</li>
 </ul>
 </li>
+<li><p>Expired Policy:</p>
+<ul>
+<li><p>Time-based: a lifespan <code>l</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Expiration Process(t, sub-window X) begin</div><div class="line">  i = the end of sub-window X;</div><div class="line">      while ti.timestamp - t.timestamp &gt; Time Window Size do</div><div class="line">          omit ti from sub-window X;</div><div class="line">          i = i−1;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Count-based: every sub-window is fixed size</p>
+</li>
 </ul>
+</li>
+<li><p>Particular join algorithm:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Processing Core(t, sub-window X) begin</div><div class="line">    forall ti-tuple in sub-window X do</div><div class="line">        compare ti-tuple with t; if match then</div><div class="line">            emit the matched result;</div><div class="line">        if i = 0 (mod ordering precision) then</div><div class="line">            emit punctuation star;</div></pre></td></tr></table></figure>
+</li>
+<li><p>RAP (relaxed adjustable punctuation) strategy</p>
+<ul>
+<li>Punctuation-based ordering</li>
+<li>outer ordering (strict/relax)</li>
+<li>inner ordering (the result of a new inserted tuple was in time order)</li>
+<li>Employing a combiner rather than a merger</li>
+<li>Tuning to produce a punctuation after joining one newly inserted tuple (strict outer ordering) or after <code>N</code> tuples (relax outer ordering)</li>
+<li>Data-flow when merging<br><img src="images/punctation.png" alt="figure"><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">N-ary Merger(t) begin</div><div class="line">    foreach right(or left)-region of core1..N in sequence do</div><div class="line">        while a resulting tuple (t) is available in output buffer till the first star do</div><div class="line">            pop t from join core’s output buffer;</div><div class="line">            push t to Merger’s output buffer;</div><div class="line">    push out the end of result star;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ol>
 
           
         
