@@ -461,6 +461,11 @@
 <li><p>Stream Join RoadMap</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Kang&apos;s algorithm (Naive) =&gt; Cell Join =&gt; Soccer (HandShake) Join =&gt; Low Latency HandShake Join =&gt; Split Join</div></pre></td></tr></table></figure>
 </li>
+<li><p>Cell Join</p>
+<ul>
+<li>For heterogeneous architecture</li>
+</ul>
+</li>
 <li><p>Handshake Join</p>
 <ul>
 <li>Apply classical three-step procedure in small window.</li>
@@ -478,7 +483,10 @@
 </li>
 <li><p>Split Join</p>
 <ul>
-<li>Different work-flow:<br><img src="images/dataflow.png" alt="figure"></li>
+<li>Different work-flow: Top-down data flow<br><img src="images/dataflow.png" alt="figure"></li>
+<li>Don’t need to rely on central coordinator</li>
+<li>A distributed network, a set of independent join cores, a result gathering network</li>
+<li>RAP (relaxed adjustable punctuation)</li>
 </ul>
 </li>
 </ul>
