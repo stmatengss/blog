@@ -333,7 +333,11 @@
       
         
           
-            
+            <h1 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h1><p>Recently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel <code>RSD</code> and and HP <code>the machine</code> will soon be available as real world DC resolutions. Some researches like Lego, infiniswap aim to find out the correct deployment guidelines and how to optimize disaggregation architecture. Disaggregation architecture divide machines into working one and resource one (blade server). This deployment make full use of decoupling and hence gain a higher resource utilization and release the working machine from heavy tasks of resource management.<br>However, similar as a standalone architecture, disaggregation architecture also has a need of resource management. Moreover, in a distributed environment, keeping allocation status consistency and persistence will be harder, as well as bringing a huge overhead in network.<br>The simplest design is using RPC to finish a allocation/release request of resource and naturally, also leading to a poor performance due to the frequently network communication.</p>
+<h1 id="Related-works"><a href="#Related-works" class="headerlink" title="Related works"></a>Related works</h1><!-- Lego (OSDI' 18) provides a two-level resource management mechanism. In Lego, it adopts a tw -->
+<p>Infiniswap (NSDI’ 17) exposes block device IO interface to VMM (virtual memory management). It divides entire address space to many slabs. Every slab is fixed size. Slabs from the same device can be mapped to multiple remote machines’ memory for performance and load balance.<br>The INFINISWAP daemon runs in the user space and only participates in control plane activities. Specifically, it responds to slab-mapping requests from INFINISWAP block devices, preallocates its local memory when possible to minimize time overheads in slab-mapping initialization, and proactively evicts slabs, when necessary, to ensure minimal impact on local applications. All control plane communications take place using RDMA SEND/RECV.<br>Lego (OSDI’ 18) seems to adopt a two-level resource management mechanism. The disaggregation back-end provides coarse grained management and front-end server is responsible for fine grained allocation.</p>
+<h1 id="Trade-off"><a href="#Trade-off" class="headerlink" title="Trade-off"></a>Trade-off</h1><p>In a common sense, above two methods only fit infrequent allocation scenario, especially the resource is block device. When the disaggregation resource is byte-addressable memory or non-volatile memory, the frequent allocation/release is unavoidable and hence let allocation become a performance bottleneck.</p>
+
           
         
       
@@ -1662,7 +1666,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="System,Allocation,Disaggregation," />
 
 
 
@@ -93,16 +93,17 @@
 
 
 
-<meta name="description" content="...">
+<meta name="description" content="ForewordRecently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel RSD and and HP the machine will soon be available as re">
+<meta name="keywords" content="System,Allocation,Disaggregation">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Survey of Distributed Resource Management">
 <meta property="og:url" content="http://yoursite.com/blog/2018/08/17/Survey-of-Distributed-Resource-Management/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
-<meta property="og:updated_time" content="2018-08-16T16:37:14.621Z">
+<meta property="og:description" content="ForewordRecently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel RSD and and HP the machine will soon be available as re">
+<meta property="og:updated_time" content="2018-08-24T15:56:56.381Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Survey of Distributed Resource Management">
-<meta name="twitter:description" content="...">
+<meta name="twitter:description" content="ForewordRecently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel RSD and and HP the machine will soon be available as re">
 
 
 
@@ -328,7 +329,11 @@
       
 
       
-        
+        <h1 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h1><p>Recently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel <code>RSD</code> and and HP <code>the machine</code> will soon be available as real world DC resolutions. Some researches like Lego, infiniswap aim to find out the correct deployment guidelines and how to optimize disaggregation architecture. Disaggregation architecture divide machines into working one and resource one (blade server). This deployment make full use of decoupling and hence gain a higher resource utilization and release the working machine from heavy tasks of resource management.<br>However, similar as a standalone architecture, disaggregation architecture also has a need of resource management. Moreover, in a distributed environment, keeping allocation status consistency and persistence will be harder, as well as bringing a huge overhead in network.<br>The simplest design is using RPC to finish a allocation/release request of resource and naturally, also leading to a poor performance due to the frequently network communication.</p>
+<h1 id="Related-works"><a href="#Related-works" class="headerlink" title="Related works"></a>Related works</h1><!-- Lego (OSDI' 18) provides a two-level resource management mechanism. In Lego, it adopts a tw -->
+<p>Infiniswap (NSDI’ 17) exposes block device IO interface to VMM (virtual memory management). It divides entire address space to many slabs. Every slab is fixed size. Slabs from the same device can be mapped to multiple remote machines’ memory for performance and load balance.<br>The INFINISWAP daemon runs in the user space and only participates in control plane activities. Specifically, it responds to slab-mapping requests from INFINISWAP block devices, preallocates its local memory when possible to minimize time overheads in slab-mapping initialization, and proactively evicts slabs, when necessary, to ensure minimal impact on local applications. All control plane communications take place using RDMA SEND/RECV.<br>Lego (OSDI’ 18) seems to adopt a two-level resource management mechanism. The disaggregation back-end provides coarse grained management and front-end server is responsible for fine grained allocation.</p>
+<h1 id="Trade-off"><a href="#Trade-off" class="headerlink" title="Trade-off"></a>Trade-off</h1><p>In a common sense, above two methods only fit infrequent allocation scenario, especially the resource is block device. When the disaggregation resource is byte-addressable memory or non-volatile memory, the frequent allocation/release is unavoidable and hence let allocation become a performance bottleneck.</p>
+
       
     </div>
 
@@ -354,6 +359,16 @@
     </div>
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/System/" rel="tag"># System</a>
+          
+            <a href="/blog/tags/Allocation/" rel="tag"># Allocation</a>
+          
+            <a href="/blog/tags/Disaggregation/" rel="tag"># Disaggregation</a>
+          
+        </div>
       
 
       
@@ -419,8 +434,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -448,7 +472,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-count">26</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -502,6 +526,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Foreword"><span class="nav-number">1.</span> <span class="nav-text">Foreword</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Related-works"><span class="nav-number">2.</span> <span class="nav-text">Related works</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Trade-off"><span class="nav-number">3.</span> <span class="nav-text">Trade-off</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
