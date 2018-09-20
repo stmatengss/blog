@@ -265,6 +265,117 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory/" itemprop="url">How to Build a Non-Volatile Memory</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-05T11:12:43+08:00">
+                2017-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/09/27/A-Try-about-Profiling-Jemalloc-Code/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1659,181 +1770,6 @@ VHeader. &lt;--|--&gt;  Header --&gt; Block
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/14/Paper-Reading-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2017/08/14/Paper-Reading-1/" itemprop="url">Paper Reading (1)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-14T14:12:12+08:00">
-                2017-08-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="HiKV"><a href="#HiKV" class="headerlink" title="HiKV"></a>HiKV</h1><ul>
-<li>A persistent key-value store, constructing a hybrid index in hybrid memory<ol>
-<li>well-performed scalability </li>
-<li>crash consistency guaranteeing</li>
-</ol>
-</li>
-<li>Hybrid memory (DRAM and NVM) systems are byte-addressable – providing similar performance for sequential and random access</li>
-<li>Issue: <ol>
-<li>Either hash-index or B+Tree cannot efficiently support all (Put/Get/Update/Delete/Scan) operation.</li>
-<li>Scan operation becomes important, scan operation is slow in Hash index (without sorted) </li>
-</ol>
-</li>
-<li>Features:<ol>
-<li>A hybrid index consisting of a hash index<br>in NVM and a B+-Tree index in DRAM which supports rich KV operation</li>
-<li>Concurrency schemes =&gt; high scalability</li>
-<li>Ordered-write consistency + specific hash design =&gt; atomic write =&gt; crash consistency with reduced NVM write</li>
-</ol>
-</li>
-<li>Operation procedure:<ol>
-<li>writing KV items to NVM</li>
-<li>writing newly-added index entry to hash index(NVM)</li>
-<li>insert Put request to updating queue in memory</li>
-<li>back-end thread gets the request and operates the B+tree in background</li>
-</ol>
-</li>
-</ul>
-<h1 id="RAIAD"><a href="#RAIAD" class="headerlink" title="RAIAD"></a>RAIAD</h1><ul>
-<li>persistent single machine</li>
-<li>based on Log-Structured Merge(LSM Tree)</li>
-<li>Three Components: Memory(C) / Disk(L) / Commit Log(CL)</li>
-<li>Three motivations:<ol>
-<li>Data skew unawareness</li>
-<li>Premature and iterative compaction, data skew increases the probability that multi L file has the same key</li>
-<li>Duplicate writes: CL =&gt; L + C =&gt; L</li>
-</ol>
-</li>
-<li>Two operations:<ol>
-<li>Flushing, when C or CL is full</li>
-<li>Compaction, Merge files(SStables) in background, overlapping key ranges </li>
-</ol>
-</li>
-<li>Fit with different workloads<ol>
-<li>Skewed =&gt; Triad-Mem =&gt; Flushing and Compaction</li>
-<li>In-Between =&gt; Triad-Disk =&gt; Compaction</li>
-<li>Uniform =&gt; Triad-Log =&gt; Flushing</li>
-</ol>
-</li>
-<li>optimization techs<ol>
-<li>Keep hot keys in memory / Flush only cold keys / Keep hot keys in Commit Log (hots =&gt; Duplicate keys)</li>
-<li>Defer file compaction until the overlap between files becomes large enough, merge lots of duplicate keys</li>
-<li>Convert CL to a special L0 SSTable(CL-SSTable). Avoid flushing the memory together, play in LSMs and using them in a manner similar to SSTables.</li>
-</ol>
-</li>
-</ul>
-<h1 id="Soft-Updates-Made-Simple-and-Fast-on-Non-volatile-Memory"><a href="#Soft-Updates-Made-Simple-and-Fast-on-Non-volatile-Memory" class="headerlink" title="Soft Updates Made Simple and Fast on Non-volatile Memory"></a>Soft Updates Made Simple and Fast on Non-volatile Memory</h1><h1 id="NV-Tree-Reducing-Consistency-Cost-for-NVM-based-Single-Level-Systems"><a href="#NV-Tree-Reducing-Consistency-Cost-for-NVM-based-Single-Level-Systems" class="headerlink" title="NV-Tree: Reducing Consistency Cost for NVM-based Single Level Systems"></a>NV-Tree: Reducing Consistency Cost for NVM-based Single Level Systems</h1><h1 id="Octopus"><a href="#Octopus" class="headerlink" title="Octopus"></a>Octopus</h1><ul>
-<li>Design<ol>
-<li>Shared persistent memory pool =&gt; reduce data copy</li>
-<li>self-identified meta-data RPC =&gt; reduce response latency</li>
-<li>Client-active data I/O =&gt; rebalance CPU/network overhead</li>
-<li>Collect-dispatch transaction efficient CC (RDMA CAS lock)</li>
-</ol>
-</li>
-</ul>
-<h1 id="REWIND-Recovery-Write-Ahead-System-for-In-Memory-Non"><a href="#REWIND-Recovery-Write-Ahead-System-for-In-Memory-Non" class="headerlink" title="REWIND: Recovery Write-Ahead System for In-Memory Non-"></a>REWIND: Recovery Write-Ahead System for In-Memory Non-</h1><p>Volatile Data-Structures</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1883,7 +1819,7 @@ VHeader. &lt;--|--&gt;  Header --&gt; Block
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1896,7 +1832,7 @@ VHeader. &lt;--|--&gt;  Header --&gt; Block
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">27</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
