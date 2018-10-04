@@ -265,6 +265,151 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/" itemprop="url">CMU 15-645 Concurrency Control summary</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:08:10+08:00">
+                2018-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Before-reading-this-article-you-should-know"><a href="#Before-reading-this-article-you-should-know" class="headerlink" title="Before reading this article, you should know:"></a>Before reading this article, you should know:</h1><ul>
+<li>Transaction: a sequence of read and write operations<ul>
+<li>processing: BEGIN -&gt; (executing) -&gt; COMMIT/ABORT</li>
+<li>ACID</li>
+</ul>
+<ul>
+<li>Atomicity: All-or-nothing</li>
+<li>Consistent: It looks correct to me </li>
+<li>Isolation: every TX is isolated from others (as if alone)</li>
+<li>Durability: store in non-volatile devices (survive failures)</li>
+</ul>
+</li>
+</ul>
+<h1 id="How-to-make-sure-transaction-is-atomic"><a href="#How-to-make-sure-transaction-is-atomic" class="headerlink" title="How to make sure transaction is atomic"></a>How to make sure transaction is atomic</h1><ul>
+<li>Approach 1: Logging</li>
+<li>Approach 2: Shadow Paging</li>
+</ul>
+<h1 id="The-essential-of-concurrency-control"><a href="#The-essential-of-concurrency-control" class="headerlink" title="The essential of concurrency control"></a>The essential of concurrency control</h1><ul>
+<li>Serial Schedule</li>
+</ul>
+<h1 id="The-definition-of-conflict"><a href="#The-definition-of-conflict" class="headerlink" title="The definition of conflict"></a>The definition of conflict</h1><ul>
+<li>They are by different transactions</li>
+<li>They are on the same object and at least one of them is a write</li>
+<li>RW/WR/WW conflict:<ul>
+<li>Unrepeatable reads</li>
+<li>Reading uncommitted data (a.k.a., Dirty Reads)</li>
+<li>Overwriting committed data</li>
+</ul>
+</li>
+</ul>
+<h1 id="Dependency-Graphs-Precedence-Graph"><a href="#Dependency-Graphs-Precedence-Graph" class="headerlink" title="Dependency Graphs (Precedence Graph)"></a>Dependency Graphs (Precedence Graph)</h1><ul>
+<li>conflict: acyclic</li>
+<li>blind write: write a value without read it</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/09/20/Peer-to-Peer-Evolution/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1507,129 +1652,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/05/15/GSoC-01-HPX-and-libcds/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/05/15/GSoC-01-HPX-and-libcds/" itemprop="url">[GSoC 01] HPX and libcds</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T01:38:37+08:00">
-                2018-05-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h1><p>I am glad to see my proposal is accepted by <code>STE||AR Group</code>, and I am eager to make contributions to this community. To push me to focus on my GSoC project, I decide to write a serial article to give a brief introduction to my project.</p>
-<p>Firstly, I want to give my understand about <code>HPX</code>, <code>HPX</code> is a library to provide everything you want in HPC (high performance computation). <code>HPX</code> includes most common used parallel algorithms and containers. Especially, some standard STL containers are available in <code>HPX</code>.</p>
-<p>STL containers such as vectors/maps/sets/etc are not thread safe. One cannot safely add or remove elements from one of these containers in one thread, while iterating or adding/removing in another thread without potentially catastrophic consequences (usually segmentation faults leading to eventual program failure). So these containers must upport concurrent access. Some work has begun on implementing concurrent structures in HPX, a concurrent unordered map with reader/writer lock and a partial implementation of concurrent vector exist, but they have not all been completed, do not have unit tests and need to be unified into an hpx::concurrent namespace. On the other hand, this lock based implementations are low efficiency, we hope to make use of lock free tech to complete our libraries.</p>
-<p>A number of libraries implementing thread safe (sometimes lockfree) containers already exist that can be used for ideas and where code uses a boost compatible license can be integrated into HPX. The aim of the project is to collect as much information and as many implementations of threads safe containers and create or integrate them into the HPX library.</p>
-<p>Fortunately, we find an open source library named <code>libcds</code>. Moreover, we get the authorization to migrate these containers to our namespace.</p>
-<p><code>libcds</code> is a data structure library including queue, stack, priority queue, binary tree, list, hash table, hash map, etc. Al these data structures are lock-free and have more than one implementation by using different algorithms.</p>
-<h1 id="References"><a href="#References" class="headerlink" title="[References]"></a>[References]</h1><ol>
-<li><a href="http://stellar-group.org/libraries/hpx/" target="_blank" rel="external">http://stellar-group.org/libraries/hpx/</a></li>
-<li><a href="https://github.com/khizmax/libcds" target="_blank" rel="external">https://github.com/khizmax/libcds</a></li>
-<li><a href="https://www.boost.org/" target="_blank" rel="external">https://www.boost.org/</a></li>
-<li><a href="http://stellar-group.org/2018/04/gsoc-2018-participants-announced/" target="_blank" rel="external">http://stellar-group.org/2018/04/gsoc-2018-participants-announced/</a></li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1679,7 +1701,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

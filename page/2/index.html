@@ -265,6 +265,129 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/05/15/GSoC-01-HPX-and-libcds/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/05/15/GSoC-01-HPX-and-libcds/" itemprop="url">[GSoC 01] HPX and libcds</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-15T01:38:37+08:00">
+                2018-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Contents"><a href="#Contents" class="headerlink" title="Contents"></a>Contents</h1><p>I am glad to see my proposal is accepted by <code>STE||AR Group</code>, and I am eager to make contributions to this community. To push me to focus on my GSoC project, I decide to write a serial article to give a brief introduction to my project.</p>
+<p>Firstly, I want to give my understand about <code>HPX</code>, <code>HPX</code> is a library to provide everything you want in HPC (high performance computation). <code>HPX</code> includes most common used parallel algorithms and containers. Especially, some standard STL containers are available in <code>HPX</code>.</p>
+<p>STL containers such as vectors/maps/sets/etc are not thread safe. One cannot safely add or remove elements from one of these containers in one thread, while iterating or adding/removing in another thread without potentially catastrophic consequences (usually segmentation faults leading to eventual program failure). So these containers must upport concurrent access. Some work has begun on implementing concurrent structures in HPX, a concurrent unordered map with reader/writer lock and a partial implementation of concurrent vector exist, but they have not all been completed, do not have unit tests and need to be unified into an hpx::concurrent namespace. On the other hand, this lock based implementations are low efficiency, we hope to make use of lock free tech to complete our libraries.</p>
+<p>A number of libraries implementing thread safe (sometimes lockfree) containers already exist that can be used for ideas and where code uses a boost compatible license can be integrated into HPX. The aim of the project is to collect as much information and as many implementations of threads safe containers and create or integrate them into the HPX library.</p>
+<p>Fortunately, we find an open source library named <code>libcds</code>. Moreover, we get the authorization to migrate these containers to our namespace.</p>
+<p><code>libcds</code> is a data structure library including queue, stack, priority queue, binary tree, list, hash table, hash map, etc. Al these data structures are lock-free and have more than one implementation by using different algorithms.</p>
+<h1 id="References"><a href="#References" class="headerlink" title="[References]"></a>[References]</h1><ol>
+<li><a href="http://stellar-group.org/libraries/hpx/" target="_blank" rel="external">http://stellar-group.org/libraries/hpx/</a></li>
+<li><a href="https://github.com/khizmax/libcds" target="_blank" rel="external">https://github.com/khizmax/libcds</a></li>
+<li><a href="https://www.boost.org/" target="_blank" rel="external">https://www.boost.org/</a></li>
+<li><a href="http://stellar-group.org/2018/04/gsoc-2018-participants-announced/" target="_blank" rel="external">http://stellar-group.org/2018/04/gsoc-2018-participants-announced/</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/05/11/Algorithms-Behind-Modern-Storage-Systems-Reproduced/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1461,219 +1584,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory-DBMS-Survey/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2017/10/05/How-to-Build-a-Non-Volatile-Memory-DBMS-Survey/" itemprop="url">How to Build a Non-Volatile Memory DBMS (Survey)</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-10-05T11:13:48+08:00">
-                2017-10-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>This is a summary about a <a href="https://www.cs.cmu.edu/~jarulraj/papers/2017.nvm.sigmod.pdf" target="_blank" rel="external">paper</a> and a related <a href="https://www.cs.cmu.edu/~jarulraj/talks/2017.nvm.sigmod.pdf" target="_blank" rel="external">talk</a> in <code>Sigmod 17</code>, and this paper concludes the three main ways to make use of the special features in NVM when build up a DBMS.</p>
-<hr>
-<h2 id="NVM-properties"><a href="#NVM-properties" class="headerlink" title="NVM properties:"></a>NVM properties:</h2><ul>
-<li><ol>
-<li>Byte addressable: Loads and stores un`like SSD/HDD</li>
-<li>High random write throughput: Orders of magnitude higher than SSD/HDD, Smaller gap between sequential &amp; random write throughput.</li>
-<li>Read-write asymmetry &amp; wear-leveling: Writes might take longer to complete compared to reads. Excessive writes to a single NVM cell can destroy it.</li>
-</ol>
-</li>
-</ul>
-<h2 id="Evaluation-NVM"><a href="#Evaluation-NVM" class="headerlink" title="Evaluation NVM"></a>Evaluation NVM</h2><ul>
-<li>=&gt; HDD/SSD/Emulated NVM.<ul>
-<li>Tune DRAM latency to emulate NVM (increasing latency)</li>
-<li>CLWB (Cache-line write back) instruction</li>
-</ul>
-</li>
-</ul>
-<h1 id="Three-levels-in-NVM-DBMS"><a href="#Three-levels-in-NVM-DBMS" class="headerlink" title="Three levels in NVM DBMS:"></a>Three levels in NVM DBMS:</h1><p>1) Access Interfaces,<br>2) Storage Manager<br>3) Execution Engine.</p>
-<h2 id="Allocation-interface"><a href="#Allocation-interface" class="headerlink" title="Allocation interface"></a>Allocation interface</h2><ul>
-<li><p>Standard functions</p>
-<ul>
-<li>Dynamic memory allocation</li>
-<li>Meta-data management</li>
-</ul>
-<ul>
-<li>Durability mechanism<ul>
-<li>Two-step implementation<ul>
-<li>Allocation first by using CLWB</li>
-<li>Issues a SFENCE to make sure changes are visible</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Naming mechanism<ul>
-<li>Map NVM to a well know base address, <code>Absolute pointer = Base address + Relative pointer</code></li>
-</ul>
-</li>
-<li>Recovery mechanism<ul>
-<li>Consider a crashing before linking the chunk to DS which occur to losing of this chunk (neither allocator nor application can reclaim the space).</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>File system interface</p>
-<ul>
-<li>Device -&gt; page cache -&gt; app buffer =&gt; Device -&gt; app buffer </li>
-<li>64 bytes cache line atomic</li>
-</ul>
-</li>
-</ul>
-<h2 id="Storage-Manager"><a href="#Storage-Manager" class="headerlink" title="Storage Manager"></a>Storage Manager</h2><ul>
-<li>Logging &amp; Recovery<ul>
-<li>Write ahead log (<code>LET’S TALK ABOUT STORAGE AND RECOVERY METHODS FOR NON-VOLATILE MEMORY DATABASE SYSTEMS SIGMOD&#39; 2015</code>)<ul>
-<li>Avoid duplicating data in the log and the checkpoint<ul>
-<li>logging the meta-data not the data updates</li>
-<li><code>WAL + FS API</code> vs. <code>WA(meta-data)L + Allocation API</code> </li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Write behind log (<code>WRITE-BEHIND LOGGING VLDB&#39; 17</code>)<ul>
-<li>pros<ol>
-<li>Write-behind logging enables instant recovery</li>
-<li>Improves device utilization by reducing data duplication</li>
-<li>Extends the device lifetime </li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Data placement<ul>
-<li>Three-tiers: DRAM (meta-data + data) + NVM (log + data) + SSD (data)</li>
-<li>DRAM -&gt; hot data (cache), NVM -&gt; warm data, SSD -&gt; cold data</li>
-</ul>
-</li>
-</ul>
-<h2 id="Access-Methods"><a href="#Access-Methods" class="headerlink" title="Access Methods"></a>Access Methods</h2><ul>
-<li>Read-write asymmetry &amp; wear-leveling<br>  – Writes might take longer to complete compared to reads<br>  – Excessive writes to a single NVM cell can destroy it</li>
-<li>Write-limited access methods<ul>
-<li>NVM-aware B+Tree, hash table<ul>
-<li>NVM-aware B+Tree: <ul>
-<li>In leaf node, using linear scan (unsorted data) with fewer writes instead of binary search (sorted data) with more writes.</li>
-<li>Using unbalanced tree (fewer writes)</li>
-</ul>
-</li>
-<li></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="Execution-engine"><a href="#Execution-engine" class="headerlink" title="Execution engine"></a>Execution engine</h1><ul>
-<li>Plan executor<ul>
-<li>reduce the number of writes (Sorting algorithm and join algorithm) by using 1) adjustment of write-intensivity knob and 2) write-limited algorithms.<ul>
-<li>Hybrid join/sort</li>
-<li>Segment sort =&gt; adjust x (x% merge sort + (1-x)% selection sort)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1723,7 +1633,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-count">37</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>

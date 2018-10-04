@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Transaction,Database," />
 
 
 
@@ -93,15 +93,17 @@
 
 
 
-<meta name="description" content="...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Teng&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/blog/archives/2018/09/index.html">
+<meta name="description" content="Before reading this article, you should know: Transaction: a sequence of read and write operations processing: BEGIN -&amp;gt; (executing) -&amp;gt; COMMIT/ABORT ACID   Atomicity: All-or-nothing Consistent: I">
+<meta name="keywords" content="Transaction,Database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CMU 15-645 Concurrency Control summary">
+<meta property="og:url" content="http://yoursite.com/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="...">
+<meta property="og:description" content="Before reading this article, you should know: Transaction: a sequence of read and write operations processing: BEGIN -&amp;gt; (executing) -&amp;gt; COMMIT/ABORT ACID   Atomicity: All-or-nothing Consistent: I">
+<meta property="og:updated_time" content="2018-10-04T13:10:30.101Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Teng&#39;s Blog">
-<meta name="twitter:description" content="...">
+<meta name="twitter:title" content="CMU 15-645 Concurrency Control summary">
+<meta name="twitter:description" content="Before reading this article, you should know: Transaction: a sequence of read and write operations processing: BEGIN -&amp;gt; (executing) -&amp;gt; COMMIT/ABORT ACID   Atomicity: All-or-nothing Consistent: I">
 
 
 
@@ -129,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/archives/2018/09/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/"/>
 
 
 
 
 
-  <title>Archive | Teng's Blog</title>
+  <title>CMU 15-645 Concurrency Control summary | Teng's Blog</title>
   
 
 
@@ -169,7 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -253,102 +255,183 @@
           <div id="content" class="content">
             
 
-  <section id="posts" class="posts-collapse">
-    <span class="archive-move-on"></span>
-
-    <span class="archive-page-counter">
-      
-      
-       
-      
-      OK! 37 posts in total. Keep on posting.
-    </span>
-
+  <div id="posts" class="posts-expand">
     
-
-      
-      
-      
-
-      
-        
-        <div class="collection-title">
-          <h2 class="archive-year motion-element" id="archive-year-2018">2018</h2>
-        </div>
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2018/09/20/Peer-to-Peer-Evolution/" itemprop="url">
-              
-                <span itemprop="name">Peer-to-Peer Evolution</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-20T15:38:21+08:00"
-              content="2018-09-20" >
-          09-20
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-      
-      
-      
-
-      
-      
-
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/blog/2018/09/19/Transaction-Protocols/" itemprop="url">
-              
-                <span itemprop="name">Transaction Protocols</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-19T00:11:36+08:00"
-              content="2018-09-19" >
-          09-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-    
-
-  </section>
 
   
 
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CMU 15-645 Concurrency Control summary</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:08:10+08:00">
+                2018-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Before-reading-this-article-you-should-know"><a href="#Before-reading-this-article-you-should-know" class="headerlink" title="Before reading this article, you should know:"></a>Before reading this article, you should know:</h1><ul>
+<li>Transaction: a sequence of read and write operations<ul>
+<li>processing: BEGIN -&gt; (executing) -&gt; COMMIT/ABORT</li>
+<li>ACID</li>
+</ul>
+<ul>
+<li>Atomicity: All-or-nothing</li>
+<li>Consistent: It looks correct to me </li>
+<li>Isolation: every TX is isolated from others (as if alone)</li>
+<li>Durability: store in non-volatile devices (survive failures)</li>
+</ul>
+</li>
+</ul>
+<h1 id="How-to-make-sure-transaction-is-atomic"><a href="#How-to-make-sure-transaction-is-atomic" class="headerlink" title="How to make sure transaction is atomic"></a>How to make sure transaction is atomic</h1><ul>
+<li>Approach 1: Logging</li>
+<li>Approach 2: Shadow Paging</li>
+</ul>
+<h1 id="The-essential-of-concurrency-control"><a href="#The-essential-of-concurrency-control" class="headerlink" title="The essential of concurrency control"></a>The essential of concurrency control</h1><ul>
+<li>Serial Schedule</li>
+</ul>
+<h1 id="The-definition-of-conflict"><a href="#The-definition-of-conflict" class="headerlink" title="The definition of conflict"></a>The definition of conflict</h1><ul>
+<li>They are by different transactions</li>
+<li>They are on the same object and at least one of them is a write</li>
+<li>RW/WR/WW conflict:<ul>
+<li>Unrepeatable reads</li>
+<li>Reading uncommitted data (a.k.a., Dirty Reads)</li>
+<li>Overwriting committed data</li>
+</ul>
+</li>
+</ul>
+<h1 id="Dependency-Graphs-Precedence-Graph"><a href="#Dependency-Graphs-Precedence-Graph" class="headerlink" title="Dependency Graphs (Precedence Graph)"></a>Dependency Graphs (Precedence Graph)</h1><ul>
+<li>conflict: acyclic</li>
+<li>blind write: write a value without read it</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/Transaction/" rel="tag"># Transaction</a>
+          
+            <a href="/blog/tags/Database/" rel="tag"># Database</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2018/09/20/Peer-to-Peer-Evolution/" rel="next" title="Peer-to-Peer Evolution">
+                <i class="fa fa-chevron-left"></i> Peer-to-Peer Evolution
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -356,6 +439,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -375,8 +462,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -458,6 +554,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Before-reading-this-article-you-should-know"><span class="nav-number">1.</span> <span class="nav-text">Before reading this article, you should know:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-make-sure-transaction-is-atomic"><span class="nav-number">2.</span> <span class="nav-text">How to make sure transaction is atomic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-essential-of-concurrency-control"><span class="nav-number">3.</span> <span class="nav-text">The essential of concurrency control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-definition-of-conflict"><span class="nav-number">4.</span> <span class="nav-text">The definition of conflict</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dependency-Graphs-Precedence-Graph"><span class="nav-number">5.</span> <span class="nav-text">Dependency Graphs (Precedence Graph)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -571,11 +683,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.1"></script>
+
 
 
   
