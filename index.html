@@ -476,10 +476,47 @@
 </ul>
 </li>
 </ul>
+<h2 id="Classify-from-two-views"><a href="#Classify-from-two-views" class="headerlink" title="Classify from two views"></a>Classify from two views</h2><ul>
+<li>Pessimistic v.s. Optimistic</li>
+<li>Locked-based v.s. Timestamp-based</li>
+</ul>
+<h2 id="Comparison-from-another-view"><a href="#Comparison-from-another-view" class="headerlink" title="Comparison from another view"></a>Comparison from another view</h2><ul>
+<li>Pessimistic<ul>
+<li>Validate -&gt; Read -&gt; Compute -&gt; Write</li>
+</ul>
+</li>
+<li>Optimistic<ul>
+<li>Read -&gt; Compute -&gt; Validate -&gt; Write</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-PL"><a href="#2-PL" class="headerlink" title="2-PL"></a>2-PL</h2><ul>
+<li>Basic procedures:<ul>
+<li>Expanding (Growing) Phase: lock are acquired</li>
+<li>Shrinking (Contracting) Phase: lock are released</li>
+</ul>
+</li>
+<li>Centralized 2PL: only one scheduler</li>
+<li>Distributed 2PL: at each site, scheduler handle lock requests at that site</li>
+</ul>
+<h2 id="Timestamp-Ordering-based-algorithm"><a href="#Timestamp-Ordering-based-algorithm" class="headerlink" title="Timestamp Ordering based algorithm"></a>Timestamp Ordering based algorithm</h2><ul>
+<li>In a distributed environment, TS requires globally unique and monotonically increasing</li>
+<li>A global counter is not easy to maintain and local clock are unsuitable. So, a unique site identifier is needed (e.g., {local time, site indentifier})</li>
+<li>Based TO:<ul>
+<li>rts(x): largest TO of any read on x, wts(x): largest TO of any write on x<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for Ri(x):</div><div class="line">  if ts(Ti) &lt; wts(x):</div><div class="line">  then reject Ri(x)</div><div class="line">  else accept Ri(x)</div><div class="line">   rts(x) &lt;- ts(Ti)</div><div class="line">for Wi(x):</div><div class="line">  if ts(Ti) &lt; rts(x) and ts(Ti) &lt; wts(x):</div><div class="line">  then reject Wi(x)</div><div class="line">  else accept Wi(x)</div><div class="line">   wts(x) &lt;- ts(Ti)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
 <h2 id="Pitfall"><a href="#Pitfall" class="headerlink" title="Pitfall"></a>Pitfall</h2><ul>
 <li>Lock vs. Latch<ul>
 <li>Locking mechanism can protect transaction ACID</li>
 <li>Latching mechanism can protect data structure safe</li>
+</ul>
+</li>
+<li>TO (Timestamp ordering) algorithm always will cause a deadlock situation (several transactions wait for each other)<ul>
+<li>However, a intervention from outside is needed</li>
+<li>Wait-for Graph (has a cycle =&gt; deadlock)</li>
 </ul>
 </li>
 </ul>
