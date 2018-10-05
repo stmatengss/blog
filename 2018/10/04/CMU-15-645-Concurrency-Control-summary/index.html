@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
 <meta property="og:description" content="Before reading this article, you should know: Transaction: a sequence of read and write operations processing: BEGIN -&amp;gt; (executing) -&amp;gt; COMMIT/ABORT ACID   Atomicity: All-or-nothing Consistent: I">
-<meta property="og:updated_time" content="2018-10-04T13:10:30.101Z">
+<meta property="og:updated_time" content="2018-10-04T14:05:13.594Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CMU 15-645 Concurrency Control summary">
 <meta name="twitter:description" content="Before reading this article, you should know: Transaction: a sequence of read and write operations processing: BEGIN -&amp;gt; (executing) -&amp;gt; COMMIT/ABORT ACID   Atomicity: All-or-nothing Consistent: I">
@@ -363,6 +363,15 @@
 <li>conflict: acyclic</li>
 <li>blind write: write a value without read it</li>
 </ul>
+<h1 id="2PL"><a href="#2PL" class="headerlink" title="2PL"></a>2PL</h1><ul>
+<li>Phase 1: Growing =&gt; get all required locks from manager [grants/denies]</li>
+<li>Phase 2: Shrinking =&gt; release all locks it gained</li>
+<li>Strict 2PL: release all locks at the end of TX</li>
+</ul>
+<h1 id="2PL-Deadlock-Prevention"><a href="#2PL-Deadlock-Prevention" class="headerlink" title="2PL Deadlock Prevention"></a>2PL Deadlock Prevention</h1><ul>
+<li>Wait-Die (old waits for young)</li>
+<li>Wound-Wait (young waits for old)</li>
+</ul>
 
       
     </div>
@@ -416,6 +425,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-TimeStamp/" rel="prev" title="CMU 15-645 Concurrency Control TimeStamp">
+                CMU 15-645 Concurrency Control TimeStamp <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -487,7 +500,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">38</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -564,7 +577,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Before-reading-this-article-you-should-know"><span class="nav-number">1.</span> <span class="nav-text">Before reading this article, you should know:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-make-sure-transaction-is-atomic"><span class="nav-number">2.</span> <span class="nav-text">How to make sure transaction is atomic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-essential-of-concurrency-control"><span class="nav-number">3.</span> <span class="nav-text">The essential of concurrency control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-definition-of-conflict"><span class="nav-number">4.</span> <span class="nav-text">The definition of conflict</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dependency-Graphs-Precedence-Graph"><span class="nav-number">5.</span> <span class="nav-text">Dependency Graphs (Precedence Graph)</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Before-reading-this-article-you-should-know"><span class="nav-number">1.</span> <span class="nav-text">Before reading this article, you should know:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#How-to-make-sure-transaction-is-atomic"><span class="nav-number">2.</span> <span class="nav-text">How to make sure transaction is atomic</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-essential-of-concurrency-control"><span class="nav-number">3.</span> <span class="nav-text">The essential of concurrency control</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#The-definition-of-conflict"><span class="nav-number">4.</span> <span class="nav-text">The definition of conflict</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dependency-Graphs-Precedence-Graph"><span class="nav-number">5.</span> <span class="nav-text">Dependency Graphs (Precedence Graph)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2PL"><span class="nav-number">6.</span> <span class="nav-text">2PL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2PL-Deadlock-Prevention"><span class="nav-number">7.</span> <span class="nav-text">2PL Deadlock Prevention</span></a></li></ol></div>
             
 
           </div>
