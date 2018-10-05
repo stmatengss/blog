@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="RDMA," />
+  <meta name="keywords" content="Transaction,Database," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="SGL (scatter / gather list)  An array of S/G elements which exists in a WR that according to the used opcode either collects data from multiple buffers and sends them as a single stream or takes a si">
-<meta name="keywords" content="RDMA">
+<meta name="description" content="Recovery Algorithm Today: ensure DBMS can recover from a failure (during normal TX processing) Idea: Recover to a state with ACID guarantee  Classifications Storage Types: Volatile Storage (DRAM/SRAM)">
+<meta name="keywords" content="Transaction,Database">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Some Useful Technologies About RDMA (1)">
-<meta property="og:url" content="http://yoursite.com/blog/2017/08/21/Some-Useful-Technologies-About-RDMA/index.html">
+<meta property="og:title" content="CMU 15-645 Logging Schemes">
+<meta property="og:url" content="http://yoursite.com/blog/2018/10/05/CMU-15-645-Logging-Schemes/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="SGL (scatter / gather list)  An array of S/G elements which exists in a WR that according to the used opcode either collects data from multiple buffers and sends them as a single stream or takes a si">
-<meta property="og:updated_time" content="2017-10-07T03:59:28.000Z">
+<meta property="og:description" content="Recovery Algorithm Today: ensure DBMS can recover from a failure (during normal TX processing) Idea: Recover to a state with ACID guarantee  Classifications Storage Types: Volatile Storage (DRAM/SRAM)">
+<meta property="og:updated_time" content="2018-10-05T13:11:54.925Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Some Useful Technologies About RDMA (1)">
-<meta name="twitter:description" content="SGL (scatter / gather list)  An array of S/G elements which exists in a WR that according to the used opcode either collects data from multiple buffers and sends them as a single stream or takes a si">
+<meta name="twitter:title" content="CMU 15-645 Logging Schemes">
+<meta name="twitter:description" content="Recovery Algorithm Today: ensure DBMS can recover from a failure (during normal TX processing) Idea: Recover to a state with ACID guarantee  Classifications Storage Types: Volatile Storage (DRAM/SRAM)">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/2017/08/21/Some-Useful-Technologies-About-RDMA/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2018/10/05/CMU-15-645-Logging-Schemes/"/>
 
 
 
 
 
-  <title>Some Useful Technologies About RDMA (1) | Teng's Blog</title>
+  <title>CMU 15-645 Logging Schemes | Teng's Blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/08/21/Some-Useful-Technologies-About-RDMA/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/05/CMU-15-645-Logging-Schemes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Some Useful Technologies About RDMA (1)</h1>
+          <h1 class="post-title" itemprop="name headline">CMU 15-645 Logging Schemes</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-08-21T14:44:30+08:00">
-                2017-08-21
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T14:37:27+08:00">
+                2018-10-05
               </time>
             
 
@@ -329,21 +329,75 @@
       
 
       
-        <ul>
-<li>SGL (scatter / gather list)</li>
+        <h1 id="Recovery-Algorithm"><a href="#Recovery-Algorithm" class="headerlink" title="Recovery Algorithm"></a>Recovery Algorithm</h1><ul>
+<li>Today: ensure DBMS can recover from a failure (during normal TX processing)</li>
+<li>Idea: Recover to a state with ACID guarantee</li>
 </ul>
-<p>An array of S/G elements which exists in a WR that according to the used opcode either collects data from multiple buffers and sends them as a single stream or takes a single stream and breaks it down to numerous buffers</p>
+<h1 id="Classifications"><a href="#Classifications" class="headerlink" title="Classifications"></a>Classifications</h1><ul>
+<li>Storage Types: Volatile Storage (DRAM/SRAM) =&gt; Non-volatile Storage (HDD, SSD, NVM) =&gt; Stable Storage (multiple storage devices)</li>
+<li>Failure Types: Transaction / System / Storage Media<ul>
+<li>Transaction Errors: Logical errors / Internal State Errors</li>
+<li>System Errors: Software (Exceptions, e.g., divide by zero) / hardware (Power down)</li>
+</ul>
 <ul>
-<li><p>Without Signal</p>
-</li>
-<li><p>Batch Multi-request to One</p>
-</li>
-<li><p>Fence</p>
+<li>Fail-Stop Assumption: Non-volatile Storage will not be corrupted</li>
+</ul>
+<ul>
+<li>Storage Media Failure: Game Over! WTF</li>
+</ul>
 </li>
 </ul>
-<!-- * Immediate Number -->
-<!-- * Shared Completion Queue -->
-<!-- * Inline Small Messages -->
+<h1 id="Use-volatile-memory-for-faster-access"><a href="#Use-volatile-memory-for-faster-access" class="headerlink" title="Use volatile memory for faster access:"></a>Use volatile memory for faster access:</h1><ul>
+<li>Procedures (Buffer Pool):<ol>
+<li>Copy target record into memory</li>
+<li>Perform the writes in memory</li>
+<li>Write Dirty records back to disks</li>
+</ol>
+</li>
+<li>Issue: There are two transactions: T1, T2. T1 is still uncommitted but T2 is already committed. At the same time, the dirty records is written back to non-volatile device. T1 needs to roll back. What’s happened?<ul>
+<li>Steal + Force:<ol>
+<li>Never have to undo changes of an aborted TX because the changes were not written to disk</li>
+<li>Never have to redo changes of a committed TX because all the changes are guaranteed to be written to disk at commit time</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="Shadow-Paging"><a href="#Shadow-Paging" class="headerlink" title="Shadow Paging"></a>Shadow Paging</h1><ul>
+<li>Automatically switch roles between master and shadow</li>
+<li>Undo: Remove the shadow pages, switch to the master</li>
+<li>Cons:<ol>
+<li>Copying the entire page table is expensive (a index structure like B+Tree, Path copying)</li>
+<li>Commit Overhead is high</li>
+</ol>
+</li>
+</ul>
+<h1 id="WAL-Write-Ahead-Log"><a href="#WAL-Write-Ahead-Log" class="headerlink" title="WAL (Write Ahead Log)"></a>WAL (Write Ahead Log)</h1><ul>
+<li>Format <code>&lt;Tid, Object Id, Previous Value, Current Value&gt;</code> (Undo + Redo)</li>
+<li>Trade-off: <ol>
+<li>When should we write log entries to disk?</li>
+<li>When should we write dirty records to disk?</li>
+</ol>
+</li>
+</ul>
+<h1 id="Log-Styles"><a href="#Log-Styles" class="headerlink" title="Log Styles"></a>Log Styles</h1><ul>
+<li>Physical Log: Record the data changes in the database</li>
+<li>Logical Log: Higher level operations (e.g., UPDATE, INSERT)<ul>
+<li>Cons: higher time costing to recover</li>
+<li>Pros: Less space needed</li>
+</ul>
+</li>
+</ul>
+<h1 id="Checkpoint"><a href="#Checkpoint" class="headerlink" title="Checkpoint"></a>Checkpoint</h1><ul>
+<li>Actions:<ol>
+<li>Output onto stable storage all log records currently residing in main memory</li>
+<li>Output to the disk all modified blocks</li>
+<li>Write a <code>&lt;CHECKPOINT&gt;</code> entry to the log and flush to stable storage</li>
+</ol>
+</li>
+<li>Recovery: Redo committed TXs after checkpoint + Undo uncommitted TXs after checkpoint</li>
+</ul>
+
       
     </div>
 
@@ -372,7 +426,9 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/RDMA/" rel="tag"># RDMA</a>
+            <a href="/blog/tags/Transaction/" rel="tag"># Transaction</a>
+          
+            <a href="/blog/tags/Database/" rel="tag"># Database</a>
           
         </div>
       
@@ -385,8 +441,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2017/08/21/Paper-Reading-2/" rel="next" title="Paper Reading (2)">
-                <i class="fa fa-chevron-left"></i> Paper Reading (2)
+              <a href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-TimeStamp/" rel="next" title="CMU 15-645 Concurrency Control TimeStamp">
+                <i class="fa fa-chevron-left"></i> CMU 15-645 Concurrency Control TimeStamp
               </a>
             
           </div>
@@ -394,10 +450,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2017/08/30/All-Kinds-of-Allocations/" rel="prev" title="All Kinds of Allocations">
-                All Kinds of Allocations <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -444,8 +496,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/blog/images/avatar.gif"
@@ -527,6 +588,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Recovery-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">Recovery Algorithm</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Classifications"><span class="nav-number">2.</span> <span class="nav-text">Classifications</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Use-volatile-memory-for-faster-access"><span class="nav-number">3.</span> <span class="nav-text">Use volatile memory for faster access:</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shadow-Paging"><span class="nav-number">4.</span> <span class="nav-text">Shadow Paging</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WAL-Write-Ahead-Log"><span class="nav-number">5.</span> <span class="nav-text">WAL (Write Ahead Log)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Log-Styles"><span class="nav-number">6.</span> <span class="nav-text">Log Styles</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Checkpoint"><span class="nav-number">7.</span> <span class="nav-text">Checkpoint</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
