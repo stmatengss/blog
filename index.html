@@ -265,6 +265,159 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/05/CMU-15-645-Recovery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/05/CMU-15-645-Recovery/" itemprop="url">CMU 15-645 Recovery</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T21:13:48+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>When discussing recovery, we have to mention <code>ARIES</code> system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)</li>
+</ul>
+<h1 id="LSN-Log-Sequence-Number"><a href="#LSN-Log-Sequence-Number" class="headerlink" title="LSN (Log Sequence Number)"></a>LSN (Log Sequence Number)</h1><ul>
+<li>Types</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Where</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>flushdLSN</td>
+<td>RAM</td>
+<td>Last LSN in log on disk</td>
+</tr>
+<tr>
+<td>pageLSN</td>
+<td>@page</td>
+<td>Newest update to page</td>
+</tr>
+<tr>
+<td>recLSN</td>
+<td>@page</td>
+<td>Oldest update to page</td>
+</tr>
+<tr>
+<td>lastLSN</td>
+<td>Tj</td>
+<td>Last action of TX Tj</td>
+</tr>
+<tr>
+<td>MasterRecord</td>
+<td>Disk</td>
+<td>LSN of latest checkpoint</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/05/CMU-15-645-Logging-Schemes/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1553,142 +1706,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/06/14/Survey-of-DB-Join-Algorithm/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/14/Survey-of-DB-Join-Algorithm/" itemprop="url">Survey of DB Join Algorithm</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-14T23:21:30+08:00">
-                2018-06-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="A-tour-of-Join"><a href="#A-tour-of-Join" class="headerlink" title="A tour of Join"></a>A tour of Join</h1><p>Join is a popular operation among Database Systems- A standard join concept is to combine multiple columns from one or more tables in relational database- ANSI-standard SQL specifies five types of JOIN: INNER, LEFT OUTER, RIGHT OUTER, FULL OUTER and CROSS- The join operation will produce a temporary table which containing the results meeting the conditions- In the followings, we will first introduce different join operation types- We assume that have two tables named <code>R</code> and <code>S</code>-</p>
-<p>1- CROSS JOIN: CROSS JOIN can be seen as the Cartesian products of two tables- The sum of items is <code>|R| * |S|</code>-<br>2- Equi-join &amp; Natural Join: Natural Join is a special case of Equi-join- We can write as this via SQL sentences:<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">SELECT *</div><div class="line">FROM employee JOIN department</div><div class="line">  ON employee-DepartmentID = department-DepartmentID;</div></pre></td></tr></table></figure></p>
-<pre><code>- We need to use several comparators (one in mostly cases) to make the choosing rules- Natural Join uses equality comparisons between `R` and `S`-
-</code></pre><p>3- Outer Join: Outer Join includes left outer joins, right outer joins, and full outer joins (depending on which table’s rows are retained (left, right, or both))-<br>4- Self Join: A table join with itself-</p>
-<h1 id="Join-Algorithms"><a href="#Join-Algorithms" class="headerlink" title="Join Algorithms"></a>Join Algorithms</h1><p>We can divide join algorithms to three main types: loop join, sort merge join and hash join</p>
-<p>1- Nested loop join: The most naive one with a <code>O(n^2)</code> complexity (like a Bruce-force algorithm)-<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">For each tuple r in R do</div><div class="line">  For each tuple s in S do</div><div class="line">    If r and s satisfy the join condition</div><div class="line">       Then output the tuple &lt;r,s&gt;</div></pre></td></tr></table></figure></p>
-<p>2- Block-nested loop (BNL) &amp; Hash Join: Load <code>R</code> to memory as a hash table, and scan <code>S</code></p>
-<ul>
-<li>Raw hash join</li>
-<li>Radix join<ul>
-<li>Radix Partition: Translation look-aside buffers (TLBs) =&gt; multi-pass radix partitioning join<pre><code>Foreach input tuple t do
-  k = hash(t)
-  p[k][pos[k]] = t
-  pos[k] ++
-</code></pre></li>
-</ul>
-</li>
-<li>No-partition hash join: All worker threads populate a shared hash table with all tuples of R-<br>3- Sort merge join: Sort <code>R</code> and <code>S</code> by a same order, and then use two-points algorithm to distinct and produce the results-</li>
-<li>Raw sort merge join<ul>
-<li>Multi-way method</li>
-<li>Multi-pass method</li>
-</ul>
-</li>
-<li>Massive parallel sort merge join (MPSM)</li>
-</ul>
-<h1 id="Sort-vs-Hash"><a href="#Sort-vs-Hash" class="headerlink" title="Sort vs- Hash"></a>Sort vs- Hash</h1><h1 id="Distributed-Hash-Join"><a href="#Distributed-Hash-Join" class="headerlink" title="Distributed Hash Join"></a>Distributed Hash Join</h1>
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1738,7 +1755,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1751,7 +1768,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="System,Parallel," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -93,17 +93,15 @@
 
 
 
-<meta name="description" content="Rule #1: No random writes to non-local memory Chunk the data, redistribute, and then each core sorts/works on local data.   Rule #2: Only perform sequential reads on non-local memory This allows the">
-<meta name="keywords" content="System,Parallel">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Hyper&#39;s Rules for Parallelization">
-<meta property="og:url" content="http://yoursite.com/blog/2018/06/27/Hyper-s-Rules-for-parallelization/index.html">
+<meta name="description" content="...">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Teng&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/blog/tags/CMU-15-645/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="Rule #1: No random writes to non-local memory Chunk the data, redistribute, and then each core sorts/works on local data.   Rule #2: Only perform sequential reads on non-local memory This allows the">
-<meta property="og:updated_time" content="2018-06-27T08:13:47.560Z">
+<meta property="og:description" content="...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hyper&#39;s Rules for Parallelization">
-<meta name="twitter:description" content="Rule #1: No random writes to non-local memory Chunk the data, redistribute, and then each core sorts/works on local data.   Rule #2: Only perform sequential reads on non-local memory This allows the">
+<meta name="twitter:title" content="Teng&#39;s Blog">
+<meta name="twitter:description" content="...">
 
 
 
@@ -131,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/2018/06/27/Hyper-s-Rules-for-parallelization/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/tags/CMU-15-645/"/>
 
 
 
 
 
-  <title>Hyper's Rules for Parallelization | Teng's Blog</title>
+  <title>Tag: CMU-15-645 | Teng's Blog</title>
   
 
 
@@ -171,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,167 +253,128 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/06/27/Hyper-s-Rules-for-parallelization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h1>CMU-15-645<small>Tag</small>
+      </h1>
+    </div>
 
     
-      <header class="post-header">
+      
 
-        
-        
-          <h1 class="post-title" itemprop="name headline">Hyper's Rules for Parallelization</h1>
-        
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/blog/2018/10/05/CMU-15-645-Recovery/" itemprop="url">
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span itemprop="name">CMU 15-645 Recovery</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T16:10:14+08:00">
-                2018-06-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <ul>
-<li><strong>Rule #1</strong>: No random writes to non-local memory<ul>
-<li>Chunk the data, redistribute, and then each core sorts/works on local data.</li>
-</ul>
-</li>
-<li><strong>Rule #2</strong>: Only perform sequential reads on non-local memory<ul>
-<li>This allows the hardware prefetcher to hide remote access latency.</li>
-</ul>
-</li>
-<li><strong>Rule #3</strong>: No core should ever wait for another<ul>
-<li>Avoid fine-grained latching or sync barriers.</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-
-    <div>
-      
+            </a>
         
+      </h2>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-10-05T21:13:48+08:00"
+              content="2018-10-05" >
+          10-05
+        </time>
+      </div>
 
-    <div>
-      
-        
-
-      
-    </div>
-
-    <div>
-      
-        
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/blog/tags/System/" rel="tag"># System</a>
-          
-            <a href="/blog/tags/Parallel/" rel="tag"># Parallel</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/blog/2018/06/14/Survey-of-DB-Join-Algorithm/" rel="next" title="Survey of DB Join Algorithm">
-                <i class="fa fa-chevron-left"></i> Survey of DB Join Algorithm
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/07/18/New-Features-in-OFED/" rel="prev" title="New Features in OFED">
-                New Features in OFED <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
+    
       
-    </div>
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/blog/2018/10/05/CMU-15-645-Logging-Schemes/" itemprop="url">
+              
+                <span itemprop="name">CMU 15-645 Logging Schemes</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-10-05T14:37:27+08:00"
+              content="2018-10-05" >
+          10-05
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-TimeStamp/" itemprop="url">
+              
+                <span itemprop="name">CMU 15-645 Concurrency Control TimeStamp</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-10-04T22:09:28+08:00"
+              content="2018-10-04" >
+          10-04
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
+      
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
+        
+            <a class="post-title-link" href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/" itemprop="url">
+              
+                <span itemprop="name">CMU 15-645 Concurrency Control summary</span>
+              
+            </a>
+        
+      </h2>
+
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-10-04T20:08:10+08:00"
+              content="2018-10-04" >
+          10-04
+        </time>
+      </div>
+
+    </header>
+  </article>
+
+
+    
   </div>
+
+  
 
 
           </div>
@@ -423,10 +382,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -642,10 +597,10 @@
   
 
   
-  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
+    <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.1"></script>
 
-
+  
 
   
 
