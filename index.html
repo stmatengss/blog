@@ -265,6 +265,122 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/11/04/SeqLock-An-Optimistic-and-Write-Prefered/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/04/SeqLock-An-Optimistic-and-Write-Prefered/" itemprop="url">SeqLock: An Optimistic and Write Prefered</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-04T20:39:19+08:00">
+                2018-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h2><p>Lock is a crucial component in computer system including database, file system, parallel computation system, etc. It limit different threads to access the same resource simultaneously. It can be seen as a mutual exclusion concurrency control policy. These multiple accessing phenomena can be divided into three kinds: Write-Write conflict, Write-Read conflict, Read-Read conflict (not exist). Write-Read Lock (a.k.a., Exclusive Lock &amp; Shared Lock) can stop the same resource accessing from multiple writer and support multi-reader and single write (SWMR) naturally. The Write-Read Lock also has two main kinds of algorithm: Read-Preferred and Write preferred. Unfortunately, this lock mechanism always assume the conflict may happening (pessimistic), and is un-friendly to the process which will block the process and even bring with deadlock.</p>
+<h2 id="SeqLock-An-Optimistic-Lock"><a href="#SeqLock-An-Optimistic-Lock" class="headerlink" title="SeqLock: An Optimistic Lock"></a>SeqLock: An Optimistic Lock</h2><p>The sequential lock (seq-lock) is composed with a read lock (sequencer) and a write lock to avoid the multi writer accessing.<br>This mechanism is also known as retry lock. When read operation is finished, the reader will check the lock again. Readers read the sequence number before and after reading the shared data. If the sequence number is odd on either occasion, a writer had taken the lock while the data was being read and it may have changed. If the sequence numbers are different, a writer has changed the data while it was being read. In either case readers simply retry (using a loop) until they read the same even sequence number before and after.</p>
+<p>The following paragraph is from wikipedia.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The reader never blocks, but it may have to retry if a write is in progress; this speeds up the readers in the case where the data was not modified, since they do not have to acquire the lock as they would with a traditional read-write lock. Also, writers do not wait for readers, whereas with traditional read-write locks they do, leading to potential resource starvation in a situation where there are a number of readers (because the writer must wait for there to be no readers). Because of these two factors, seqlocks are more efficient than traditional read-write locks for the situation where there are many readers and few writers. The drawback is that if there is too much write activity or the reader is too slow, they might livelock (and the readers may starve).</div></pre></td></tr></table></figure></p>
+<p>The pseudo is here. (Please notice that there are multiple writers here)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">Lock write_lock</div><div class="line"></div><div class="line">Write_Lock():</div><div class="line">  write_lock.lock()</div><div class="line">  atomic_increment(SN)</div><div class="line">Write_Unlock():</div><div class="line">  atomic_increment(SN)</div><div class="line">  write_lock.unlock()</div><div class="line">Reader_Lock():</div><div class="line">  do </div><div class="line">    ret = atomic_read(SN)</div><div class="line">  while ret % 2 == 0  // is odd</div><div class="line">  start_sn = ret</div><div class="line">Reader_Unlock():</div><div class="line">  return start_sn != atomic_read(SN)</div><div class="line"></div><div class="line">// Usage: To read data</div><div class="line">do</div><div class="line">  Reader_Lock()</div><div class="line">  // DO read</div><div class="line">while Reader_unlock()</div></pre></td></tr></table></figure></p>
+<h2 id="A-Simple-Implementation"><a href="#A-Simple-Implementation" class="headerlink" title="A Simple Implementation"></a>A Simple Implementation</h2><p><a href="https://github.com/stmatengss/learning-creating_by_cpp/tree/master/linux_programming/seq_lock" target="_blank" rel="external">Here</a> is a toy. In my codes, I use <code>STL</code> atomic variable to implement spin-lock (test and set) and sequencer. In the distributed system with RDMA, <code>RDMA atomic verbs</code> can replace the <code>CAS</code> and <code>FAA</code> operation of the gcc complier to build up distributed seq-lock. </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/11/04/Concepts-of-SkipList-Implementation-Concurrency-and-Lock-free/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1552,121 +1668,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Survey-of-Distributed-Resource-Management/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/08/17/Survey-of-Distributed-Resource-Management/" itemprop="url">Survey of Distributed Resource Management</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:37:14+08:00">
-                2018-08-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h1><p>Recently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel <code>RSD</code> and and HP <code>the machine</code> will soon be available as real world DC resolutions. Some researches like Lego, infiniswap aim to find out the correct deployment guidelines and how to optimize disaggregation architecture. Disaggregation architecture divide machines into working one and resource one (blade server). This deployment make full use of decoupling and hence gain a higher resource utilization and release the working machine from heavy tasks of resource management.<br>However, similar as a standalone architecture, disaggregation architecture also has a need of resource management. Moreover, in a distributed environment, keeping allocation status consistency and persistence will be harder, as well as bringing a huge overhead in network.<br>The simplest design is using RPC to finish a allocation/release request of resource and naturally, also leading to a poor performance due to the frequently network communication.</p>
-<h1 id="Related-works"><a href="#Related-works" class="headerlink" title="Related works"></a>Related works</h1><!-- Lego (OSDI' 18) provides a two-level resource management mechanism. In Lego, it adopts a tw -->
-<p>Infiniswap (NSDI’ 17) exposes block device IO interface to VMM (virtual memory management). It divides entire address space to many slabs. Every slab is fixed size. Slabs from the same device can be mapped to multiple remote machines’ memory for performance and load balance.<br>The INFINISWAP daemon runs in the user space and only participates in control plane activities. Specifically, it responds to slab-mapping requests from INFINISWAP block devices, preallocates its local memory when possible to minimize time overheads in slab-mapping initialization, and proactively evicts slabs, when necessary, to ensure minimal impact on local applications. All control plane communications take place using RDMA SEND/RECV.<br>Lego (OSDI’ 18) seems to adopt a two-level resource management mechanism. The disaggregation back-end provides coarse grained management and front-end server is responsible for fine grained allocation.</p>
-<h1 id="Trade-off"><a href="#Trade-off" class="headerlink" title="Trade-off"></a>Trade-off</h1><p>In a common sense, above two methods only fit infrequent allocation scenario, especially the resource is block device. When the disaggregation resource is byte-addressable memory or non-volatile memory, the frequent allocation/release is unavoidable and hence let allocation become a performance bottleneck.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1716,7 +1717,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1729,7 +1730,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

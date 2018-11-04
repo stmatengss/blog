@@ -265,6 +265,121 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Survey-of-Distributed-Resource-Management/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/08/17/Survey-of-Distributed-Resource-Management/" itemprop="url">Survey of Distributed Resource Management</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:37:14+08:00">
+                2018-08-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h1><p>Recently, a new hot trending of rack-scale architecture named disaggregation was proposed to improve the data center. In industry, Intel <code>RSD</code> and and HP <code>the machine</code> will soon be available as real world DC resolutions. Some researches like Lego, infiniswap aim to find out the correct deployment guidelines and how to optimize disaggregation architecture. Disaggregation architecture divide machines into working one and resource one (blade server). This deployment make full use of decoupling and hence gain a higher resource utilization and release the working machine from heavy tasks of resource management.<br>However, similar as a standalone architecture, disaggregation architecture also has a need of resource management. Moreover, in a distributed environment, keeping allocation status consistency and persistence will be harder, as well as bringing a huge overhead in network.<br>The simplest design is using RPC to finish a allocation/release request of resource and naturally, also leading to a poor performance due to the frequently network communication.</p>
+<h1 id="Related-works"><a href="#Related-works" class="headerlink" title="Related works"></a>Related works</h1><!-- Lego (OSDI' 18) provides a two-level resource management mechanism. In Lego, it adopts a tw -->
+<p>Infiniswap (NSDI’ 17) exposes block device IO interface to VMM (virtual memory management). It divides entire address space to many slabs. Every slab is fixed size. Slabs from the same device can be mapped to multiple remote machines’ memory for performance and load balance.<br>The INFINISWAP daemon runs in the user space and only participates in control plane activities. Specifically, it responds to slab-mapping requests from INFINISWAP block devices, preallocates its local memory when possible to minimize time overheads in slab-mapping initialization, and proactively evicts slabs, when necessary, to ensure minimal impact on local applications. All control plane communications take place using RDMA SEND/RECV.<br>Lego (OSDI’ 18) seems to adopt a two-level resource management mechanism. The disaggregation back-end provides coarse grained management and front-end server is responsible for fine grained allocation.</p>
+<h1 id="Trade-off"><a href="#Trade-off" class="headerlink" title="Trade-off"></a>Trade-off</h1><p>In a common sense, above two methods only fit infrequent allocation scenario, especially the resource is block device. When the disaggregation resource is byte-addressable memory or non-volatile memory, the frequent allocation/release is unavoidable and hence let allocation become a performance bottleneck.</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Start-Stream-Join-from-SoccerJoin-to-SplitJoin/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1489,135 +1604,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/" itemprop="url">Gprof, Valgrind, Gperf, etc</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-10T17:15:14+08:00">
-                2018-04-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>There are several analysis tools to measure our program and give suggestions to improve performance.<br>Now, we will introduce two common-used tools: gprof and valgrind</p>
-<ul>
-<li>Gprof<br>Gprof is a profiling program which collects and arranges statistics on your programs. It will insert codes to head and tail of each functions to collect running information by sampling some time points. When program running is end, it will create a file named <code>gmon.out</code>. And we can run profile tool to analysis occupied time of different functions.</li>
-</ul>
-<ol>
-<li>Add <code>-pg</code> to your compiling file (e.g. CMake or Makefile)</li>
-<li>Running your program <code>exe</code></li>
-<li>Typing <code>gprof exe</code> in the command<br>There is another easy-to-use tool <code>gprof2dot</code> to visualize your analytics results. You can use <code>gprof exe | gprof2dot | dot -Tpdf -o result.pdf</code> to generate a pdf file to display the results. <code>gprof2dot</code> is a python tool, and you can use <code>pip</code> to install it.</li>
-</ol>
-<ul>
-<li>Valgrind<br>Valgrind was originally designed to be a free memory debugging tool for Linux on x86, but has since evolved to become a generic framework for creating dynamic analysis tools such as checkers and profilers. Callgrind is a competent of valgrind for profiling CPU usage. With Callgrind, you can look up the running time of different functions. Similarly, another tool Kcachegrind is useful to provide a visual interface for beginner. Fortunately, you don’t need to add extra compiling flags, and you just need following three steps:</li>
-</ul>
-<ol>
-<li>Compile your project as usual</li>
-<li>Running callgrind with <code>valgrind --tool=callgrind ./cpuload</code></li>
-<li>kcachegrind profile.callgrind</li>
-</ol>
-<p>Using these out-of-box tools will benefit to hint us to optimize our codes well. Besides, other performance library like <code>libpapi</code> need us to insert codes to our program, and it’s not good for programmability. For me, I prefer to use these performance profile tools to detect my codes.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1667,7 +1653,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1680,7 +1666,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

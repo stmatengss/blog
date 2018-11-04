@@ -265,6 +265,190 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/09/18/Paper-Reading-Allocation-of-NVRAM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2017/09/18/Paper-Reading-Allocation-of-NVRAM/" itemprop="url">Paper Reading (Allocation of NVRAM)</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-18T11:25:27+08:00">
+                2017-09-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Introduction-about-NVRAM"><a href="#Introduction-about-NVRAM" class="headerlink" title="Introduction about NVRAM"></a>Introduction about NVRAM</h1><ul>
+<li>Non-volatile <strong>byte-adressable</strong> memory </li>
+<li><strong>Faster</strong> and more durable than flash</li>
+<li>Higher <strong>capacity</strong>, cheaper, and less energy consumption than DRAM</li>
+<li>Comparison between different kinds of storage medium.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Types</th>
+<th>Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DRAM</td>
+<td>0.01us</td>
+</tr>
+<tr>
+<td>NVRAM</td>
+<td>0.05~0.1us</td>
+</tr>
+<tr>
+<td>Flash</td>
+<td>100us</td>
+</tr>
+<tr>
+<td>Disk</td>
+<td>10000us</td>
+</tr>
+</tbody>
+</table>
+<h1 id="NVRAM-and-DRAM-hybrid-memory-system"><a href="#NVRAM-and-DRAM-hybrid-memory-system" class="headerlink" title="NVRAM and DRAM hybrid memory system"></a>NVRAM and DRAM hybrid memory system</h1><ul>
+<li>Combine advantages of NVRAM and DRAM</li>
+<li>Using DRAM as Cache to accelerate memory access</li>
+<li>Using NVRAM to persistent data</li>
+</ul>
+<h1 id="Some-challenges-about-using-NVM"><a href="#Some-challenges-about-using-NVM" class="headerlink" title="Some challenges about using NVM"></a>Some challenges about using NVM</h1><ul>
+<li>NVRAM may have inconsistent states if stores are reordered<ul>
+<li>Compiler-Level Reordering, CPU Out-Of-Order Execution</li>
+</ul>
+</li>
+<li>Volatile CPU caches hold data that is not on NVRAM</li>
+<li>Incomplete updates need to be rolled back (restoring/recovering)</li>
+<li>NVRAM memory has to be dynamically managed (reducing writes)</li>
+<li>Pointers to NVRAM objects need to be valid after a restart (How to recover meta-data of allocation)</li>
+</ul>
+<h1 id="NVM-malloc"><a href="#NVM-malloc" class="headerlink" title="NVM_malloc"></a>NVM_malloc</h1><ul>
+<li><p>How to get memory from system</p>
+<ul>
+<li>Using <code>mmap</code> to get memory region from application’s virtual memory</li>
+<li>Instead of creating one giant file, multiple files are mapped into contiguous, anonymous mmap space</li>
+<li>All translations are done by the MMU without kernel involvement or other software overhead (Bypass feature)</li>
+</ul>
+</li>
+<li><p>Two-step allocation</p>
+<ul>
+<li>Reserve Data -&gt; (Prepare Data) -&gt; Activate Memory</li>
+<li>Reserve: Get resource from heap memory region for using, recovered as “Free”</li>
+<li>Activate Memory: Establish links from other objects, recovered as “In use” </li>
+</ul>
+</li>
+<li><p>Faster execution</p>
+<ul>
+<li>Making DRAM as Cache to storing meta-data (VHeader: A volatile copy)</li>
+<li>Reserve step can be executed in DRAM</li>
+<li>64 B (cacheline-sized) headers ensure atomic flushes to NVRAM</li>
+</ul>
+</li>
+</ul>
+<pre><code>DRAM.       |  NVRAM                                 
+VHeader. &lt;--|--&gt;  Header --&gt; Block
+            |
+</code></pre><h1 id="Pmem-a-k-a-NVML"><a href="#Pmem-a-k-a-NVML" class="headerlink" title="Pmem (a.k.a, NVML)"></a>Pmem (a.k.a, NVML)</h1><h1 id="Makalu"><a href="#Makalu" class="headerlink" title="Makalu"></a>Makalu</h1><h1 id="PAllocator"><a href="#PAllocator" class="headerlink" title="PAllocator"></a>PAllocator</h1>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/09/18/Learning-About-Memory-Allocation/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1627,135 +1811,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2017/07/25/Tips-About-Using-Cmake/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2017/07/25/Tips-About-Using-Cmake/" itemprop="url">Tips About Using Cmake</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-25T14:37:53+08:00">
-                2017-07-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>I have used <code>Makefile</code> for more than 3 years, and I like to use it for its easy-to-use. But I have to learn how to use <code>Cmake</code>(I hate this) due to my project is based on OpenCV, which based on <code>Cmake</code> when compiling. So I will write some tips/hints for myself:</p>
-<ol>
-<li><p>Basic functions</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># </span></div><div class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">2.8</span>) <span class="comment"># Required version for Cmake</span></div><div class="line"></div><div class="line"><span class="keyword">project</span>(XXX) <span class="comment"># project name</span></div><div class="line"></div><div class="line"><span class="keyword">add_executable</span>(XXX) <span class="comment"># compile</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>Multi-files &amp; multi-dirs</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-<li><p>Define compile options</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-<li><p>Add dependencies and testers</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-<li><p>Miscellaneous</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># TODO</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<!--In the end, to be honest, I think, maybe `Makefile` is 100X better than `Cmake`.-->
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1805,7 +1860,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">43</span>
+                <span class="site-state-item-count">44</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1818,7 +1873,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">30</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
