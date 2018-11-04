@@ -265,6 +265,436 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/11/04/Concepts-of-SkipList-Implementation-Concurrency-and-Lock-free/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/11/04/Concepts-of-SkipList-Implementation-Concurrency-and-Lock-free/" itemprop="url">Concepts of SkipList: Implementation, Concurrency and Lock-free</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-04T15:58:12+08:00">
+                2018-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Concept"><a href="#Concept" class="headerlink" title="Concept"></a>Concept</h2><ul>
+<li>Ordered Data Structure</li>
+<li>Combining Multi-layer linked list together, the node number of every layer will exponential decline with a factor <code>K</code> and <code>K = 1 / r</code> which r is a critical threshold for skiplist.</li>
+<li>Each node has <code>N</code> pointer to its next nodes, the N is known as the degree of this node.</li>
+<li>Support: O(log n) CRUD (Create/Read/Update/Delete)</li>
+<li><p>Find Operation</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Find (K):</div><div class="line">  ptr = head-&gt;next_list[max_level - 1]</div><div class="line">  for i in max_level to 0:</div><div class="line">    find the last node (last_node) whose key is large than K</div><div class="line">    ptr = pre_node-&gt;next_list[i]</div><div class="line">    // updates[i] = pre_node</div><div class="line">  if ptr-&gt;key == K</div><div class="line">    return ptr</div><div class="line">  return nullptr // return updata array if you need a insert</div></pre></td></tr></table></figure>
+<ul>
+<li>Insert Operation<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">Insert (K, V):</div><div class="line">  ptr, updates = Find(K)</div><div class="line">  if ptr == nullptr:</div><div class="line">    new_node = NewSkipListNode()</div><div class="line">    new_degree = skiplist_rand()</div><div class="line">    for i in 0 to max_level:</div><div class="line">      new_node-&gt;next_node[i] = updates-&gt;next_list[i]</div><div class="line">      updates-&gt;next_list[i] = new_node</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://i.imgur.com/nNjOtfa.png" alt="Skiplist"></p>
+<h2 id="Vary-Implementations"><a href="#Vary-Implementations" class="headerlink" title="Vary Implementations"></a>Vary Implementations</h2><ul>
+<li>My Implementation is <a href="https://github.com/stmatengss/SkipList" target="_blank" rel="external">here</a></li>
+<li>Google <code>nbds</code> is <a href="https://code.google.com/archive/p/nbds/" target="_blank" rel="external">here</a></li>
+</ul>
+<h2 id="Research-Areas"><a href="#Research-Areas" class="headerlink" title="Research Areas"></a>Research Areas</h2><ul>
+<li>NVM based data structure<ul>
+<li>How to design skiplist with less write overhead</li>
+<li>How to persist skiplist in NVM</li>
+<li>How to recover skiplist in NVM</li>
+</ul>
+</li>
+<li>Distributed SkipList<ul>
+<li>Partition/Across-Layers?</li>
+<li>How to gain a higher concurrency</li>
+</ul>
+</li>
+<li>Write Optimization<ul>
+<li>Write-Optimize Skip List <a href="https://dl.acm.org/citation.cfm?id=3056117" target="_blank" rel="external">PODS’ 17</a><ul>
+<li>Cache higher level of the data structures (closest to root)</li>
+<li>TO DO ….</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Issues-when-concurrent-accessing"><a href="#Issues-when-concurrent-accessing" class="headerlink" title="Issues when concurrent accessing"></a>Issues when concurrent accessing</h2><ul>
+<li>Write-Write Conflict</li>
+<li>Dirty Read</li>
+<li>Fine-grained lock for every node</li>
+<li>COW (copy on write) will cause O (n) copying overhead</li>
+</ul>
+<h2 id="Lock-Free"><a href="#Lock-Free" class="headerlink" title="Lock-Free"></a>Lock-Free</h2><ul>
+<li><a href="http://www.cse.yorku.ca/~ruppert/papers/lfll.pdf" target="_blank" rel="external">Lock-Free Linked List and Skip Lists [PODC’ 04]</a></li>
+<li><a href="https://www.cl.cam.ac.uk/techreports/UCAM-CL-TR-579.pdf" target="_blank" rel="external">Practical lock-freedom</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/14/Distrubted-Concurrency-Control/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/14/Distrubted-Concurrency-Control/" itemprop="url">Distributed Concurrency Control</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-14T12:25:31+08:00">
+                2018-10-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Read-Phenomena"><a href="#Read-Phenomena" class="headerlink" title="Read Phenomena"></a>Read Phenomena</h1><ul>
+<li>Dirty Read</li>
+<li>Non-repeatable Read</li>
+<li>Phantom Read</li>
+</ul>
+<h1 id="Isolation-Level"><a href="#Isolation-Level" class="headerlink" title="Isolation Level"></a>Isolation Level</h1><ul>
+<li>Serializable</li>
+<li>Repeatable Read</li>
+<li>Read Committed</li>
+<li>Read Uncommitted</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/05/CMU-15-645-Distributed-OLTP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/10/05/CMU-15-645-Distributed-OLTP/" itemprop="url">CMU 15-645 Distributed OLTP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-05T21:43:48+08:00">
+                2018-10-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="OLTP-v-s-OLAP"><a href="#OLTP-v-s-OLAP" class="headerlink" title="OLTP v.s. OLAP"></a>OLTP v.s. OLAP</h1><ul>
+<li>On-line Transaction Processing<ul>
+<li>Short-lived TX</li>
+<li>Small footprint</li>
+<li>Repetitive operation</li>
+</ul>
+</li>
+<li>On-line Analytical processing<ul>
+<li>Long running queries</li>
+<li>Complex joins</li>
+<li>Exploratory queries</li>
+</ul>
+</li>
+</ul>
+<h1 id="Architectures"><a href="#Architectures" class="headerlink" title="Architectures:"></a>Architectures:</h1><ul>
+<li>Shared Everything -&gt; Shared Memory -&gt; Shared Disk -&gt; Shared Nothing<ul>
+<li>Shared Nothing (Only via network): Easy to increase capacity and hard ensure consistency at the same time</li>
+</ul>
+</li>
+</ul>
+<h1 id="Data-Transparency"><a href="#Data-Transparency" class="headerlink" title="Data Transparency"></a>Data Transparency</h1><ul>
+<li>Partitioned (Sharding) v.s. Replicated</li>
+<li>Horizontal Partitioning (Round-robin/Hash/Range)</li>
+</ul>
+<h1 id="Distributed-Transactions"><a href="#Distributed-Transactions" class="headerlink" title="Distributed Transactions"></a>Distributed Transactions</h1><ul>
+<li>Centralized v.s. Decentralized</li>
+</ul>
+<h1 id="Distributed-CC"><a href="#Distributed-CC" class="headerlink" title="Distributed CC"></a>Distributed CC</h1><ul>
+<li>Need to allow multi-TXs to execute simultaneously across multi-nodes<ul>
+<li>Factors: Replication, Network Communication Overhead, Node Failure, Clock skew</li>
+<li><code>Atomic Commit Protocol</code></li>
+</ul>
+<ul>
+<li>2PC, 3PC, Paxos, Raft, ZAB</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/05/CMU-15-645-Recovery/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -337,44 +767,9 @@
 <li>When discussing recovery, we have to mention <code>ARIES</code> system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)</li>
 </ul>
 <h1 id="LSN-Log-Sequence-Number"><a href="#LSN-Log-Sequence-Number" class="headerlink" title="LSN (Log Sequence Number)"></a>LSN (Log Sequence Number)</h1><ul>
-<li>Types</li>
+<li>Types<br>| Name  | Where  | Definition  |<br>|—|—|—|<br>| flushdLSN  | RAM  | Last LSN in log on disk  |<br>| pageLSN  | @page  | Newest update to page  |<br>| recLSN  | @page  | Oldest update to page  |<br>| lastLSN  | Tj  | Last action of TX Tj |<br>| MasterRecord  | Disk  | LSN of latest checkpoint  | </li>
+<li></li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Where</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>flushdLSN</td>
-<td>RAM</td>
-<td>Last LSN in log on disk</td>
-</tr>
-<tr>
-<td>pageLSN</td>
-<td>@page</td>
-<td>Newest update to page</td>
-</tr>
-<tr>
-<td>recLSN</td>
-<td>@page</td>
-<td>Oldest update to page</td>
-</tr>
-<tr>
-<td>lastLSN</td>
-<td>Tj</td>
-<td>Last action of TX Tj</td>
-</tr>
-<tr>
-<td>MasterRecord</td>
-<td>Disk</td>
-<td>LSN of latest checkpoint</td>
-</tr>
-</tbody>
-</table>
 
           
         
@@ -1272,445 +1667,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Start-Stream-Join-from-SoccerJoin-to-SplitJoin/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/08/17/Start-Stream-Join-from-SoccerJoin-to-SplitJoin/" itemprop="url">Start Stream Join from SoccerJoin to SplitJoin</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-17T00:34:14+08:00">
-                2018-08-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Stream-Join"><a href="#Stream-Join" class="headerlink" title="Stream Join"></a>Stream Join</h1><ul>
-<li>Dealing with unbounded, “infinity”, input. The output must be produced in real time.</li>
-<li>time-base (a expired time for tuples) v.s. count-based (fixed number of tuples)</li>
-<li>meeting multi-core =&gt; parallel<br><img src="images/join.png" alt="figure"></li>
-</ul>
-<h1 id="Kang’s-three-steps-join-algorithm"><a href="#Kang’s-three-steps-join-algorithm" class="headerlink" title="Kang’s three steps join algorithm"></a>Kang’s three steps join algorithm</h1><ul>
-<li>assuming tuple r arrives from input stream R:</li>
-</ul>
-<ol>
-<li>Scan stream S’s window to find tuple matching r.</li>
-<li>Insert new tuple r into window for stream R.</li>
-<li>Invalidate all expired tuples in stream R’s window.</li>
-</ol>
-<h1 id="Stream-Join-RoadMap"><a href="#Stream-Join-RoadMap" class="headerlink" title="Stream Join RoadMap"></a>Stream Join RoadMap</h1> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   Kang&apos;s algorithm (Naive) </div><div class="line">=&gt; Cell Join </div><div class="line">=&gt; Soccer (HandShake) Join </div><div class="line">=&gt; Low Latency HandShake Join </div><div class="line">=&gt; Split Join</div></pre></td></tr></table></figure>
-<h1 id="Cell-Join"><a href="#Cell-Join" class="headerlink" title="Cell Join"></a>Cell Join</h1><ul>
-<li>For heterogeneous architecture</li>
-</ul>
-<h1 id="Handshake-Join"><a href="#Handshake-Join" class="headerlink" title="Handshake Join"></a>Handshake Join</h1><ul>
-<li>Apply classical three-step procedure in small window.</li>
-<li>Point-to-point links between processing core.</li>
-<li>Missed-join pair problem =&gt; Two-phase forwarding (asymmetric core synchronization protocol): Whenever the right core <code>C_right</code> places a tuple <code>s</code> into its left send queue, it still keep a copy of <code>s</code> in the local window but marked it as <code>forward</code>. The forwarded tuple remains available for joining on <code>C_right</code> until the second phase of tuple forwarding, which is initiated by an <code>ack</code> message from <code>C_left</code></li>
-<li><p>Autonomic load balancing =&gt; </p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> R-window is larger than that of our right neighbor</div><div class="line">   place oldest ri into rightSendQueue ;</div><div class="line">   mark ri as forwarded ;</div></pre></td></tr></table></figure>
-<p><img src="images/handshake.png" alt="figure"><br><img src="images/handshake2.png" alt="figure"></p>
-</li>
-</ul>
-<h1 id="Low-latency-handshake-join"><a href="#Low-latency-handshake-join" class="headerlink" title="Low latency handshake join"></a>Low latency handshake join</h1><ul>
-<li>observation: higher latency due to that tuples may have to queue for longer periods of time before they encounter matching partners.</li>
-</ul>
-<h1 id="Split-Join"><a href="#Split-Join" class="headerlink" title="Split Join"></a>Split Join</h1><ul>
-<li>Different work-flow: Top-down data flow<br><img src="images/dataflow.png" alt="figure"></li>
-<li>Don’t need to rely on central coordinator</li>
-<li>A distributed network (Distributor), a set of independent join cores (JoinCore/JC), a result gathering network (Combiner/Merger)</li>
-<li>Overall:<br><img src="images/splitjoin_overall.png" alt="figure"></li>
-</ul>
-<ol>
-<li>Distributed Tree: K-ary Tree</li>
-<li>Parallelism: Sub-window<ul>
-<li>Join core: left-region -&gt; storing Tuple <code>r</code> in sliding window; right-region -&gt; processing of the replicated copy of Tuple <code>r</code></li>
-<li>Case: A new coming Tuple <code>r</code>, compare <code>r</code> with all the tuples in the <code>S</code> stream sub-windows. Then, assigning <code>r</code> to a storage based on a <code>round-robin</code> selection.</li>
-</ul>
-</li>
-<li><p>Expired Policy:</p>
-<ul>
-<li><p>Time-based: a lifespan <code>l</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Expiration Process(t, sub-window X) begin</div><div class="line">  i = the end of sub-window X;</div><div class="line">      while ti.timestamp - t.timestamp &gt; Time Window Size do</div><div class="line">          omit ti from sub-window X;</div><div class="line">          i = i−1;</div></pre></td></tr></table></figure>
-</li>
-<li><p>Count-based: every sub-window is fixed size</p>
-</li>
-</ul>
-</li>
-<li><p>Particular join algorithm:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Processing Core(t, sub-window X) begin</div><div class="line">    forall ti-tuple in sub-window X do</div><div class="line">        compare ti-tuple with t; if match then</div><div class="line">            emit the matched result;</div><div class="line">        if i = 0 (mod ordering precision) then</div><div class="line">            emit punctuation star;</div></pre></td></tr></table></figure>
-</li>
-<li><p>RAP (relaxed adjustable punctuation) strategy</p>
-<ul>
-<li>Punctuation-based ordering</li>
-<li>outer ordering (strict/relax)</li>
-<li>inner ordering (the result of a new inserted tuple was in time order)</li>
-<li>Employing a combiner rather than a merger</li>
-<li>Tuning to produce a punctuation after joining one newly inserted tuple (strict outer ordering) or after <code>N</code> tuples (relax outer ordering)</li>
-<li>Data-flow when merging<br><img src="images/punctation.png" alt="figure"><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">N-ary Merger(t) begin</div><div class="line">    foreach right(or left)-region of core1..N in sequence do</div><div class="line">        while a resulting tuple (t) is available in output buffer till the first star do</div><div class="line">            pop t from join core’s output buffer;</div><div class="line">            push t to Merger’s output buffer;</div><div class="line">    push out the end of result star;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ol>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/07/18/New-Features-in-OFED/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/07/18/New-Features-in-OFED/" itemprop="url">New Features in OFED</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-07-18T09:48:43+08:00">
-                2018-07-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>In Mellanox OFED version 4.3, a massive of new features have been released. These techniques will be useful to develop RDMA based applications and hence improve the performance. I will introduce some core techniques as following.</p>
-<h1 id="Advanced-Transport"><a href="#Advanced-Transport" class="headerlink" title="Advanced Transport"></a>Advanced Transport</h1><ul>
-<li>Dynamically Connected Transport: Dynamically Connected transport (DCT) service is an extension to transport services to enable a higher degree of scalability while maintaining high performance for sparse traffic. Utilization of DCT reduces the total number of QPs required system wide by having <code>Reliable type QPs</code> dynamically connect and disconnect from any remote node. DCT connections only stay connected while they are active. This results in smaller memory footprint, less overhead to set connections and higher on-chip cache utilization and hence increased performance. </li>
-</ul>
-<h1 id="Optimized-Memory-Access"><a href="#Optimized-Memory-Access" class="headerlink" title="Optimized Memory Access"></a>Optimized Memory Access</h1><ul>
-<li><p>Contiguous Pages: Contiguous Pages improves performance by allocating user memory regions over physical contiguous pages. It enables a user application to ask low level drivers to allocate contiguous memory for it as part of <code>ibv_reg_mr</code>. </p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Possible Value1 | Description</div><div class="line">ANON | Use current pages ANON small ones.</div><div class="line">HUGE | Force huge pages.</div><div class="line">CONTIG | Force contiguous pages.</div><div class="line">PREFER_CONTIG | Try contiguous fallback to ANON small pages. (Default)</div><div class="line">PREFER_HUGE | Try huge fallback to ANON small pages.</div><div class="line">ALL | Try huge fallback to contiguous if failed fallback to ANON small pages.</div></pre></td></tr></table></figure>
-</li>
-<li><p>Memory Window: Memory Window allows the application to have a more flexible control over remote access to its memory. Memory Windows are intended for situations where the application wants to:</p>
-<ul>
-<li>grant and revoke remote access rights to a registered region in a dynamic fashion with less of a performance penalty</li>
-<li>grant different remote access rights to different remote agents and/or grant those rights over different ranges within registered region<!-- For further information, please refer to the InfiniBand --></li>
-</ul>
-</li>
-<li>Inline Receive: The inline Optimization is only available for RDMA_Send/RDMA_Write. When Inline-Receive is active, the HCA may write received data in to the receive WQE or CQE. Using Inline-Receive saves PCIe read transaction since the HCA does not need to read the scatter list, therefore it improves performance in case of short receive-messages. Usage: Inline-Receive on the requestor side is possible only if the user chooses <code>IB(V)_SIGNAL_ALL_WR</code>.</li>
-<li>ODP (On Demand Page): On-Demand-Paging (ODP) is a technique to alleviate much of the shortcomings of memory registration. Applications no longer need to pin down the underlying physical pages of the address space, and track the validity of the mappings. Rather, the HCA requests the latest translations from the OS when pages are not present, and the OS invalidates translations which are no longer valid due to either non-present pages or mapping changes. ODP does not support contiguous pages.<br>ODP can be further divided into 2 subclasses: Explicit and Implicit ODP.<ul>
-<li>Explicit ODP: In Explicit ODP, applications still register memory buffers for communication, but this operation is used to define access control for IO rather than pin-down the pages. ODP Memory Region (MR) does not need to have valid mappings at registration time.</li>
-<li>Implicit ODP: In Implicit ODP, applications are provided with a special memory key that represents their complete address space. This all IO accesses referencing this key (subject to the access rights associated with the key) does not need to register any virtual address range.</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/06/27/Hyper-s-Rules-for-parallelization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/06/27/Hyper-s-Rules-for-parallelization/" itemprop="url">Hyper's Rules for Parallelization</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-27T16:10:14+08:00">
-                2018-06-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <ul>
-<li><strong>Rule #1</strong>: No random writes to non-local memory<ul>
-<li>Chunk the data, redistribute, and then each core sorts/works on local data.</li>
-</ul>
-</li>
-<li><strong>Rule #2</strong>: Only perform sequential reads on non-local memory<ul>
-<li>This allows the hardware prefetcher to hide remote access latency.</li>
-</ul>
-</li>
-<li><strong>Rule #3</strong>: No core should ever wait for another<ul>
-<li>Avoid fine-grained latching or sync barriers.</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/4/">4</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/blog/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/blog/page/5/">5</a><a class="extend next" rel="next" href="/blog/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1755,7 +1716,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1768,7 +1729,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>

@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="When discussing recovery, we have to mention ARIES system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)  LSN (Log Sequence Number) Types     Name Where Definition     flushd">
+<meta name="description" content="When discussing recovery, we have to mention ARIES system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)  LSN (Log Sequence Number) Types| Name  | Where  | Definition  ||—|—|">
 <meta name="keywords" content="Transaction,Database,CMU-15-645">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CMU 15-645 Recovery">
 <meta property="og:url" content="http://yoursite.com/blog/2018/10/05/CMU-15-645-Recovery/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="When discussing recovery, we have to mention ARIES system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)  LSN (Log Sequence Number) Types     Name Where Definition     flushd">
-<meta property="og:updated_time" content="2018-10-05T13:29:23.887Z">
+<meta property="og:description" content="When discussing recovery, we have to mention ARIES system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)  LSN (Log Sequence Number) Types| Name  | Where  | Definition  ||—|—|">
+<meta property="og:updated_time" content="2018-10-05T13:43:31.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CMU 15-645 Recovery">
-<meta name="twitter:description" content="When discussing recovery, we have to mention ARIES system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)  LSN (Log Sequence Number) Types     Name Where Definition     flushd">
+<meta name="twitter:description" content="When discussing recovery, we have to mention ARIES system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)  LSN (Log Sequence Number) Types| Name  | Where  | Definition  ||—|—|">
 
 
 
@@ -333,44 +333,9 @@
 <li>When discussing recovery, we have to mention <code>ARIES</code> system (full name: Algorithms for Recovery and Isolation Exploiting Semantics)</li>
 </ul>
 <h1 id="LSN-Log-Sequence-Number"><a href="#LSN-Log-Sequence-Number" class="headerlink" title="LSN (Log Sequence Number)"></a>LSN (Log Sequence Number)</h1><ul>
-<li>Types</li>
+<li>Types<br>| Name  | Where  | Definition  |<br>|—|—|—|<br>| flushdLSN  | RAM  | Last LSN in log on disk  |<br>| pageLSN  | @page  | Newest update to page  |<br>| recLSN  | @page  | Oldest update to page  |<br>| lastLSN  | Tj  | Last action of TX Tj |<br>| MasterRecord  | Disk  | LSN of latest checkpoint  | </li>
+<li></li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Where</th>
-<th>Definition</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>flushdLSN</td>
-<td>RAM</td>
-<td>Last LSN in log on disk</td>
-</tr>
-<tr>
-<td>pageLSN</td>
-<td>@page</td>
-<td>Newest update to page</td>
-</tr>
-<tr>
-<td>recLSN</td>
-<td>@page</td>
-<td>Oldest update to page</td>
-</tr>
-<tr>
-<td>lastLSN</td>
-<td>Tj</td>
-<td>Last action of TX Tj</td>
-</tr>
-<tr>
-<td>MasterRecord</td>
-<td>Disk</td>
-<td>LSN of latest checkpoint</td>
-</tr>
-</tbody>
-</table>
 
       
     </div>
@@ -426,6 +391,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2018/10/05/CMU-15-645-Distributed-OLTP/" rel="prev" title="CMU 15-645 Distributed OLTP">
+                CMU 15-645 Distributed OLTP <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -497,7 +466,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -510,7 +479,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-count">29</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
