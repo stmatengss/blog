@@ -265,6 +265,304 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/09/20/Peer-to-Peer-Evolution/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/09/20/Peer-to-Peer-Evolution/" itemprop="url">Peer-to-Peer Evolution</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-20T15:38:21+08:00">
+                2018-09-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="GPUDirect"><a href="#GPUDirect" class="headerlink" title="GPUDirect"></a>GPUDirect</h2><ul>
+<li>Eliminate the need to make a redundant copy in CUDA host memory</li>
+<li>Eliminate CPU bandwidth and latency bottlenecks</li>
+</ul>
+<h2 id="PeerDirect"><a href="#PeerDirect" class="headerlink" title="PeerDirect"></a>PeerDirect</h2><ul>
+<li>Eliminate the need to make a redundant copy in host memory</li>
+<li>Direct path for data exchange</li>
+</ul>
+<h2 id="PeerDirect-Async"><a href="#PeerDirect-Async" class="headerlink" title="PeerDirect Async"></a>PeerDirect Async</h2><ul>
+<li>Control RDMA device from the GPU</li>
+<li>Reduce CPU utilization</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/09/19/Transaction-Protocols/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2018/09/19/Transaction-Protocols/" itemprop="url">Transaction Protocols</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-19T00:11:36+08:00">
+                2018-09-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Catalog"><a href="#Catalog" class="headerlink" title="Catalog"></a>Catalog</h2><ul>
+<li>Concurrency Control<ul>
+<li>Two-phase Locking (2PL)</li>
+</ul>
+<ul>
+<li>NO_WAIT</li>
+<li>WAIT_DIE</li>
+</ul>
+<ul>
+<li>Timestamp Ordering (TIMESTAMP)</li>
+<li>Multi-version concurrency control (MVCC)</li>
+<li>Optimistic concurrency control (OCC)</li>
+<li>Deterministic (CALVIN)</li>
+</ul>
+</li>
+<li>Commitment Protocols<ul>
+<li>Two-phase Commit (2PC)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Classify-from-two-views"><a href="#Classify-from-two-views" class="headerlink" title="Classify from two views"></a>Classify from two views</h2><ul>
+<li>Pessimistic v.s. Optimistic</li>
+<li>Locked-based v.s. Timestamp-based</li>
+</ul>
+<h2 id="Comparison-from-another-view"><a href="#Comparison-from-another-view" class="headerlink" title="Comparison from another view"></a>Comparison from another view</h2><ul>
+<li>Pessimistic<ul>
+<li>Validate -&gt; Read -&gt; Compute -&gt; Write</li>
+</ul>
+</li>
+<li>Optimistic<ul>
+<li>Read -&gt; Compute -&gt; Validate -&gt; Write</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-PL"><a href="#2-PL" class="headerlink" title="2-PL"></a>2-PL</h2><ul>
+<li>Basic procedures:<ul>
+<li>Expanding (Growing) Phase: lock are acquired</li>
+<li>Shrinking (Contracting) Phase: lock are released</li>
+</ul>
+</li>
+<li>Centralized 2PL: only one scheduler</li>
+<li>Distributed 2PL: at each site, scheduler handle lock requests at that site</li>
+</ul>
+<h2 id="Timestamp-Ordering-based-algorithm"><a href="#Timestamp-Ordering-based-algorithm" class="headerlink" title="Timestamp Ordering based algorithm"></a>Timestamp Ordering based algorithm</h2><ul>
+<li>In a distributed environment, TS requires globally unique and monotonically increasing</li>
+<li>A global counter is not easy to maintain and local clock are unsuitable. So, a unique site identifier is needed (e.g., {local time, site indentifier})</li>
+<li>Based TO:<ul>
+<li>rts(x): largest TO of any read on x, wts(x): largest TO of any write on x<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">for Ri(x):</div><div class="line">  if ts(Ti) &lt; wts(x):</div><div class="line">  then reject Ri(x)</div><div class="line">  else accept Ri(x)</div><div class="line">   rts(x) &lt;- ts(Ti)</div><div class="line">for Wi(x):</div><div class="line">  if ts(Ti) &lt; rts(x) and ts(Ti) &lt; wts(x):</div><div class="line">  then reject Wi(x)</div><div class="line">  else accept Wi(x)</div><div class="line">   wts(x) &lt;- ts(Ti)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Pitfall"><a href="#Pitfall" class="headerlink" title="Pitfall"></a>Pitfall</h2><ul>
+<li>Lock vs. Latch<ul>
+<li>Locking mechanism can protect transaction ACID</li>
+<li>Latching mechanism can protect data structure safe</li>
+</ul>
+</li>
+<li>TO (Timestamp ordering) algorithm always will cause a deadlock situation (several transactions wait for each other)<ul>
+<li>However, a intervention from outside is needed</li>
+<li>Wait-for Graph (has a cycle =&gt; deadlock)</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/08/17/Survey-of-Distributed-Resource-Management/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1332,278 +1630,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/05/11/Algorithms-Behind-Modern-Storage-Systems-Reproduced/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/05/11/Algorithms-Behind-Modern-Storage-Systems-Reproduced/" itemprop="url">Algorithms Behind Modern Storage Systems [Reproduced]</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-11T01:26:15+08:00">
-                2018-05-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>The original article is <a href="https://queue.acm.org/detail.cfm?id=3220266" target="_blank" rel="external">here</a></p>
-<h1 id="A-brief-introduction"><a href="#A-brief-introduction" class="headerlink" title="A brief introduction:"></a>A brief introduction:</h1><p>As we know, there are two kinds of workloads in database: one is write-heavy and the other is read-heavy. With read-heavy workload, using B+Tree/B-Tree will bring with read optimization.  But it will be expensive when doing modification operation (update, insert or deletion) due to we need to merge/split nodes or move items in nodes. B-Tree is 1) Sorted, 2) Self-balancing, 3) Logarithmic lookup time and 4) Mutable. With write-heavy workload, LSM-Trees (log-structured merge-tree) is an immutable disk-resident write-optimized data structure. It will transform most of the modification operations to a log entry and put it to SSTable (Sorted String Tables). The upper layer of LSM-Tree is an in-memory skip-list or binary search tree to accelerate read operations. When its size reaches to the threshold, this data structure will be flushed to disk with compaction. LSM-Tree will be good for point-query and scan operation, but will not be friendly to find operation.</p>
-<p>In order to batch these operation together for writing to disk with one IO operation, we need to use WAL (write ahead log) to guarantee atomicity and durability.</p>
-<p>In conclusion, there is no convenient to achieve higher performance for both write and read operations, so we need to choose our data structure carefully.</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/20/Survey-of-NVM-Allocator/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/04/20/Survey-of-NVM-Allocator/" itemprop="url">Survey of NVM Allocator</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-20T01:21:36+08:00">
-                2018-04-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Goals"><a href="#Goals" class="headerlink" title="Goals"></a>Goals</h3><ul>
-<li><p>A good allocator should:</p>
-<ul>
-<li>Memory Usage (fragmentation/overhead)</li>
-<li>Performance (Tput)</li>
-<li>Scalability (linearly)</li>
-<li>Correctness</li>
-<li>Robustness</li>
-</ul>
-</li>
-<li><p>A good NVM allocator should:</p>
-<ul>
-<li>Recovery (time overhead)</li>
-<li>Programablility (easy-to-use)</li>
-<li>TODO….</li>
-</ul>
-</li>
-</ul>
-<h3 id="Recovery"><a href="#Recovery" class="headerlink" title="Recovery"></a>Recovery</h3><ul>
-<li>Essentially, bitmap is a general method to maintain the peristent status of allocator. With bitmap, every bit can indicate this block is in-used or not</li>
-</ul>
-<h3 id="Defragmentation"><a href="#Defragmentation" class="headerlink" title="Defragmentation"></a>Defragmentation</h3><h3 id="Start-of-art"><a href="#Start-of-art" class="headerlink" title="Start-of-art"></a>Start-of-art</h3><ul>
-<li><p>nvm_malloc (VLDB’ 16)</p>
-<ul>
-<li>Small-size =&gt; segregated-fit, larger-size =&gt; best-fit</li>
-<li>Three-size allocation strategy</li>
-</ul>
-</li>
-<li><p>Makalu (OOPLSA’ 16)</p>
-<ul>
-<li>Keeping volatiled pointer is still valid by using a fixed pool address (<code>MAP_FIXED</code> flag of <code>mmap</code>)</li>
-</ul>
-</li>
-<li><p>NVML (<code>intel Pmem</code>)</p>
-<ul>
-<li>Support concurrent =&gt; Local thread cache</li>
-<li>Minimize fragmentation =&gt; A chunk (256KB) is divided into blocks of 8X the class size.</li>
-</ul>
-</li>
-<li><p>PAllocator</p>
-<ul>
-<li>Small/Larger/Huge Allocator</li>
-</ul>
-</li>
-</ul>
-<p><img src="images/nvm_allocator.png" alt="Comparsion"></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1653,7 +1679,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">44</span>
+                <span class="site-state-item-count">46</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
