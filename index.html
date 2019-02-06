@@ -265,6 +265,164 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2019/02/07/Garbage-Collection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/02/07/Garbage-Collection/" itemprop="url">Garbage Collection</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-07T02:51:39+08:00">
+                2019-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Abstraction-of-Garbage-Collection"><a href="#Abstraction-of-Garbage-Collection" class="headerlink" title="Abstraction of Garbage Collection"></a>Abstraction of Garbage Collection</h2><ul>
+<li>Manual Memory Management: C/C++<ul>
+<li>Problems: 1. <code>Memory Leak</code>; 2. <code>Double Free</code>; 3. <code>Use-after-frees</code></li>
+</ul>
+</li>
+<li><p>What’s Garbage: Objects that won’t be used again</p>
+</li>
+<li><p>Types of Garbage Collectors:</p>
+<ul>
+<li>Incremental vs. stop-the-world:</li>
+</ul>
+<ul>
+<li>An incremental collector is one that runs concurrently<br>with the program.</li>
+<li>A stop-the-world collector pauses program execution to<br>look for garbage.</li>
+</ul>
+<ul>
+<li>Compacting vs non-compacting:</li>
+</ul>
+<ul>
+<li>A compacting collector is one that moves objects around<br>in memory.</li>
+<li>A non-compacting collector is one that leaves all objects<br>where they originated.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Algorithms"><a href="#Algorithms" class="headerlink" title="Algorithms"></a>Algorithms</h2><ul>
+<li>The simplest framework: reference counting<ul>
+<li>Each object should have a reference count (<code>refcount</code>)</li>
+<li>Create/Delete a reference will increase/decrease the value of <code>refcount</code></li>
+<li>When <code>refcount</code> is <code>zero</code>, it should be reclaimed.</li>
+<li>More: <code>Reference Cycles</code> is a set of objects that cyclically refer to one another.</li>
+</ul>
+<ul>
+<li>Because all the objects are referenced, all have nonzero refcounts and are never reclaimed.</li>
+</ul>
+<ul>
+<li>An implementation in C++: shared_ptr</li>
+</ul>
+</li>
+<li><code>Mark-and-Sweep</code>: The Intuition<ul>
+<li>Any objects (not) reachable from the root set are (not) reachable</li>
+<li>Marking Phase: Find reachable objects. + Sweeping phase: Reclaim free memory</li>
+<li>Four States: Marked, Enqueued, Unknown, Deallocated</li>
+</ul>
+</li>
+<li>Baker’s Algorithm</li>
+<li>Stop-and-Copy</li>
+</ul>
+<h2 id="TO-BE-CONTINUE"><a href="#TO-BE-CONTINUE" class="headerlink" title="TO BE CONTINUE"></a>TO BE CONTINUE</h2>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/12/19/RDMA-Trouble-Shooting-Tools/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1469,160 +1627,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-summary/" itemprop="url">CMU 15-645 Concurrency Control summary</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T20:08:10+08:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Before-reading-this-article-you-should-know"><a href="#Before-reading-this-article-you-should-know" class="headerlink" title="Before reading this article, you should know:"></a>Before reading this article, you should know:</h1><ul>
-<li>Transaction: a sequence of read and write operations<ul>
-<li>processing: BEGIN -&gt; (executing) -&gt; COMMIT/ABORT</li>
-<li>ACID</li>
-</ul>
-<ul>
-<li>Atomicity: All-or-nothing</li>
-<li>Consistent: It looks correct to me </li>
-<li>Isolation: every TX is isolated from others (as if alone)</li>
-<li>Durability: store in non-volatile devices (survive failures)</li>
-</ul>
-</li>
-</ul>
-<h1 id="How-to-make-sure-transaction-is-atomic"><a href="#How-to-make-sure-transaction-is-atomic" class="headerlink" title="How to make sure transaction is atomic"></a>How to make sure transaction is atomic</h1><ul>
-<li>Approach 1: Logging</li>
-<li>Approach 2: Shadow Paging</li>
-</ul>
-<h1 id="The-essential-of-concurrency-control"><a href="#The-essential-of-concurrency-control" class="headerlink" title="The essential of concurrency control"></a>The essential of concurrency control</h1><ul>
-<li>Serial Schedule</li>
-</ul>
-<h1 id="The-definition-of-conflict"><a href="#The-definition-of-conflict" class="headerlink" title="The definition of conflict"></a>The definition of conflict</h1><ul>
-<li>They are by different transactions</li>
-<li>They are on the same object and at least one of them is a write</li>
-<li>RW/WR/WW conflict:<ul>
-<li>Unrepeatable reads</li>
-<li>Reading uncommitted data (a.k.a., Dirty Reads)</li>
-<li>Overwriting committed data</li>
-</ul>
-</li>
-</ul>
-<h1 id="Dependency-Graphs-Precedence-Graph"><a href="#Dependency-Graphs-Precedence-Graph" class="headerlink" title="Dependency Graphs (Precedence Graph)"></a>Dependency Graphs (Precedence Graph)</h1><ul>
-<li>conflict: acyclic</li>
-<li>blind write: write a value without read it</li>
-</ul>
-<h1 id="2PL"><a href="#2PL" class="headerlink" title="2PL"></a>2PL</h1><ul>
-<li>Phase 1: Growing =&gt; get all required locks from manager [grants/denies]</li>
-<li>Phase 2: Shrinking =&gt; release all locks it gained</li>
-<li>Strict 2PL: release all locks at the end of TX</li>
-</ul>
-<h1 id="2PL-Deadlock-Prevention"><a href="#2PL-Deadlock-Prevention" class="headerlink" title="2PL Deadlock Prevention"></a>2PL Deadlock Prevention</h1><ul>
-<li>Wait-Die (old waits for young)</li>
-<li>Wound-Wait (young waits for old)</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1672,7 +1676,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">46</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1685,7 +1689,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
@@ -1756,7 +1760,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2018</span>
+  <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
