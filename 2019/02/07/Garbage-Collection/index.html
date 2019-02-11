@@ -100,7 +100,7 @@
 <meta property="og:url" content="http://yoursite.com/blog/2019/02/07/Garbage-Collection/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
 <meta property="og:description" content="Abstraction of Garbage Collection Manual Memory Management: C/C++ Problems: 1. Memory Leak; 2. Double Free; 3. Use-after-frees   What’s Garbage: Objects that won’t be used again  Types of Garbage Coll">
-<meta property="og:updated_time" content="2019-02-06T19:24:24.780Z">
+<meta property="og:updated_time" content="2019-02-11T07:41:22.197Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Garbage Collection">
 <meta name="twitter:description" content="Abstraction of Garbage Collection Manual Memory Management: C/C++ Problems: 1. Memory Leak; 2. Double Free; 3. Use-after-frees   What’s Garbage: Objects that won’t be used again  Types of Garbage Coll">
@@ -373,8 +373,39 @@
 <li>Four States: Marked, Enqueued, Unknown, Deallocated</li>
 </ul>
 </li>
-<li>Baker’s Algorithm</li>
-<li>Stop-and-Copy</li>
+<li><p>Baker’s Algorithm</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Move all of the root set to the enqueued list.</div><div class="line">While the enqueued list is not empty: </div><div class="line">    Move the first object from the enqueued list to the marked list.</div><div class="line">    For each unknown object referenced, add it to the enqueued list.</div><div class="line">At this point, everything reachable is in marked and everything unreachable is in unknown.</div><div class="line">Concatenate the unknown and deallocated lists</div><div class="line">    Deallocates all garbage in O(1).</div><div class="line">Move everything from the marked list to the unknown list.</div><div class="line">    Can be done in O(1).</div><div class="line">    Indicates objects again must be proven reachable on next scan.</div></pre></td></tr></table></figure>
+</li>
+<li><p>Stop-and-Copy: </p>
+<ul>
+<li>Improve Locality =&gt; compaction</li>
+<li>Increasing Allocation Speed: Free-List<ul>
+<li>General: 10-20 assembly instructions </li>
+<li>Stack Allocation: one</li>
+</ul>
+</li>
+<li>Advantages:<ol>
+<li>Implementation simplicity (compared to mark-and-sweep).</li>
+<li>Fast memory allocation; using OS-level tricks, can allocate in a single assembly instruction.</li>
+<li>Excellent locality; depth-first ordering of copied objects places similar objects near each other.</li>
+</ol>
+</li>
+<li>Disadvantages:<ol>
+<li>Requires half of memory to be free at all times.</li>
+<li>Collection time proportional to number of bytes used by objects.</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Hybrid-Approaches"><a href="#Hybrid-Approaches" class="headerlink" title="Hybrid Approaches"></a>Hybrid Approaches</h2><ul>
+<li>Motto: Objects die young (short live object)</li>
+<li>Several Layer “Generations”:<ol>
+<li>Eden: Stop-and-copy strategy</li>
+<li>Survivor Objects: move elements to it when OOM</li>
+<li>Tenured Objects: Objects that survive long enough</li>
+</ol>
+</li>
 </ul>
 <h2 id="TO-BE-CONTINUE"><a href="#TO-BE-CONTINUE" class="headerlink" title="TO BE CONTINUE"></a>TO BE CONTINUE</h2>
       
@@ -577,7 +608,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstraction-of-Garbage-Collection"><span class="nav-number">1.</span> <span class="nav-text">Abstraction of Garbage Collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithms"><span class="nav-number">2.</span> <span class="nav-text">Algorithms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-BE-CONTINUE"><span class="nav-number">3.</span> <span class="nav-text">TO BE CONTINUE</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Abstraction-of-Garbage-Collection"><span class="nav-number">1.</span> <span class="nav-text">Abstraction of Garbage Collection</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithms"><span class="nav-number">2.</span> <span class="nav-text">Algorithms</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hybrid-Approaches"><span class="nav-number">3.</span> <span class="nav-text">Hybrid Approaches</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TO-BE-CONTINUE"><span class="nav-number">4.</span> <span class="nav-text">TO BE CONTINUE</span></a></li></ol></div>
             
 
           </div>
