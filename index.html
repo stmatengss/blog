@@ -265,6 +265,122 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2019/03/04/The-Usages-of-Intel-RTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Teng Ma">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/blog/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Teng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/blog/2019/03/04/The-Usages-of-Intel-RTM/" itemprop="url">The Usages of Intel RTM</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-04T00:15:00+08:00">
+                2019-03-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>The emerging HTM (Hardware Transactional Memory) technology can reduce the extra overhead (i.e., Lock) during doing transactions. Recently years, Intel make its hardware solutions, RTM (Restricted Transactional Memory), is available as a mature commercial products. There are three main instructions: XBEGIN, XEND, and XABORT for supporting HTM. Intel Intrinsics library natively support such three software interfaces in C/C++. </p>
+<p>To start/end the transactional code region, programmer should use <code>XBEGIN/XEND</code>. The XABORT instruction allows programmers to abort the execution of an RTM region explicitly. The XABORT instruction takes an <code>8-bit</code> immediate argument that is loaded into the EAX register becoming available to software following an RTM abort.</p>
+<p>A simple example is just like following codes.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">while (1) &#123; // keep trying</div><div class="line">    int status = _xbegin(); // set status = -1 and start transaction</div><div class="line">    if (status == _XBEGIN_STARTED) &#123; // status == XBEGIN_STARTED == -1</div><div class="line">        (*g) ++; // non atomic increment of shared global variable</div><div class="line">        _xend(); // end transaction</div><div class="line">        break; // break on success</div><div class="line">    &#125; else &#123; //</div><div class="line">        x_abort(0xff);</div><div class="line">    &#125; //</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Firstly, you should check whether your CPU platform is support RTM or not. Just run <code>cat /proc/cpuinfo</code>, the answer is yes if <code>rtm</code> is shown in the flags item. To compile such RTM codes, you should include the C header named <code>immintrin.h</code> add an extra compiler flags <code>-mrtm</code></p>
+<p>A full descriptions of RTM’s APIs is available <a href="https://software.intel.com/sites/landingpage/IntrinsicsGuide/#techs=Other&amp;text=_x" target="_blank" rel="external">here</a> </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2019/02/07/Garbage-Collection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1541,123 +1657,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/10/04/CMU-15-645-Concurrency-Control-TimeStamp/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Teng Ma">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/blog/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Teng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/blog/2018/10/04/CMU-15-645-Concurrency-Control-TimeStamp/" itemprop="url">CMU 15-645 Concurrency Control TimeStamp</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T22:09:28+08:00">
-                2018-10-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h1><ul>
-<li>If <code>TS(Ti)</code> &lt; <code>TS(Tj)</code>, then it must be <code>Ti</code> appears before <code>Tj</code></li>
-</ul>
-<h1 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation:"></a>Implementation:</h1><ul>
-<li>System Clock/Logical Counter/Hybrid</li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1707,7 +1706,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives/">
-                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-count">48</span>
                 <span class="site-state-item-name">posts</span>
               </a>
             </div>
@@ -1720,7 +1719,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags/index.html">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">tags</span>
               </a>
             </div>
