@@ -77,7 +77,7 @@
 <link href="/blog/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Perftool," />
+  <meta name="keywords" content="QEMU," />
 
 
 
@@ -93,17 +93,17 @@
 
 
 
-<meta name="description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
-<meta name="keywords" content="Perftool">
+<meta name="description" content="Goal: I need to add live migration support for the PVRDMA device under QEMU. So I need to install a QEMU from source code and make the migration is supported via RDMA. First step, install QEMU from so">
+<meta name="keywords" content="QEMU">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Gprof, Valgrind, Gperf, etc">
-<meta property="og:url" content="http://yoursite.com/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/index.html">
+<meta property="og:title" content="Use QEMU install a Fedora VM and build up virtual RDMA NIC">
+<meta property="og:url" content="http://yoursite.com/blog/2019/03/24/Use-QEMU-install-a-Fedora-VM-and-build-up-virtual-RDMA-NIC/index.html">
 <meta property="og:site_name" content="Teng&#39;s Blog">
-<meta property="og:description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
-<meta property="og:updated_time" content="2018-04-10T16:25:42.142Z">
+<meta property="og:description" content="Goal: I need to add live migration support for the PVRDMA device under QEMU. So I need to install a QEMU from source code and make the migration is supported via RDMA. First step, install QEMU from so">
+<meta property="og:updated_time" content="2019-03-23T16:43:43.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Gprof, Valgrind, Gperf, etc">
-<meta name="twitter:description" content="There are several analysis tools to measure our program and give suggestions to improve performance.Now, we will introduce two common-used tools: gprof and valgrind  GprofGprof is a profiling program">
+<meta name="twitter:title" content="Use QEMU install a Fedora VM and build up virtual RDMA NIC">
+<meta name="twitter:description" content="Goal: I need to add live migration support for the PVRDMA device under QEMU. So I need to install a QEMU from source code and make the migration is supported via RDMA. First step, install QEMU from so">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/"/>
+  <link rel="canonical" href="http://yoursite.com/blog/2019/03/24/Use-QEMU-install-a-Fedora-VM-and-build-up-virtual-RDMA-NIC/"/>
 
 
 
 
 
-  <title>Gprof, Valgrind, Gperf, etc | Teng's Blog</title>
+  <title>Use QEMU install a Fedora VM and build up virtual RDMA NIC | Teng's Blog</title>
   
 
 
@@ -265,7 +265,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2018/04/10/Gprof-Valgrind-Gperf-etc/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/blog/2019/03/24/Use-QEMU-install-a-Fedora-VM-and-build-up-virtual-RDMA-NIC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Teng Ma">
@@ -282,7 +282,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Gprof, Valgrind, Gperf, etc</h1>
+          <h1 class="post-title" itemprop="name headline">Use QEMU install a Fedora VM and build up virtual RDMA NIC</h1>
         
 
         <div class="post-meta">
@@ -294,8 +294,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-10T17:15:14+08:00">
-                2018-04-10
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-03-24T00:22:39+08:00">
+                2019-03-24
               </time>
             
 
@@ -329,24 +329,10 @@
       
 
       
-        <p>There are several analysis tools to measure our program and give suggestions to improve performance.<br>Now, we will introduce two common-used tools: gprof and valgrind</p>
-<ul>
-<li>Gprof<br>Gprof is a profiling program which collects and arranges statistics on your programs. It will insert codes to head and tail of each functions to collect running information by sampling some time points. When program running is end, it will create a file named <code>gmon.out</code>. And we can run profile tool to analysis occupied time of different functions.</li>
-</ul>
-<ol>
-<li>Add <code>-pg</code> to your compiling file (e.g. CMake or Makefile)</li>
-<li>Running your program <code>exe</code></li>
-<li>Typing <code>gprof exe</code> in the command<br>There is another easy-to-use tool <code>gprof2dot</code> to visualize your analytics results. You can use <code>gprof exe | gprof2dot | dot -Tpdf -o result.pdf</code> to generate a pdf file to display the results. <code>gprof2dot</code> is a python tool, and you can use <code>pip</code> to install it.</li>
-</ol>
-<ul>
-<li>Valgrind<br>Valgrind was originally designed to be a free memory debugging tool for Linux on x86, but has since evolved to become a generic framework for creating dynamic analysis tools such as checkers and profilers. Callgrind is a competent of valgrind for profiling CPU usage. With Callgrind, you can look up the running time of different functions. Similarly, another tool Kcachegrind is useful to provide a visual interface for beginner. Fortunately, you don’t need to add extra compiling flags, and you just need following three steps:</li>
-</ul>
-<ol>
-<li>Compile your project as usual</li>
-<li>Running callgrind with <code>valgrind --tool=callgrind ./cpuload</code></li>
-<li>kcachegrind profile.callgrind</li>
-</ol>
-<p>Using these out-of-box tools will benefit to hint us to optimize our codes well. Besides, other performance library like <code>libpapi</code> need us to insert codes to our program, and it’s not good for programmability. For me, I prefer to use these performance profile tools to detect my codes.</p>
+        <p><strong>Goal</strong>: I need to add live migration support for the PVRDMA device under QEMU. So I need to install a QEMU from source code and make the migration is supported via RDMA.</p>
+<p>First step, install QEMU from source code. Please notice you only require to compile the module under x86_64 arch. To support install with visual interfaces, you should enable sdl with <code>apt install libsdl2-dev</code><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git clone git@github.com:qemu/qemu.git</div><div class="line">sudo ../configure --target-list=x86_64-linux-user,x86_64-softmmu --enable-sdl</div><div class="line">make -j</div><div class="line">make install</div></pre></td></tr></table></figure></p>
+<p>Second step, build a Fedora VM from image. In this step, we should carefully choose the candidate image. A recommended method is to use a workstation version of OS image. After that, mount the image to execute a standard install processing.<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo proxychains wget https://mirrors.tuna.tsinghua.edu.cn/fedora/releases/27/Workstation/x86_64/iso/Fedora-Workstation-Live-x86_64-27-1.6.iso</div><div class="line">sudo qemu-img create ubuntu.img 10G</div><div class="line">sudo qemu-system-x86_64 --enable-kvm -m 4096 -smp 4 ubuntu.img -drive file=Fedora-Workstation-Live-x86_64-27-1.6.iso,media=cdrom,index=1 -drive file=ks.iso,mle=ttyS0 ks=cdrom:/ks.cfg" -kernel tmp/isolinux/vmlinuz -initrd tmp/isolinux/initrd.img</div></pre></td></tr></table></figure></p>
+<p>TODO</p>
 
       
     </div>
@@ -376,7 +362,7 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/Perftool/" rel="tag"># Perftool</a>
+            <a href="/blog/tags/QEMU/" rel="tag"># QEMU</a>
           
         </div>
       
@@ -389,8 +375,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2018/04/10/What-s-a-good-paper/" rel="next" title="What's a good paper?">
-                <i class="fa fa-chevron-left"></i> What's a good paper?
+              <a href="/blog/2019/03/04/The-Usages-of-Intel-RTM/" rel="next" title="The Usages of Intel RTM">
+                <i class="fa fa-chevron-left"></i> The Usages of Intel RTM
               </a>
             
           </div>
@@ -398,10 +384,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2018/04/20/Survey-of-NVM-Allocator/" rel="prev" title="Survey of NVM Allocator">
-                Survey of NVM Allocator <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
